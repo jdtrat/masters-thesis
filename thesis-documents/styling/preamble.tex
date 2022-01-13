@@ -1,0 +1,41 @@
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\usepackage{geometry}
+\geometry{margin=1.25in}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=blue}
+\usepackage[superscript,biblabel]{cite}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{etoolbox}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{xspace}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+
+\renewcommand{\thefootnote}{\roman{footnote}}
+\newcommand{\thicktilde}[1]{\mathbf{\tilde{\text{$#1$}}}}
+
+
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+\onehalfspacing
+
+% Set caption size
+\captionsetup[figure]{font=small}

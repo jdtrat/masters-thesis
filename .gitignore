@@ -1,0 +1,7 @@
+.Rproj.user
+data
+.DS_Store
+thesis-documents/*.docx
+thesis-documents/*.html
+thesis-documents/*.pdf
+thesis-documents/*.toc

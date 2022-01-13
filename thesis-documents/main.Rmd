@@ -1,0 +1,39 @@
+---
+title: "Counterfactually Predicted Utility Theory"
+author: |
+  | Jonathan Trattner$^1$
+  | $^1$Neuroscience Graduate Program, Wake Forest School of Medicine, Winston-Salem, NC
+date: "`r format(Sys.time(), 'Latest Revision: %B %d, %Y at %I:%M%p')`"
+abstract: | 
+  Humans repeatedly violate normative theories of decision-making. 
+output:
+  bookdown::html_document2:
+    toc: yes
+    toc_float: yes
+    css: styling/custom.css
+  bookdown::word_document2:
+    toc: yes
+  bookdown::pdf_document2:
+    toc: yes
+    includes:
+      in_header: styling/preamble.tex
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: yes
+bibliography: references.bib
+csl: american-medical-association.csl
+link-citations: true
+---
+
+```{r setup main, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      out.width = "50%",
+                      fig.align = "center")
+```
+
+```{r child = here::here("thesis-documents/introduction.Rmd")}
+```
+
+# Bibliography
+
