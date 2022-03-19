@@ -2,7 +2,10 @@ bookdown::bs4_book:
   theme:
     primary: "#3D91F2"
   css: style.css
-  repo: https://github.com/jdtrat/masters-thesis
+  repo:
+    base: https://github.com/jdtrat/masters-thesis
+    branch: main
+    subdir: thesis-documents
   sharing: yes
   download: ["pdf", "epub"]
   csl: american-statistical-association.csl
