@@ -3,4 +3,4 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: ""
-view: https://github.com/jdtrat/masters-thesis/blob/main/%s
+view: https://github.com/jdtrat/masters-thesis/blob/main/thesis-documents/%s
