@@ -1,0 +1,6 @@
+book_filename: "trattner-masters-thesis.Rmd"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: ""
+view: https://github.com/jdtrat/masters-thesis/blob/main/%s

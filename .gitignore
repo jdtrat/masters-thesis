@@ -5,3 +5,6 @@ thesis-documents/*.docx
 thesis-documents/*.html
 thesis-documents/*.pdf
 thesis-documents/*.toc
+thesis-documents/_thesis/trattner-masters-thesis.pdf
+thesis-documents/_thesis/trattner-masters-thesis.tex
+thesis-documents/_thesis/trattner-masters-thesis.docx

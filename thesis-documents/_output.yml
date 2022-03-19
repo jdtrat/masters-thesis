@@ -1,0 +1,15 @@
+bookdown::bs4_book:
+  theme:
+    primary: "#3D91F2"
+  css: style.css
+  repo: https://github.com/jdtrat/masters-thesis
+  sharing: yes
+  download: ["pdf", "epub"]
+  csl: american-statistical-association.csl
+bookdown::pdf_document2:
+  toc: yes
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  csl: american-statistical-association.csl
+  keep_tex: yes

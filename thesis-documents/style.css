@@ -1,0 +1,24 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+.point {
+    padding: 1em;
+    padding-bottom: 0.15em;
+    margin-bottom: 1em;
+    background: #a1c5f3;
+    border: 0.15em solid #2e94f1;
+    border-radius: 0.75em;
+    box-shadow: 2px 2px 4px lightblue;
+}
