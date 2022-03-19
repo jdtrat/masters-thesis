@@ -1,0 +1,29 @@
+Package: masters-thesis
+Title: Counterfactuals, Dopamine, and Risky Behavior
+Version: 0.0.0.9000
+Authors@R: 
+    person("Jonathan", "Trattner", , "jdt@jdtrat.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-1097-7603"))
+Description: Jonathan Trattner's Master's Thesis.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Language: es
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: 
+    bookdown,
+    dplyr,
+    fs,
+    HDInterval,
+    here,
+    MASS,
+    purrr,
+    qs,
+    readr,
+    rlang,
+    skimr,
+    stantargets,
+    stringr,
+    tarchetypes,
+    targets,
+    tidyr
