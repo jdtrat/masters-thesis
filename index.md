@@ -1,5 +1,6 @@
 --- 
-title: "Counterfactuals, Dopamine, and Risky Behavior: Deriving a neurobiological theory of decision-making under risk"
+title: "Counterfactuals, Dopamine, and Risky Behavior"
+subtitle: "Deriving a neurobiological theory of decision-making under risk"
 author: "Jonathan D. Trattner"
 date: "2022-03-19"
 site: bookdown::bookdown_site
