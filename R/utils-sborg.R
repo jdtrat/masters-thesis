@@ -39,10 +39,19 @@ sbg_process_raw_data <- function(raw_data) {
           subject = unique(.x$subject),
           .before = 1
         )
-    })
+    }) %>%
+    # Some subjects have multiple values for a round number, here we are
+    # selecting the latest values
+    dplyr::distinct() %>%
+    dplyr::group_by(subject, round_number) %>%
+    dplyr::slice_tail(n = 1) %>%
+    dplyr::ungroup() %>%
+    # Remove non-responses
+    tidyr::drop_na(choice, choice_type, reward_value)
 }
 
 #' Generate a Grid of Possible Prospects from SBORG
+#'
 #' @description According to the specifications of SBORG generate prospects
 #'   where the sure bet ranges from 1 to 6 by 1 and the gambles range from 0 to
 #'   6 by 1 and cannot equal each other. The alternative outcome of option 1 is
@@ -54,21 +63,19 @@ sbg_process_raw_data <- function(raw_data) {
 #'
 #' @examples
 sbg_gen_possible_prospects <- function() {
-  sure_bets <- tidyr::expand_grid(
-    sb_outcome_a = seq(1, 6, by = 1),
-    sb_prob_a = 1,
-    sb_outcome_b = 0,
-    sb_prob_b = (1 - sb_prob_a)
-  )
 
-  gambles <- tidyr::expand_grid(
-    gamble_outcome_a = seq(0, 6, by = 1),
-    gamble_prob_a = 0.5,
-    gamble_outcome_b = seq(0, 6, by = 1),
-    gamble_prob_b = (1 - gamble_prob_a)
+  tidyr::expand_grid(
+    option1_outcome_a = seq(1, 6, by = 1),
+    option1_prob_a = 1,
+    option1_outcome_b = 0,
+    option1_prob_b = 0,
+    option2_outcome_a = seq(0, 6, by = 1),
+    option2_prob_a = 0.5,
+    option2_outcome_b = seq(0, 6, by = 1),
+    option2_prob_b = 0.5
   ) %>%
-    dplyr::filter(gamble_outcome_a != gamble_outcome_b)
+    dplyr::filter(
+      option2_outcome_a != option2_outcome_b
+    )
 
-  # Cross Join
-  dplyr::full_join(sure_bets, gambles, by = character())
 }
