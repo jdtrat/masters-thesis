@@ -50,6 +50,38 @@ sbg_process_raw_data <- function(raw_data) {
     tidyr::drop_na(choice, choice_type, reward_value)
 }
 
+#' Format Processed SBORG Data for Stan
+#'
+#' @param processed_sborg_data The output of [sbg_process_raw_data()].
+#'
+#' @return A data frame with the SBORG data restructured in the format of
+#'   EUT/CPUT analysis for Stan. Option 1 becomes Sure Bet, option 2 becomes
+#'   gamble.
+#' @export
+#'
+#' @examples
+format_processed_sborg_data_stan <- function(processed_sborg_data) {
+  processed_sborg_data %>%
+    dplyr::transmute(subject = subject,
+                     option1_outcome_a = sb_value,
+                     option1_prob_a = 1,
+                     option1_outcome_b = 0,
+                     option1_prob_b = 1 - option1_prob_a,
+                     option2_outcome_a = gamble_left_value,
+                     option2_prob_a = 0.5,
+                     option2_outcome_b = gamble_right_value,
+                     option2_prob_b = 0.5,
+                     chose_option1 = dplyr::case_when(choice_type == "sb" ~ 1,
+                                                      TRUE ~ 0),
+                     chose_option2 = dplyr::case_when(choice_type == "gamble" ~ 1,
+                                                      TRUE ~ 0)
+    ) %>%
+    dplyr::mutate(
+      dplyr::across(where(is.character) & !subject,
+                    ~ as.numeric(.x))
+    )
+}
+
 #' Generate a Grid of Possible Prospects from SBORG
 #'
 #' @description According to the specifications of SBORG generate prospects
