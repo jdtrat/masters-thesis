@@ -30,29 +30,47 @@ kt_problems <- function() {
 #'   individual 'subjects' have a random distribution of choice behavior on the
 #'   given prospects.
 #'
+#' @param seed A seed to ensure reproducibility in the random slicing of
+#'   prospects.
+#' @param num_subjects The number of subjects from which to approximate the
+#'   proportion of choices observed in Kahneman and Tversky's cohort.
+#'
 #' @return A data frame with the prospect information (from Kahneman and
 #'   Tversky's 1979 paper), and a binary variable indicating whether the
 #'   'subject' chose option one or two. The overall proportion of choice
-#'   behavior is the same as described in Kahneman and Tversky, but the
+#'   behavior remains the same as described in Kahneman and Tversky, but the
 #'   subject-specific behavior may differ.
 #' @export
 #'
 #' @examples
 #'
-#' kt_proportion_choice_data()
-kt_proportion_choice_data <- function() {
+#' kt_proportion_choice_data(
+#'   seed = 18,
+#'   num_subjects = 250
+#'   )
+#'
+kt_proportion_choice_data <- function(
+  seed = 18,
+  num_subjects = 10
+  ) {
+
+  if (num_subjects < 10 || num_subjects %% 10 != 0) {
+    cli::cli_abort("{.arg num_subjects} must be a multiple of ten.")
+  }
+
+  set.seed(seed)
 
   kt_problems() %>%
     nest(rep_data = -c(prospect, chose_option1)) %>%
     mutate(
       data = purrr::map2(
         .x = rep_data,
-        .y = chose_option1 * 100,
+        .y = round(chose_option1 * num_subjects),
         ~ {
           dplyr::slice(.x, rep(1, .y)) %>%
             dplyr::mutate(chose_option1 = 1) %>%
             dplyr::bind_rows(
-              dplyr::slice(.x, rep(1, (100 - .y))) %>%
+              dplyr::slice(.x, rep(1, (num_subjects - .y))) %>%
                 dplyr::mutate(chose_option1 = 0)
             )
         }
@@ -63,7 +81,7 @@ kt_proportion_choice_data <- function() {
     # Mix up the order so when we artificially add subjects, they don't all
     # choose the same.
     slice_sample(
-      n = 100 * nrow(kt_problems())
+      n = num_subjects * nrow(kt_problems())
     ) %>%
     group_by(
       prospect
