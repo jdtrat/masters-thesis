@@ -111,3 +111,48 @@ sbg_gen_possible_prospects <- function() {
     )
 
 }
+
+
+#' Estimate Gamma from SBORG Task with Metropolis Hastings Data
+#'
+#' @description This function estimates the posterior distribution of gamma for
+#'   individual subjects using the Metropolis-Hastings algorithm defined in the
+#'   function [sample_posterior_gamma()]. It is used to supplement the
+#'   hierarchical Bayesian modeling performed with Stan.
+#' @param formatted_sborg_data The output of
+#'   [format_processed_sborg_data_stan()] on the processed SBORG Choice Data or
+#'   equivalently formatted SBORG data (e.g., the output of
+#'   [simulate_sbg_prospects()]).
+#' @param num_iter The number of iterations to sample the Metropolis Hastings
+#'   Algorithm
+#' @param initial_gamma Set an initial guess for gamma. Defaults to 0.5.
+#'
+#' @return A list with one data frame per subject containing a 'subject' ID
+#'   column (the same as SBORG Task ID) and the posterior samples of gamma for
+#'   each subject.
+#' @export
+#'
+sborg_sample_metropolis_hastings <- function(
+  formatted_sborg_data,
+  num_iter = 5000,
+  initial_gamma = 0.5
+) {
+  purrr::map(
+    .x = dplyr::group_split(
+      formatted_sborg_data,
+      subject
+    ),
+    .f = ~ {
+      post <- sample_posterior_gamma(
+        num_iter = num_iter,
+        prospects = .x,
+        choices = .x$chose_option1,
+        initial_gamma = initial_gamma
+      )
+      data.frame(
+        subject = unique(.x$subject),
+        posterior_draws = post
+      )
+    }
+  )
+}
