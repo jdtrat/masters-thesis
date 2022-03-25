@@ -156,3 +156,61 @@ sborg_sample_metropolis_hastings <- function(
     }
   )
 }
+
+
+#' Summarize SBORG MH Posterior
+#'
+#' @param sborg_mh_list The list of data frames returned from
+#'   [sborg_sample_metropolis_hastings()] containing the posterior draws for
+#'   each subject.
+#' @param credible_mass A value between zero and one representing the mass of
+#'   the credible interval to recover. Defaults to `0.95`.
+#'
+#' @return A data frame with, for each subject, the boundaries of the highest
+#'   density interval (e.g., for `0.95`, 'q2.5' and 'q97.5') from the posterior
+#'   distribution including the median as 'q50'.
+#' @export
+#'
+sbg_summarize_mh_posterior <- function(sborg_mh_list, credible_mass = 0.95) {
+
+  stopifnot(credible_mass <= 1, credible_mass > 0)
+
+  label_hdi <- function(cred_mass) {
+    if (0 < cred_mass & cred_mass <= 1) {
+      cred_mass <- cred_mass * 100
+    }
+
+    lower_label <- (100 - cred_mass)/2
+    upper_label <- lower_label + cred_mass
+
+    paste0("q", c(lower_label, upper_label))
+  }
+
+  purrr::map_df(
+    sborg_mh_list,
+    ~ {
+
+      post_hdi <- setNames(
+        HDInterval::hdi(
+          .x$posterior_draws,
+          credMass = credible_mass
+        ),
+        label_hdi(
+          cred_mass = credible_mass
+        )
+      )
+
+      cbind(
+        data.frame(
+          subject = unique(.x$subject),
+          q50 = median(.x$posterior_draws)
+        ),
+        as.data.frame(
+          t(post_hdi)
+        )
+      )
+    }
+  )
+
+}
+
