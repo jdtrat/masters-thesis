@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  24 MAR 2022 20:46
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  26 MAR 2022 18:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1373,24 +1373,41 @@ Chapter 1.
 
 ]
 Chapter 2.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.00092pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00064pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 9.99893pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 162.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 162.
+[4
+
+]
 
 Package caption Warning: Unused \captionsetup[figure] on input line 128.
 See the caption package documentation for explanation.
 
-[4
-
-] (./trattner-masters-thesis.aux)
+[5] (./trattner-masters-thesis.aux)
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
 (rerunfilecheck)             Checksum: 457031A7B4029DA0630E353D17DC4CA1;402.
  ) 
 Here is how much of TeX's memory you used:
- 39499 strings out of 478179
- 919972 string characters out of 5853947
- 1431534 words of memory out of 5000000
- 59515 multiletter control sequences out of 15000+600000
- 472939 words of font info for 60 fonts, out of 8000000 for 9000
+ 39544 strings out of 478179
+ 921259 string characters out of 5853947
+ 1433650 words of memory out of 5000000
+ 59538 multiletter control sequences out of 15000+600000
+ 475808 words of font info for 81 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,6n,121p,810b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,10n,121p,810b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (5 pages).
+Output written on trattner-masters-thesis.pdf (6 pages).
