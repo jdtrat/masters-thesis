@@ -31,6 +31,25 @@ P(\text{sal})_{\text{tr}+1} = P(\text{sal})_{\text{tr}-1} + \alpha (R_{\text{tr}
 
 Bush and Mosteller's equation computes an average of previously experienced rewards. $0 \leq \alpha \leq 1$ is a learning rate, which modulates the influence of more recent rewards. Bush and Mosteller's work forms the basis for modern approaches to this problem of ***reinforcement learning***.[@glimcher2011a][^2] While discretizing learning into trials is a logical first step to modeling behavior in experimental settings, it's not easily applied to biological systems that continuously interact with their environments.
 
-[^2]: For a more detailed explanation of Bush and Mosteller's work, the development of reinforcement learning for applications to Neuroscience, and much of the material I cover in this chapter, please refer to Paul Glimcher's *Understanding dopamine and reinforcement learning: The dopamine reward prediction error hypothesis* .[@glimcher2011a]
+[^2]: For a more detailed explanation of Bush and Mosteller's work, the development of reinforcement learning for applications to Neuroscience, and much of the material I cover in this chapter, please refer to Paul Glimcher's *Understanding dopamine and reinforcement learning: The dopamine reward prediction error hypothesis*.[@glimcher2011a]
 
-In his 1988 paper, *Learning to Predict by the Methods of Temporal Differences*, Richard Sutton introduces the antecedent for temporal-difference reinforcement learning (TDRL) algorithms.[@sutton1988] The TDRL algorithm provides a computational framework for optimally learning from experience how actions and their associated stimuli lead to rewards. [@sutton-barto-2018] The 'goal' of TDRL algorithms are to estimate the value of a state and use that information to maximize rewards. The crux of the TDRL algorithms is the temporal-difference reward prediction error (TD-RPE). This 'teaching signal' relates an experienced outcome at time $t$ to what was expected.
+In his 1988 paper, *Learning to Predict by the Methods of Temporal Differences*, Richard Sutton introduces the antecedent for temporal-difference reinforcement learning (TDRL) algorithms.[@sutton1988] The TDRL algorithm provides a computational framework for optimally learning from experience how actions and their associated stimuli lead to rewards. [@sutton-barto-2018] 
+
+The 'goal' of TDRL algorithms are to estimate the value of a state and use that information to maximize rewards. This is achieved with a 'teaching signal', called the temporal-difference reward prediction error (TD-RPE), which relates the current value of being in a state at time $t$ to what was expected. 
+
+```{=tex}
+\begin{equation}
+\delta_t = [\text{outcome}_t + \gamma V(S_{t+1})] - V(S_t)
+(\#eq:td-rpe)
+\end{equation}
+```
+
+The current value of a state is the sum of any outcome experienced at time $t$ plus the expectation of future outcomes from being in said state. This expectation of future values, $V(S_{t+1})$ is modulated by the temporal-discounting parameter $0 \leq \gamma \leq 1$. The TD-RPE, $\delta_t$, is the difference between the current value of a state and the most recent expectation for that state's value, $V(S_t)$. On each time step, the TD-RPE is used to update the estimated value of the current state following the learning rule where $0 \leq \alpha \leq 1$, the learning rate, controls how much weight an individual places on the estimated value of the current state in light of the TD-RPE.
+
+```{=tex}
+\begin{equation}
+\hat{V}(S_t) \leftarrow V(S_t) + (\alpha \cdot \delta_t)
+(\#eq:td-value-update)
+\end{equation}
+```
+
