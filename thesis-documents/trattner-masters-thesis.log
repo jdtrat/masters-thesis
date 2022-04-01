@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  1 APR 2022 13:15
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  1 APR 2022 15:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -979,7 +979,14 @@ Package: wrapfig 2003/01/31  v 3.6
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 ) (/Users/jt/Library/TinyTeX/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
-) (./trattner-masters-thesis.aux)
+) (./trattner-masters-thesis.aux
+
+LaTeX Warning: Label `eq:calculating-uc' multiply defined.
+
+
+LaTeX Warning: Label `eq:eut-cput-transformations' multiply defined.
+
+)
 \openout1 = `trattner-masters-thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 156.
@@ -1437,21 +1444,29 @@ File: 04_modeling_files/figure-latex/sborg-task-description-1.pdf Graphic file
 [19
 
 ] [20] [21]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/sbg_demo_figure.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/sbg_demo_figure.png>
+[22] [23]
 Chapter 6.
-[22
+[24
 
-] [23] [24] [25] (./trattner-masters-thesis.aux)
+] [25] [26] [27] (./trattner-masters-thesis.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
 (rerunfilecheck)             Checksum: 9C2052EA917B2F4D0A7AD2C4F04F3AA0;1241.
  ) 
 Here is how much of TeX's memory you used:
- 39692 strings out of 478179
- 931191 string characters out of 5853947
- 1447549 words of memory out of 5000000
- 59660 multiletter control sequences out of 15000+600000
+ 39711 strings out of 478179
+ 933019 string characters out of 5853947
+ 1447685 words of memory out of 5000000
+ 59678 multiletter control sequences out of 15000+600000
  476809 words of font info for 92 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,17n,121p,1553b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,20n,121p,1609b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (26 pages).
+Output written on trattner-masters-thesis.pdf (28 pages).
