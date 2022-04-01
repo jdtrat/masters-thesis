@@ -14,6 +14,7 @@ fig:prospect-diagram-kt
 eq:cput-transformation-kt-demo
 eq:calculating-uc-kt-demo
 fig:sborg-task-description
+fig:sbg-demo-gamma-range
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making
