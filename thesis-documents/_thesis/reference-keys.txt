@@ -13,8 +13,10 @@ eq:eut-cput-transformations
 fig:prospect-diagram-kt
 eq:cput-transformation-kt-demo
 eq:calculating-uc-kt-demo
+fig:sborg-task-description
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making
 counterfactual-predicted-utility-theory
+modeling-counterfactual-predicted-utility-theory
 references

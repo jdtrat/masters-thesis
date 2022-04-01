@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 Modeling Counterfactual Predicted Utility Theory | Counterfactuals, Dopamine, and Risky Behavior</title>
+<meta name="author" content="Jonathan D. Trattner">
+<meta name="description" content="In the last chapter, I addressed my first thesis aim of developing counterfactual predicted utility theory (CPUT) as an alternative to expected utility theory to explain decision-making under...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="5 Modeling Counterfactual Predicted Utility Theory | Counterfactuals, Dopamine, and Risky Behavior">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://masters-thesis.jdtrat.com/modeling-counterfactual-predicted-utility-theory.html">
+<meta property="og:description" content="In the last chapter, I addressed my first thesis aim of developing counterfactual predicted utility theory (CPUT) as an alternative to expected utility theory to explain decision-making under...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 Modeling Counterfactual Predicted Utility Theory | Counterfactuals, Dopamine, and Risky Behavior">
+<meta name="twitter:site" content="@jdtrat">
+<meta name="twitter:description" content="In the last chapter, I addressed my first thesis aim of developing counterfactual predicted utility theory (CPUT) as an alternative to expected utility theory to explain decision-making under...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Deriving a neurobiological theory of decision-making under risk">Counterfactuals, Dopamine, and Risky Behavior</a>:
+        <small class="text-muted">Deriving a neurobiological theory of decision-making under risk</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Hello, World</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="evolution-of-decision-theory.html"><span class="header-section-number">2</span> Evolution of Decision Theory</a></li>
+<li><a class="" href="neurobiology-of-decision-making.html"><span class="header-section-number">3</span> Neurobiology of Decision-Making</a></li>
+<li><a class="" href="counterfactual-predicted-utility-theory.html"><span class="header-section-number">4</span> Counterfactual Predicted Utility Theory</a></li>
+<li><a class="active" href="modeling-counterfactual-predicted-utility-theory.html"><span class="header-section-number">5</span> Modeling Counterfactual Predicted Utility Theory</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">6</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/jdtrat/masters-thesis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="modeling-counterfactual-predicted-utility-theory" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Modeling Counterfactual Predicted Utility Theory<a class="anchor" aria-label="anchor" href="#modeling-counterfactual-predicted-utility-theory"><i class="fas fa-link"></i></a>
+</h1>
+<p>In the last chapter, I addressed my first thesis aim of developing counterfactual predicted utility theory (CPUT) as an alternative to expected utility theory to explain decision-making under risk. I showed how information about each potential outcome (terminal node of Figure <a href="counterfactual-predicted-utility-theory.html#fig:prospect-diagram-general">4.1</a>) integrates with a counterfactual weighting parameter, <span class="math inline">\(\gamma\)</span>, to adjust the utility of one option over another. I walked-through an example calculation assuming <span class="math inline">\(\gamma = 0.1\)</span> (diagrammed in Figure <a href="counterfactual-predicted-utility-theory.html#fig:prospect-diagram-general">4.1</a>). In this chapter, I address my second thesis aim of assessing the predictive accuracy of CPUT using human choice data from a ‘Sure Bet or Gamble’ task.<span class="citation">(<a href="references.html#ref-liebenow2021" role="doc-biblioref">B. Liebenow et al. 2021</a>)</span></p>
+<p>In an attempt to robustly, and transparently, fit CPUT to behavioral data, I follow the general guidelines presented in Robert Wilson and Anne Collins’s paper <em>Ten simple rules for the computational modeling of behavioral data</em>.<span class="citation">(<a href="references.html#ref-wilson2019" role="doc-biblioref">Wilson and Collins 2019</a>)</span>At a high level, they state that computational modeling allows us to make better sense of behavioral data with mathematical models that may provide insight into mechanisms underlying behavior. Although the exact form of the models differ, the basic steps to assess a model’s descriptive and predictive efficacy are similar.</p>
+<p>The first two steps Wilson and Collins discuss are designing an experiment and developing a model. For my thesis, I fit CPUT, as formulated in the last chapter, with data collected from an ongoing study by Brittany Liebenow and colleagues<span class="citation">(<a href="references.html#ref-liebenow2021" role="doc-biblioref">B. Liebenow et al. 2021</a>)</span> where forty-five healthy adults (ages 18-65) were recruited to complete a sure-bet or gamble task (Figure <a href="modeling-counterfactual-predicted-utility-theory.html#fig:sborg-task-description">5.1</a>).</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:sborg-task-description"></span>
+<img src="04_modeling_files/figure-html/sborg-task-description-1.png" alt="Schematic of a trial from the Sure Bet or Gamble task and subjective rating prompt." width="672"><p class="caption">
+Figure 5.1: Schematic of a trial from the Sure Bet or Gamble task and subjective rating prompt.
+</p>
+</div>
+<p>For thirty minutes, participants indicated their preference for a sure bet (values between $1-$6 in $1 increments) or a fifty-fifty gamble between two non-identical values ($0 - $6 in $1 increments). The lateral presentation of the sure bet and gambles were randomized, and each prospect was presented for a random duration based on a Poisson distribution <span class="math inline">\((\lambda = 6\text{s})\)</span>. If the participant answered within the alloted time, their choice was displayed for two seconds before they were shown the outcome for one second. If they did not answer in time, they were shown a late screen for one second. Rounds were separated with a fixation cross whose inter-trial interval was a Poisson distribution <span class="math inline">\((\lambda = 6\text{s}\)</span>, zeros removed<span class="math inline">\()\)</span>. After on-third of of the rounds where choices were made, respondents were asked “How do you feel about the last outcome?” and adjusted a slider ranging from ‘very bad’ to ‘very good.’ Participants were paid $20 per hour and told they would receive winnings from a randomly selected round as bonus compensation.</p>
+<p>Using this data from this task, we can group the remaining computational modeling steps into three stages:<span class="citation">(<a href="references.html#ref-wilson2019" role="doc-biblioref">Wilson and Collins 2019</a>)</span></p>
+<ul>
+<li><p><strong>Simulation &amp; Parameter Recovery</strong>: Use the candidate model (CPUT) to generate ‘fake’ behavioral data and attempt to recover the parameters of interest following the proposed analysis method for experimental data.</p></li>
+<li><p><strong>Parameter Estimation:</strong> Find the set of parameters that best account for the experimental data given the candidate model.</p></li>
+<li><p><strong>Model Comparison:</strong> Compare the candidate models to others (EUT) that may provide alternative explanations of the behavioral data.</p></li>
+</ul>
+<p>Before detailing the methods and results for each stage in my analysis, it is important to understand the mathematics behind our model-fitting.</p>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="counterfactual-predicted-utility-theory.html"><span class="header-section-number">4</span> Counterfactual Predicted Utility Theory</a></div>
+<div class="next"><a href="references.html"><span class="header-section-number">6</span> References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#modeling-counterfactual-predicted-utility-theory"><span class="header-section-number">5</span> Modeling Counterfactual Predicted Utility Theory</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/jdtrat/masters-thesis/blob/main/thesis-documents/04_modeling.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/jdtrat/masters-thesis/edit/main/thesis-documents/04_modeling.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Counterfactuals, Dopamine, and Risky Behavior</strong>: Deriving a neurobiological theory of decision-making under risk" was written by Jonathan D. Trattner. It was last built on 2022-04-01.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

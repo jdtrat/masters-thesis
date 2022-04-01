@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  31 MAR 2022 23:21
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  1 APR 2022 13:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1431,20 +1431,27 @@ figures/prospect_diagram_kt.png Graphic file (type bmp)
 es/prospect_diagram_kt.png>
 [16] [17] [18]
 Chapter 5.
+File: 04_modeling_files/figure-latex/sborg-task-description-1.pdf Graphic file 
+(type pdf)
+<use 04_modeling_files/figure-latex/sborg-task-description-1.pdf>
 [19
 
-] [20] [21] (./trattner-masters-thesis.aux)
+] [20] [21]
+Chapter 6.
+[22
+
+] [23] [24] [25] (./trattner-masters-thesis.aux)
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
-(rerunfilecheck)             Checksum: 42F161AE7DF233CFBED8503A7B6DF3B3;946.
+(rerunfilecheck)             Checksum: 9C2052EA917B2F4D0A7AD2C4F04F3AA0;1241.
  ) 
 Here is how much of TeX's memory you used:
- 39679 strings out of 478179
- 930468 string characters out of 5853947
- 1446360 words of memory out of 5000000
- 59649 multiletter control sequences out of 15000+600000
+ 39692 strings out of 478179
+ 931191 string characters out of 5853947
+ 1447549 words of memory out of 5000000
+ 59660 multiletter control sequences out of 15000+600000
  476809 words of font info for 92 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,17n,121p,1553b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (22 pages).
+Output written on trattner-masters-thesis.pdf (26 pages).
