@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  30 MAR 2022 11:16
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  31 MAR 2022 23:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1413,23 +1413,38 @@ es/kishida2016-rpe-inversion.png>
 Chapter 4.
 [14
 
-] [15]
+]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/prospect_diagram_general.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/prospect_diagram_general.png>
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 9.0pt on input line 345.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 9.00082pt on input line 345.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.99904pt on input line 345.
+[15]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/prospect_diagram_kt.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/prospect_diagram_kt.png>
+[16] [17] [18]
+Chapter 5.
+[19
 
-Package caption Warning: Unused \captionsetup[figure] on input line 151.
-See the caption package documentation for explanation.
-
-[16] (./trattner-masters-thesis.aux)
+] [20] [21] (./trattner-masters-thesis.aux)
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
-(rerunfilecheck)             Checksum: 533CF20C3A834ED15247A6B04109CAAA;699.
+(rerunfilecheck)             Checksum: 42F161AE7DF233CFBED8503A7B6DF3B3;946.
  ) 
 Here is how much of TeX's memory you used:
- 39616 strings out of 478179
- 925917 string characters out of 5853947
- 1443124 words of memory out of 5000000
- 59594 multiletter control sequences out of 15000+600000
- 475840 words of font info for 85 fonts, out of 8000000 for 9000
+ 39679 strings out of 478179
+ 930468 string characters out of 5853947
+ 1446360 words of memory out of 5000000
+ 59649 multiletter control sequences out of 15000+600000
+ 476809 words of font info for 92 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,10n,121p,1553b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,17n,121p,1553b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (17 pages).
+Output written on trattner-masters-thesis.pdf (22 pages).

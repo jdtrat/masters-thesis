@@ -16,3 +16,5 @@ bookdown::pdf_document2:
   latex_engine: xelatex
   csl: american-statistical-association.csl
   keep_tex: yes
+bookdown::word_document2:
+  toc: yes
