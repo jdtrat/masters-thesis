@@ -24,6 +24,8 @@ url: 'https\://masters-thesis.jdtrat.com/'
 My name is Jonathan Trattner. In May 2022, I will graduate with a Master's of Science Degree in Neuroscience from [Wake Forest School of Medicine](https://wakehealth.edu). This `r ifelse(knitr::is_latex_output(), "document", "website")` is the embodiment of my master's thesis. 
 
 ```{r include=FALSE}
+library(targets)
+library(ggtext)
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
