@@ -15,9 +15,13 @@ eq:cput-transformation-kt-demo
 eq:calculating-uc-kt-demo
 fig:sborg-task-description
 fig:sbg-demo-gamma-range
+eq:likelihood
+eq:softmax-choose-1
+fig:sbg-demo-softmax-figure
+eq:posterior-propto
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making
 counterfactual-predicted-utility-theory
-modeling-counterfactual-predicted-utility-theory
+computational-modeling-concepts
 references
