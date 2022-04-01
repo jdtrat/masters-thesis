@@ -2,7 +2,7 @@
 title: "Counterfactuals, Dopamine, and Risky Behavior"
 subtitle: "Deriving a neurobiological theory of decision-making under risk"
 author: "Jonathan D. Trattner"
-date: "2022-03-30"
+date: "2022-03-31"
 site: bookdown::bookdown_site
 twitter-handle: jdtrat
 documentclass: book
@@ -21,6 +21,6 @@ url: 'https\://masters-thesis.jdtrat.com/'
 
 # Hello, World {-}
 
-My name is Jonathan Trattner. In May 2022, I will graduate with a Master's of Science Degree in Neuroscience from [Wake Forest School of Medicine](https://wakehealth.edu). This document is the embodiment of my master's thesis. 
+My name is Jonathan Trattner. In May 2022, I will graduate with a Master's of Science Degree in Neuroscience from [Wake Forest School of Medicine](https://wakehealth.edu). This website is the embodiment of my master's thesis. 
 
 
