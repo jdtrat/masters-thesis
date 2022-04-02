@@ -19,9 +19,15 @@ eq:likelihood
 eq:softmax-choose-1
 fig:sbg-demo-softmax-figure
 eq:posterior-propto
+eq:matt-trick
+fig:kt-post-approx
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making
 counterfactual-predicted-utility-theory
 computational-modeling-concepts
+modeling-methods-and-results
+simulating-choice-data
+parameter-recovery
+model-comparison
 references

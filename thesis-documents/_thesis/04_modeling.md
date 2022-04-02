@@ -95,7 +95,7 @@ Where the probability of $\theta$ being some value given the observed choice dat
 
 To estimate the posterior distribution, I used two 'Markov Chain Monte Carlo' methods. For my first attempt, I manually implemented the Metropolis-Hastings algorithm.[@haines2018; @dogucu] At a high level, the Metropolis-Hastings algorithm involves the following steps:
 
-For iteration $n \in 1:N$,
+For iteration $n \in 1:N$ do the following:
 
 1.  Propose a value, $\theta_n^*$ near the current estimate $\theta_n$, propose a value $\theta^*$
 2.  Calculate the acceptance probability for proposal $\theta_n^*$ defined as the ratio between the posterior distribution evaluated at $\theta_n^*$ to that of $\theta_n$
@@ -103,4 +103,20 @@ For iteration $n \in 1:N$,
 
 I then validated my implementation by comparing it to posterior distributions computed with a hierarchical Bayesian approach. Hierarchical Bayesian Analysis was implemented in the probabilistic programming language, Stan, which implements an efficient variant of Markov Chain Monte Carlo called the Hamiltonian Monte Carlo sampler.[@standevelopmentteam2022] Hierarchical Bayesian Analysis allows for simultaneous estimation of individual and group-level parameters in a mutually-constraining fashion. This has been shown to improve parameter estimates relative to other methods (e.g., maximum likelihood estimation), resulting in more stable and reliable estimates for individual-level parameters as they are informed by group trends.[@ahn2011]
 
-At the beginning of this chapter, I introduced three stages of computational modeling.[@wilson2019] With a better grasp of the concepts I employed for my thesis, it's time to revisit each part. In the next chapter, I outline my methods and results from simulating choice data according to counterfactual predicted utility theory, estimating parameters from observed data, and comparing evidence from seven candidate models.
+The specific implementation of hierarchical models I follow has been detailed elsewhere.[@ahn2017] At a high level, individual-participant parameters are assumed to be drawn from normally distributed group-level distributions. Bounded parameters, such as $\gamma$, were estimated in an unconstrained space and transformed with the 'Matt Trick',[@standevelopmentteam2022] an inverse Probit transformation. This is to optimize the MCMC sampling.[@ahn2017] More formally, 
+
+```{=tex}
+\begin{equation}
+\begin{aligned}
+\mu_\theta &\sim \text{Normal}(0,1) \\
+\sigma_\theta &\sim \text{Half-Normal}(0,0.2) \\
+\mathbf{\theta}^\prime &\sim \text{Normal}(0,1) \\
+\mathbf{\theta} &\sim \text{Probit}^{-1}(\mu_\theta + \sigma_\theta \cdot \mathbf{\theta}^\prime) \times U.B.
+\end{aligned}
+(\#eq:matt-trick)
+\end{equation}
+```
+
+where $- \infty < \mu_\theta < + \infty$ and $- \infty < \sigma_\theta < + \infty$ are the group-level mean and standard deviation, respectively; $\theta^\prime$ is the unconstrained parameter that gets transformed via the inverse Probit transformation and scaled to some upper bound, $U.B$. As an example, for $\gamma$, $U.B. = 1$; for $\tau$, $U.B. = 30$. This non-centered reparameterization results in a uniform prior for individual participants' parameters across the full range.[@ahn2014; @ahn2017]
+
+With a better grasp of the concepts I employed for my thesis, it's time to revisit each of the three stages of computational modeling I introduced in the chapter introduction. [@wilson2019] In the next chapter, I outline my methods and results from simulating choice data according to counterfactual predicted utility theory, estimating parameters from observed data, and comparing evidence from seven candidate models.

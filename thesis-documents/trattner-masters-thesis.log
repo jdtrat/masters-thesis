@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  1 APR 2022 18:41
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  1 APR 2022 22:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1363,7 +1363,24 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 
-] (./trattner-masters-thesis.toc)
+] (./trattner-masters-thesis.toc
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.00092pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00064pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 9.99893pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 8.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 8.
+)
 \tf@toc=\write5
 \openout5 = `trattner-masters-thesis.toc'.
 
@@ -1377,22 +1394,6 @@ Chapter 1.
 
 ]
 Chapter 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00092pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00064pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 185.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 185.
 [4
 
 ] [5] [6]
@@ -1446,22 +1447,38 @@ File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
 figures/sbg_demo_softmax_figure.png Graphic file (type bmp)
 </Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
 es/sbg_demo_softmax_figure.png>
-[23] [24] [25] [26]
+[23] [24] [25]
+Missing character: There is no 𝜃 (U+1D703) in font [lmroman10-bold]:mapping=tex
+-text;!
+Missing character: There is no 𝜃 (U+1D703) in font [lmroman10-bold]:mapping=tex
+-text;!
+Missing character: There is no 𝜃 (U+1D703) in font [lmroman10-bold]:mapping=tex
+-text;!
+[26]
 Chapter 6.
 [27
 
-] [28] [29] [30] (./trattner-masters-thesis.aux)
+]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/kt_post_approx_figure.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/kt_post_approx_figure.png>
+[28] [29]
+Chapter 7.
+[30
+
+] [31] [32] [33] (./trattner-masters-thesis.aux)
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
-(rerunfilecheck)             Checksum: 14AF401A0445342B522E1F2FF4B4917D;1150.
+(rerunfilecheck)             Checksum: 0FA884604DA1F9B68486E0294013E046;1798.
  ) 
 Here is how much of TeX's memory you used:
- 39733 strings out of 478179
- 935034 string characters out of 5853947
- 1451228 words of memory out of 5000000
- 59699 multiletter control sequences out of 15000+600000
- 476809 words of font info for 92 fonts, out of 8000000 for 9000
+ 39777 strings out of 478179
+ 937579 string characters out of 5853947
+ 1450973 words of memory out of 5000000
+ 59730 multiletter control sequences out of 15000+600000
+ 476865 words of font info for 99 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,20n,121p,1671b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,20n,121p,2090b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (31 pages).
+Output written on trattner-masters-thesis.pdf (34 pages).
