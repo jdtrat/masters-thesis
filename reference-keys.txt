@@ -22,6 +22,9 @@ eq:posterior-propto
 eq:matt-trick
 fig:kt-post-approx
 fig:sbg-sim-parameter-recovery
+fig:model-definition-table
+fig:population-level-post-param-figure
+fig:model-fit-summary-table
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making
@@ -29,6 +32,6 @@ counterfactual-predicted-utility-theory
 computational-modeling-concepts
 modeling-methods-and-results
 simulating-choice-data
-parameter-recovery
+parameter-estimation
 model-comparison
 references

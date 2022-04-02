@@ -110,15 +110,46 @@ Figure 6.2: 95% highest density interval of the posterior distribution of <span 
 </div>
 <p>For most subjects, the simulated <span class="math inline">\(\gamma\)</span> values are within the highest-density interval. This suggests that the sure-bet or gamble task is able to elicit the behaviors of interest in a way measurable with counterfactual predicted utility theory.</p>
 </div>
-<div id="parameter-recovery" class="section level2" number="6.2">
+<div id="parameter-estimation" class="section level2" number="6.2">
 <h2>
-<span class="header-section-number">6.2</span> Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2</span> Parameter Estimation<a class="anchor" aria-label="anchor" href="#parameter-estimation"><i class="fas fa-link"></i></a>
 </h2>
+<p>With the confirmation that I am able to accurately recover simulated parameters from the sure-bet or gamble task, I move on to the next stage of computational modeling, parameter estimation. Specifically, I compare how counterfactual predicted utility theory explains the human choice data from the sure-bet or gamble task relative to expected utility theory. I primarily do this for two reasons:</p>
+<ol style="list-style-type: decimal">
+<li>Counterfactual predicted utility theory suggests that, if <span class="math inline">\(\gamma = 0\)</span>, the counterfactual utility of an option is equivalent to the expected value. The expected value is a special case of expected utility theory where the risk aversion parameter, <span class="math inline">\(\rho = 1\)</span>.</li>
+<li>The sure-bet or gamble task does not include losses, which prohibits me from comparing counterfactual predicted utility theory to prospect theory.</li>
+</ol>
+<p>In total, I estimated parameters for seven variants of expected utility theory and counterfactual utility theory on the human choice data (Table <a href="modeling-methods-and-results.html#fig:model-definition-table">6.3</a>).</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:model-definition-table"></span>
+<img src="figures/model_definition_table.png" alt="Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation.[@ahn2017] Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one $(\gamma)$, two $(\rho)$, and thirty $(\tau)$." width="95%"><p class="caption">
+Figure 6.3: Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation.<span class="citation">(<a href="references.html#ref-ahn2017" role="doc-biblioref">Ahn, Haines, and Zhang 2017</a>)</span> Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one <span class="math inline">\((\gamma)\)</span>, two <span class="math inline">\((\rho)\)</span>, and thirty <span class="math inline">\((\tau)\)</span>.
+</p>
+</div>
+<p>All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.<span class="citation">(<a href="references.html#ref-ahn2017" role="doc-biblioref">Ahn, Haines, and Zhang 2017</a>)</span> For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, <span class="math inline">\(\hat{R} \leq 1.1\)</span>, suggesting between-chain variance is lower than within chain variance.<span class="citation">(<a href="references.html#ref-gelman1992" role="doc-biblioref">Gelman and Rubin 1992</a>)</span> A histogram representing samples from the population level posterior distribution for each parameter per model is shown in Figure <a href="modeling-methods-and-results.html#fig:population-level-post-param-figure">6.4</a>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:population-level-post-param-figure"></span>
+<img src="05_modeling_results_files/figure-html/population-level-post-param-figure-1.png" alt="Placeholder caption." width="672"><p class="caption">
+Figure 6.4: Placeholder caption.
+</p>
+</div>
 </div>
 <div id="model-comparison" class="section level2" number="6.3">
 <h2>
 <span class="header-section-number">6.3</span> Model Comparison<a class="anchor" aria-label="anchor" href="#model-comparison"><i class="fas fa-link"></i></a>
 </h2>
+<p>With the estimated posterior distributions for each model type, I sought to determine which model best explains choice behavior. To do this, I used three different methods to compare models, the results of which are summarized in Table <a href="modeling-methods-and-results.html#fig:model-fit-summary-table">6.5</a>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Posterior predictive checks where, for each model, I simulated choices given the (joint) posterior distribution of each participants’ estimated model parameter(s). This was included in Stan’s generated quantities block, which is only executed after a posterior sample has been generated. <span class="citation">(<a href="references.html#ref-standevelopmentteam2022" role="doc-biblioref">Stan Development Team 2022</a>)</span> I then compared the percentage of predicted choices that matches the observed data and summarized the mean and standard deviation for each model.</p></li>
+<li><p>Comparing the marginal likelihoods of each model. This is the probability of observing the choice behavior for a given model, <span class="math inline">\(M\)</span>, <span class="math inline">\(P(\text{Choices}|M)\)</span>. The marginal likelihood of each model was estimated using bridge sampling.<span class="citation">(<a href="references.html#ref-gronau2020" role="doc-biblioref">Gronau, Singmann, and Wagenmakers 2020</a>)</span> Marginal likelihoods are often included in calculations of Bayes factors, which describes the relative evidence in favor of one model over another by quantifying the ratio between the probability of observing the data given two models. The marginal likelihoods are computed as log-scaled for computational efficiency, which means that the more positive, or less negative, marginal likelihood indicates a better fit.</p></li>
+<li><p>Assessing penalized model fit with each model’s leave-one-out cross validation predictive accuracy.<span class="citation">(<a href="references.html#ref-vehtari2017" role="doc-biblioref">Vehtari, Gelman, and Gabry 2017</a>)</span> This is approximated with importance sampling of the posterior distribution to calculate the expected log pointwise predictive density (ELPD), which is the logged sum of pointwise posterior predictive distribution for held out data. By multiplying the ELPD by negative two, we get the leave-one-out information criterion, LOOIC. This transformation makes it easier to compare with other information criterion (e.g., AIC, DIC), highlighting the penalization of model complexity.<span class="citation">(<a href="references.html#ref-plummer2008" role="doc-biblioref">Plummer 2008</a>)</span> I include both ELPD and LOOIC for easy comparison. Note that a less negative ELPD and a smaller (closer to zero) LOOIC are indicative of better model fits.</p></li>
+</ol>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:model-fit-summary-table"></span>
+<img src="figures/model_fit_summary_table.png" alt="Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task along with model comparison metrics. Posterior predictive choice accuracy represents the mean and standard deviation of correctly predicted choices for individual participants given simulations from the (joint) posterior distribution. ELPD Predictive Density and LOOIC details how well models perform on unobserved data (leave-one-out cross validation). Parantheses for ELPD and LOOIC indicate Monte Carlo sampling error. Marginal likelihood model evidence indicates the plausibility of the data given each model with parantheses representing the interquartile range of the likeihood estimations. In general, better models have smaller LOOIC and higher posterior predictive choice accuracy, ELPD predictive accuracy (less negative), and marginal likelihood model evidence (less negative). CPUT + Softmax Sensitivity and EUT + Softmax Sensitivity are highlighted for easy reference when discussed." width="95%"><p class="caption">
+Figure 6.5: Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task along with model comparison metrics. Posterior predictive choice accuracy represents the mean and standard deviation of correctly predicted choices for individual participants given simulations from the (joint) posterior distribution. ELPD Predictive Density and LOOIC details how well models perform on unobserved data (leave-one-out cross validation). Parantheses for ELPD and LOOIC indicate Monte Carlo sampling error. Marginal likelihood model evidence indicates the plausibility of the data given each model with parantheses representing the interquartile range of the likeihood estimations. In general, better models have smaller LOOIC and higher posterior predictive choice accuracy, ELPD predictive accuracy (less negative), and marginal likelihood model evidence (less negative). CPUT + Softmax Sensitivity and EUT + Softmax Sensitivity are highlighted for easy reference when discussed.
+</p>
+</div>
 
 </div>
 </div>
@@ -131,7 +162,7 @@ Figure 6.2: 95% highest density interval of the posterior distribution of <span 
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#modeling-methods-and-results"><span class="header-section-number">6</span> Modeling Methods and Results</a></li>
 <li><a class="nav-link" href="#simulating-choice-data"><span class="header-section-number">6.1</span> Simulating Choice Data</a></li>
-<li><a class="nav-link" href="#parameter-recovery"><span class="header-section-number">6.2</span> Parameter Recovery</a></li>
+<li><a class="nav-link" href="#parameter-estimation"><span class="header-section-number">6.2</span> Parameter Estimation</a></li>
 <li><a class="nav-link" href="#model-comparison"><span class="header-section-number">6.3</span> Model Comparison</a></li>
 </ul>
 
