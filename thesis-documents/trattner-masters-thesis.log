@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  1 APR 2022 22:20
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  2 APR 2022 11:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1463,22 +1463,27 @@ File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
 figures/kt_post_approx_figure.png Graphic file (type bmp)
 </Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
 es/kt_post_approx_figure.png>
-[28] [29]
+[28]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/sbg_sim_parameter_recovery_figure.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/sbg_sim_parameter_recovery_figure.png>
+[29] [30]
 Chapter 7.
-[30
+[31
 
-] [31] [32] [33] (./trattner-masters-thesis.aux)
+] [32] [33] [34] (./trattner-masters-thesis.aux)
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
 (rerunfilecheck)             Checksum: 0FA884604DA1F9B68486E0294013E046;1798.
  ) 
 Here is how much of TeX's memory you used:
- 39777 strings out of 478179
- 937579 string characters out of 5853947
- 1450973 words of memory out of 5000000
- 59730 multiletter control sequences out of 15000+600000
- 476865 words of font info for 99 fonts, out of 8000000 for 9000
+ 39793 strings out of 478179
+ 939654 string characters out of 5853947
+ 1451028 words of memory out of 5000000
+ 59747 multiletter control sequences out of 15000+600000
+ 476857 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,20n,121p,2090b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,20n,121p,2310b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (34 pages).
+Output written on trattner-masters-thesis.pdf (35 pages).

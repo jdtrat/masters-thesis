@@ -214,3 +214,114 @@ sbg_summarize_mh_posterior <- function(sborg_mh_list, credible_mass = 0.95) {
 
 }
 
+
+#' Summarize SBORG Stan Posterior
+#'
+#' @param cmdstan_draws The draws method from a cmdstantr fit object.
+#' @param credible_mass A value between zero and one representing the mass of
+#'   the credible interval to recover. Defaults to `0.95`.
+#'
+#' @return A data frame with, for each subject, the boundaries of the highest
+#'   density interval (e.g., for `0.95`, 'q2.5' and 'q97.5') from the posterior
+#'   distribution including the median as 'q50'.
+#' @export
+#'
+sbg_summarize_stan_posterior <- function(
+  cmdstan_draws,
+  credible_mass = 0.95
+) {
+
+  stopifnot(credible_mass <= 1, credible_mass > 0)
+
+  label_hdi <- function(cred_mass) {
+    if (0 < cred_mass & cred_mass <= 1) {
+      cred_mass <- cred_mass * 100
+    }
+
+    lower_label <- (100 - cred_mass)/2
+    upper_label <- lower_label + cred_mass
+
+    paste0("q", c(lower_label, upper_label))
+  }
+
+  interval_labels <- label_hdi(
+    cred_mass = credible_mass
+  )
+
+  initial_interval_data <- bayesplot::mcmc_intervals_data(
+    x = cmdstan_draws,
+    prob_outer = credible_mass,
+    point_est = "median"
+  )
+
+  initial_interval_data %>%
+    transmute(
+      subject = as.numeric(
+        str_extract(parameter, "\\d+")
+      ),
+      "{interval_labels[1]}" := ll,
+      q50 = m,
+      "{interval_labels[2]}" := hh
+    )
+
+}
+
+#' Summarize SBORG Simulation Data
+#'
+#' @description This function creates a data frame with the simulated gamma
+#'   values for agents on the SBORG task and the highest density interval for
+#'   the posterior distribution recovered from the choice data for both
+#'   Metropolis-Hastings Sampling and Hierarchical Stan Sampling.
+#'
+#' @param sbg_mh_list The list of data frames returned from
+#'   [sborg_sample_metropolis_hastings()] containing the posterior draws for
+#'   each subject.
+#' @param sbg_stan_fit The cmdstantr fit object.
+#' @param sbg_sim_agent_data The data frame of subjects and simulated gamma values.
+#' @param credible_mass A value between zero and one representing the mass of
+#'   the credible interval to recover. Defaults to `0.95`.
+#'
+#' @return A data frame with, for each subject, the boundaries of the highest
+#'   density interval (e.g., for `0.95`, 'q2.5' and 'q97.5') from the posterior
+#'   distribution including the median as 'q50' for both the Metropolis-Hastings
+#'   Sampling algorithm and the Hierarchical Stan model. It is joined with the
+#'   simulated subject data where each subject is a factor ordered by the
+#'   simulated gamma value for ease of plotting.
+#' @export
+#'
+#' @examples
+sbg_summarize_simulation_data <- function(
+  sbg_mh_list,
+  sbg_stan_fit,
+  sbg_sim_agent_data,
+  credible_mass = 0.95
+) {
+
+  sbg_summarize_mh_posterior(
+    sborg_mh_list = sbg_mh_list,
+    credible_mass = 0.95
+  ) %>%
+    mutate(
+      type = "Metropolis-Hastings Sampling"
+    ) %>%
+    bind_rows(
+      sbg_summarize_stan_posterior(
+        sbg_stan_fit$draws("gamma")
+      ) %>%
+        mutate(
+          type = "Hamiltonian Monte Carlo (Stan) Sampling"
+        )
+    ) %>%
+    left_join(
+      sbg_sim_agent_data %>%
+        rename(
+          sim_gamma = gamma
+        ),
+      by = "subject"
+    ) %>%
+    mutate(
+      subject = as_factor(subject) %>%
+        fct_reorder(sim_gamma)
+    )
+
+}

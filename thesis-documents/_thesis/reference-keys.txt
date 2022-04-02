@@ -21,6 +21,7 @@ fig:sbg-demo-softmax-figure
 eq:posterior-propto
 eq:matt-trick
 fig:kt-post-approx
+fig:sbg-sim-parameter-recovery
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making
