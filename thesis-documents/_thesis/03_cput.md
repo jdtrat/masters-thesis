@@ -36,19 +36,19 @@ U_{C}(\text{Option 2}) = p_{2} \cdot V_{C}(x_{2a}) + (1 - p_{2}) \cdot V_{C}(x_{
 \end{equation}
 ```
 
-As in Expected Utility Theory, an option's utility is the expected value of its transformed value. The expected utility definition in Equation \@ref(eq:calculating-ue) represents the same weighting as that from Equation \@ref(eq:calculating-uc). The difference stems from how the estimated counterfactual utility value, $V_C$ compares with the estimated expected utility value, $V_E$.
+In contrast, for Expected Utility Theory, an option's expected value is exponentiated by a *risk-aversion* parameter, $\rho$. The expected utility definition in Equation \@ref(eq:calculating-ue) represents the same weighting as of probabilities and outcomes from Equation \@ref(eq:calculating-uc). 
 
 ```{=tex}
 \begin{equation}
 \begin{split}
-U_{E}(\text{Option 1}) = p_{1} \cdot V_{E}(x_{1}) + (1 - p_{1}) \cdot V_{E}(x_{2}) \\   
-U_{E}(\text{Option 2}) = p_{2} \cdot V_{E}(x_{4}) + (1 - p_{2}) \cdot V_{E}(x_{3})
+U_{E}(\text{Option 1}) = (p_{1} \cdot V_{E}(x_{1}) + (1 - p_{1}) \cdot V_{E}(x_{2}))^\rho \\   
+U_{E}(\text{Option 2}) = (p_{2} \cdot V_{E}(x_{4}) + (1 - p_{2}) \cdot V_{E}(x_{3}))^\rho
 \end{split}
 (\#eq:calculating-ue)
 \end{equation}
 ```
 
-In EUT, as in prospect theory, the transformation of the stated outcome is exponentiated by a *risk-aversion* parameter, $\rho$. Conversely, for CPUT, we define the transformation of the stated outcome as the face value minus a weighted sum of that option's alternative outcome and the other option's expected value. The transformations for each theory are presented in Equation \@ref(eq:eut-cput-transformations), which shows how a prospect of the form depicted in Figure \@ref(fig:prospect-diagram-general) are represented.
+To represent the equations similarly, we define the $V_E$ as the estimated expected utility value (but this is really just stated outcome). For CPUT, however, we formally define the transformation of the stated outcome as the face value minus a weighted sum of that option's alternative outcome and the other option's expected value. This notation is expressed in Equation \@ref(eq:eut-cput-transformations), which shows how a prospect of the form depicted in Figure \@ref(fig:prospect-diagram-general) are represented.
 
 ```{=tex}
 \begin{equation}

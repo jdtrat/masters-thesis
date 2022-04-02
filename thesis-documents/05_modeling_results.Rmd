@@ -42,6 +42,57 @@ knitr::include_graphics(
 
 For most subjects, the simulated $\gamma$ values are within the highest-density interval. This suggests that the sure-bet or gamble task is able to elicit the behaviors of interest in a way measurable with counterfactual predicted utility theory.
 
-## Parameter Recovery
+## Parameter Estimation
+
+With the confirmation that I am able to accurately recover simulated parameters from the sure-bet or gamble task, I move on to the next stage of computational modeling, parameter estimation. Specifically, I compare how counterfactual predicted utility theory explains the human choice data from the sure-bet or gamble task relative to expected utility theory. I primarily do this for two reasons:
+
+1.  Counterfactual predicted utility theory suggests that, if $\gamma = 0$, the counterfactual utility of an option is equivalent to the expected value. The expected value is a special case of expected utility theory where the risk aversion parameter, $\rho = 1$.
+2.  The sure-bet or gamble task does not include losses, which prohibits me from comparing counterfactual predicted utility theory to prospect theory.
+
+In total, I estimated parameters for seven variants of expected utility theory and counterfactual utility theory on the human choice data (Table \@ref(fig:model-definition-table)).
+
+```{r model-definition-table}
+#| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
+#| fig.cap = "Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation.[@ahn2017] Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one $(\\gamma)$, two $(\\rho)$, and thirty $(\\tau)$."
+
+knitr::include_graphics(
+  here::here(
+    targets::tar_read(model_definition_table_file)
+  )
+)
+```
+
+All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] A histogram representing samples from the population level posterior distribution for each parameter per model is shown in Figure \@ref(fig:population-level-post-param-figure).
+
+```{r population-level-post-param-figure}
+#| echo = FALSE, warning = FALSE, fig.align = "center",
+#| fig.cap = "Placeholder caption."
+
+cowplot::ggdraw() +
+  cowplot::draw_label("Placeholder for Population Level Posterior Parameter Estimates") +
+  cowplot::draw_line(0:1, 0.1) +
+  cowplot::draw_line(0:1, 0.9)
+
+```
 
 ## Model Comparison
+
+With the estimated posterior distributions for each model type, I sought to determine which model best explains choice behavior. To do this, I used three different methods to compare models, the results of which are summarized in Table \@ref(fig:model-fit-summary-table):
+
+1.  Posterior predictive checks where, for each model, I simulated choices given the (joint) posterior distribution of each participants' estimated model parameter(s). This was included in Stan's generated quantities block, which is only executed after a posterior sample has been generated. [@standevelopmentteam2022] I then compared the percentage of predicted choices that matches the observed data and summarized the mean and standard deviation for each model.
+
+2.  Comparing the marginal likelihoods of each model. This is the probability of observing the choice behavior for a given model, $M$, $P(\text{Choices}|M)$. The marginal likelihood of each model was estimated using bridge sampling.[@gronau2020] Marginal likelihoods are often included in calculations of Bayes factors, which describes the relative evidence in favor of one model over another by quantifying the ratio between the probability of observing the data given two models. The marginal likelihoods are computed as log-scaled for computational efficiency, which means that the more positive, or less negative, marginal likelihood indicates a better fit.
+
+3.  Assessing penalized model fit with each model's leave-one-out cross validation predictive accuracy.[@vehtari2017] This is approximated with importance sampling of the posterior distribution to calculate the expected log pointwise predictive density (ELPD), which is the logged sum of pointwise posterior predictive distribution for held out data. By multiplying the ELPD by negative two, we get the leave-one-out information criterion, LOOIC. This transformation makes it easier to compare with other information criterion (e.g., AIC, DIC), highlighting the penalization of model complexity.[@plummer2008] I include both ELPD and LOOIC for easy comparison. Note that a less negative ELPD and a smaller (closer to zero) LOOIC are indicative of better model fits.
+
+
+```{r model-fit-summary-table}
+#| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
+#| fig.cap = "Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task along with model comparison metrics. Posterior predictive choice accuracy represents the mean and standard deviation of correctly predicted choices for individual participants given simulations from the (joint) posterior distribution. ELPD Predictive Density and LOOIC details how well models perform on unobserved data (leave-one-out cross validation). Parantheses for ELPD and LOOIC indicate Monte Carlo sampling error. Marginal likelihood model evidence indicates the plausibility of the data given each model with parantheses representing the interquartile range of the likeihood estimations. In general, better models have smaller LOOIC and higher posterior predictive choice accuracy, ELPD predictive accuracy (less negative), and marginal likelihood model evidence (less negative). CPUT + Softmax Sensitivity and EUT + Softmax Sensitivity are highlighted for easy reference when discussed."
+
+knitr::include_graphics(
+  here::here(
+    targets::tar_read(model_fit_summary_table_file)
+  )
+)
+```

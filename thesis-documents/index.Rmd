@@ -26,6 +26,7 @@ My name is Jonathan Trattner. In May 2022, I will graduate with a Master's of Sc
 ```{r include=FALSE}
 library(targets)
 library(ggtext)
+library(flextable)
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'

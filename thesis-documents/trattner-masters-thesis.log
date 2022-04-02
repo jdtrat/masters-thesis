@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  2 APR 2022 11:35
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.21)  2 APR 2022 18:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1468,22 +1468,36 @@ File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
 figures/sbg_sim_parameter_recovery_figure.png Graphic file (type bmp)
 </Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
 es/sbg_sim_parameter_recovery_figure.png>
-[29] [30]
+[29]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/model_definition_table.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/model_definition_table.png>
+File: 05_modeling_results_files/figure-latex/population-level-post-param-figure
+-1.pdf Graphic file (type pdf)
+<use 05_modeling_results_files/figure-latex/population-level-post-param-figure-
+1.pdf>
+[30] [31]
+File: /Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/
+figures/model_fit_summary_table.png Graphic file (type bmp)
+</Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figur
+es/model_fit_summary_table.png>
+[32] [33]
 Chapter 7.
-[31
+[34
 
-] [32] [33] [34] (./trattner-masters-thesis.aux)
+] [35] [36] [37] (./trattner-masters-thesis.aux)
 Package rerunfilecheck Info: File `trattner-masters-thesis.out' has not changed
 .
-(rerunfilecheck)             Checksum: 0FA884604DA1F9B68486E0294013E046;1798.
+(rerunfilecheck)             Checksum: 60B9369B1ADCEDFFFFAFAD34B0C4FE49;1808.
  ) 
 Here is how much of TeX's memory you used:
- 39793 strings out of 478179
- 939654 string characters out of 5853947
- 1451028 words of memory out of 5000000
- 59747 multiletter control sequences out of 15000+600000
+ 39843 strings out of 478179
+ 944472 string characters out of 5853947
+ 1453635 words of memory out of 5000000
+ 59793 multiletter control sequences out of 15000+600000
  476857 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,20n,121p,2310b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on trattner-masters-thesis.pdf (35 pages).
+Output written on trattner-masters-thesis.pdf (38 pages).

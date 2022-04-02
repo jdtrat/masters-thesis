@@ -112,15 +112,15 @@ U_{C}(\text{Option 2}) = p_{2} \cdot V_{C}(x_{2a}) + (1 - p_{2}) \cdot V_{C}(x_{
 \end{split}
 \tag{4.2} 
 \end{equation}\]</span>
-<p>As in Expected Utility Theory, an option’s utility is the expected value of its transformed value. The expected utility definition in Equation <a href="counterfactual-predicted-utility-theory.html#eq:calculating-ue">(4.3)</a> represents the same weighting as that from Equation <a href="counterfactual-predicted-utility-theory.html#eq:calculating-uc">(4.2)</a>. The difference stems from how the estimated counterfactual utility value, <span class="math inline">\(V_C\)</span> compares with the estimated expected utility value, <span class="math inline">\(V_E\)</span>.</p>
+<p>In contrast, for Expected Utility Theory, an option’s expected value is exponentiated by a <em>risk-aversion</em> parameter, <span class="math inline">\(\rho\)</span>. The expected utility definition in Equation <a href="counterfactual-predicted-utility-theory.html#eq:calculating-ue">(4.3)</a> represents the same weighting as of probabilities and outcomes from Equation <a href="counterfactual-predicted-utility-theory.html#eq:calculating-uc">(4.2)</a>.</p>
 <span class="math display" id="eq:calculating-ue">\[\begin{equation}
 \begin{split}
-U_{E}(\text{Option 1}) = p_{1} \cdot V_{E}(x_{1}) + (1 - p_{1}) \cdot V_{E}(x_{2}) \\   
-U_{E}(\text{Option 2}) = p_{2} \cdot V_{E}(x_{4}) + (1 - p_{2}) \cdot V_{E}(x_{3})
+U_{E}(\text{Option 1}) = (p_{1} \cdot V_{E}(x_{1}) + (1 - p_{1}) \cdot V_{E}(x_{2}))^\rho \\   
+U_{E}(\text{Option 2}) = (p_{2} \cdot V_{E}(x_{4}) + (1 - p_{2}) \cdot V_{E}(x_{3}))^\rho
 \end{split}
 \tag{4.3}
 \end{equation}\]</span>
-<p>In EUT, as in prospect theory, the transformation of the stated outcome is exponentiated by a <em>risk-aversion</em> parameter, <span class="math inline">\(\rho\)</span>. Conversely, for CPUT, we define the transformation of the stated outcome as the face value minus a weighted sum of that option’s alternative outcome and the other option’s expected value. The transformations for each theory are presented in Equation <a href="counterfactual-predicted-utility-theory.html#eq:eut-cput-transformations">(4.4)</a>, which shows how a prospect of the form depicted in Figure <a href="counterfactual-predicted-utility-theory.html#fig:prospect-diagram-general">4.1</a> are represented.</p>
+<p>To represent the equations similarly, we define the <span class="math inline">\(V_E\)</span> as the estimated expected utility value (but this is really just stated outcome). For CPUT, however, we formally define the transformation of the stated outcome as the face value minus a weighted sum of that option’s alternative outcome and the other option’s expected value. This notation is expressed in Equation <a href="counterfactual-predicted-utility-theory.html#eq:eut-cput-transformations">(4.4)</a>, which shows how a prospect of the form depicted in Figure <a href="counterfactual-predicted-utility-theory.html#fig:prospect-diagram-general">4.1</a> are represented.</p>
 <span class="math display" id="eq:eut-cput-transformations">\[\begin{equation}
 \begin{split}
 \text{EUT:} \\

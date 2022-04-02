@@ -59,3 +59,98 @@ get_bridge_error <- function(.model_fit, stan_data, stan_file, maxiter = 10000, 
   list(bridge_samples = bridge,
        error = errors)
 }
+
+#' Summarize Marginal Likelihood Model Evidence
+#'
+#' @description This function summarizes the marginal likelihood model evidence
+#'   for the supplied models based on the bridgesampling performed in
+#'   [get_bridge_error()].
+#' @param ... The output of [get_bridge_error()] for all models to be compared.
+#'   This function assumes that the objects pass in will be prefixed with
+#'   'bridge_error_' as part of the targets pipeline and will remove that
+#'   character string as applicable from the model name.
+#'
+#' @return A tibble with the model names and the model evidence.
+#' @export
+#'
+#' @examples
+#'
+#' summarize_marginal_likelihood_model_evidence(
+#'   bridge_error_sborg_gamma,
+#'   bridge_error_sborg_ra,
+#'   bridge_error_sborg_ra_gamma,
+#'   bridge_error_sborg_ra_tau,
+#'   bridge_error_sborg_ra_tau_gamma,
+#'   bridge_error_sborg_tau_gamma,
+#'   bridge_error_sborg_tau
+#' )
+#'
+summarize_marginal_likelihood_model_evidence <- function(...) {
+
+  tibble::lst(
+    ...
+  ) %>%
+    purrr::map_df(~{
+      evidence <- .x[["bridge_samples"]][["logml"]]
+      tibble(
+        model_evidence = paste0(round(median(evidence), 1), " (", round(IQR(evidence), 2), ")")
+      )
+    },
+    .id = "model_name"
+    ) %>%
+    mutate(
+      model_name = str_remove(
+        model_name,
+        "bridge_error_"
+      )
+    )
+}
+
+#' Summarize Penalized Model Fit with LOO-CV and LOOIC
+#'
+#' @param ... Any number of cmdstanr model fit environments from which to
+#'   summarize the penalized model fit. This function assumes that the model
+#'   environments begin with the prefix 'sbg_fit_mcmc' as part of the targets
+#'   pipeline and will remove those as applicable.
+#'
+#' @return A tibble with the model names and the columns 'elpd' and 'looic'
+#'   evidence.
+#' @export
+#'
+#' @examples
+#'
+#' summarize_elpd_looic_evidence(
+#'   sbg_fit_mcmc_sborg_gamma,
+#'   sbg_fit_mcmc_sborg_ra_gamma,
+#'   sbg_fit_mcmc_sborg_tau_gamma,
+#'   sbg_fit_mcmc_sborg_ra_tau_gamma,
+#'   sbg_fit_mcmc_sborg_ra,
+#'   sbg_fit_mcmc_sborg_ra_tau,
+#'   sbg_fit_mcmc_sborg_tau
+#' )
+#'
+summarize_elpd_looic_evidence <- function(...) {
+
+  tibble::lst(
+    ...
+   ) %>%
+    purrr::map_df( ~ {
+      loo <- .x$loo()
+      elpd <- loo$estimates["elpd_loo", ]
+      looic <- loo$estimates["looic", ]
+
+      tibble::tibble(
+        elpd = paste0(round(elpd["Estimate"], 1), " (", round(elpd["SE"], 1), ")"),
+        looic = paste0(round(looic["Estimate"], 1), " (", round(looic["SE"], 1), ")")
+      )
+    },
+    .id = "model_name"
+    ) %>%
+    mutate(
+      model_name = str_remove(
+        model_name,
+        "sbg_fit_mcmc_"
+      )
+    )
+
+}
