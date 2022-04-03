@@ -35,9 +35,9 @@ In total, I estimated parameters for seven variants of expected utility theory a
 
 ![(\#fig:model-definition-table)Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation. Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one $(\gamma)$, two $(\rho)$, and thirty $(\tau)$.](/Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figures/model_definition_table.png){width=95%}
 
-All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] A histogram representing samples from the population level posterior distribution for each parameter per model is shown in Figure \@ref(fig:population-level-post-param-figure).
+All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] The group-level posterior distributions for parameters fit from each model are shown in Figure \@ref(fig:population-level-post-param-figure).
 
-![(\#fig:population-level-post-param-figure)Placeholder caption.](05_modeling_results_files/figure-docx/population-level-post-param-figure-1.png)
+![(\#fig:population-level-post-param-figure)Posterior distribution of group-level parameter estimates for each model. Distributions for $\gamma$ are in green, $\rho$ in blue, and $\tau$ in orange.](/Users/jt/Desktop/R/Academic/Kishida Lab/masters-thesis/thesis-documents/figures/population_posterior_plot.png){width=95%}
 
 ## Model Comparison
 

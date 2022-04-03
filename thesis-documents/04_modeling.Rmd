@@ -12,7 +12,7 @@ The first two steps Wilson and Collins discuss are designing an experiment and d
 
 ```{r sborg-task-description}
 #| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
-#| fig.cap = "Schematic of a trial from the Sure Bet or Gamble task and subjective rating prompt. A prospecti s presented for a random duration based on a Poisson distribution $(\\lambda = 6\\text{s})$. Assuming a timely response, a choice screen was shown for two seconds followed by an outcome screen for one second. Trials were separated with a fixation cross whose inter-trial interval was a random duration from a Poisson distribution with $\\lambda = 3\\text{s}$."
+#| fig.cap = "Schematic of a trial from the Sure Bet or Gamble task and subjective rating prompt. A prospect is presented for a random duration based on a Poisson distribution $(\\lambda = 6\\text{s})$. Assuming a timely response, a choice screen was shown for two seconds followed by an outcome screen for one second. Trials were separated with a fixation cross whose inter-trial interval was a random duration from a Poisson distribution with $\\lambda = 3\\text{s}$."
 
 knitr::include_graphics(
   here::here(
@@ -21,7 +21,7 @@ knitr::include_graphics(
 )
 ```
 
-For thirty minutes, participants indicated their preference for a sure bet (values between \$1-\$6 in \$1 increments) or a fifty-fifty gamble between two non-identical values (\$0 - \$6 in \$1 increments). The lateral presentation of the sure bet and gambles were randomized, and each prospect was presented for a random duration based on a Poisson distribution $(\lambda = 6\text{s})$. If the participant answered within the alloted time, their choice was displayed for two seconds before they were shown the outcome for one second. If they did not answer in time, they were shown a late screen for one second. Rounds were separated with a fixation cross whose inter-trial interval was a Poisson distribution $(\lambda = 6\text{s}$, zeros removed$)$. After on-third of of the rounds where choices were made, respondents were asked "How do you feel about the last outcome?" and adjusted a slider ranging from 'very bad' to 'very good'. Participants were paid \$20 per hour and told they would receive winnings from a randomly selected round as bonus compensation.
+For thirty minutes, participants indicated their preference for a sure bet (values between \$1-\$6 in \$1 increments) or a fifty-fifty gamble between two non-identical values (\$0 - \$6 in \$1 increments). The lateral presentation of the sure bet and gambles were randomized, and each prospect was presented for a random duration based on a Poisson distribution $(\lambda = 6\text{s})$. If the participant answered within the alloted time, their choice was displayed for two seconds before they were shown the outcome for one second. If they did not answer in time, they were shown a late screen for one second. Rounds were separated with a fixation cross whose inter-trial interval was a Poisson distribution $(\lambda = 6\text{s}$, zeros removed$)$. After one-third of of the rounds where choices were made, respondents were asked "How do you feel about the last outcome?" and adjusted a slider ranging from 'very bad' to 'very good'. Participants were paid \$20 per hour and told they would receive winnings from a randomly selected round as bonus compensation.
 
 Using this data from this task, we can group the remaining computational modeling steps into three stages:[@wilson2019]
 

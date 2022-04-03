@@ -60,16 +60,17 @@ knitr::include_graphics(
 )
 ```
 
-All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] A histogram representing samples from the population level posterior distribution for each parameter per model is shown in Figure \@ref(fig:population-level-post-param-figure).
+All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] The group-level posterior distributions for parameters fit from each model are shown in Figure \@ref(fig:population-level-post-param-figure).
 
 ```{r population-level-post-param-figure}
-#| echo = FALSE, warning = FALSE, fig.align = "center",
-#| fig.cap = "Placeholder caption."
+#| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
+#| fig.cap = "Posterior distribution of group-level parameter estimates for each model. Distributions for $\\gamma$ are in green, $\\rho$ in blue, and $\\tau$ in orange."
 
-cowplot::ggdraw() +
-  cowplot::draw_label("Placeholder for Population Level Posterior Parameter Estimates") +
-  cowplot::draw_line(0:1, 0.1) +
-  cowplot::draw_line(0:1, 0.9)
+knitr::include_graphics(
+  here::here(
+    targets::tar_read(population_posterior_plot_file)
+  )
+)
 
 ```
 

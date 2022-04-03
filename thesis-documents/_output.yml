@@ -13,6 +13,7 @@ bookdown::pdf_book:
   toc: yes
   includes:
     in_header: preamble.tex
+    before_body: title.tex
   latex_engine: pdflatex
   csl: american-statistical-association.csl
   keep_tex: yes
