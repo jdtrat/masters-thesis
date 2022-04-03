@@ -34,4 +34,5 @@ modeling-methods-and-results
 simulating-choice-data
 parameter-estimation
 model-comparison
+discussion-next-steps
 references
