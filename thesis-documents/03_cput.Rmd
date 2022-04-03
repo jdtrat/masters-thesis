@@ -6,7 +6,7 @@ bibliography: references.bib
 
 As discussed in the last chapter, the neurotransmitter dopamine seemingly encodes information about actual and counterfactual rewards,[@kishida2016] and their integration may play a guiding role in decision-making. With this neural evidence, combined with behavioral economic theories offering descriptive models for people making risky decisions,[@kahneman1979; @loomes1982] I propose 'Counterfactual Predicted Utility Theory' (CPUT) as a neurobiologically-plausible theory of decision-making under risk.
 
-The intuition behind CPUT is the idea that people account for counterfactual outcomes when faced with a prospect and the integration of factual and counterfactual signals in the brain may discount or invert their preference for choosing one option over another. I hypothesize that this preference-reversal is modulated by a counterfactual weighting term, $\gamma$, which may vary across people. 
+The impetus behind CPUT is the idea that people account for counterfactual outcomes when faced with a prospect and the integration of factual and counterfactual signals in the brain may discount or invert their preference for choosing one option over another. I hypothesize that this preference-reversal is modulated by a counterfactual weighting term, $\gamma$, which may vary across people. 
 
 To formally derive CPUT, we can revisit the prospect I introduced in the first chapter with a hypothetical casino game. There are two options: choosing one will certainly three-thousand dollars; choosing another will give you an 80% chance of four-thousand dollars or nothing. Such a prospect is commonly denoted as follows where the first option leads to outcome $x_1$ with probability $p_1$ and the second option leads to outcomes $x_2$ with probability $p_2$.
 
@@ -24,6 +24,7 @@ Unless otherwise stated, the alternative outcomes of an option are assumed to be
 
 ```{r prospect-diagram-general}
 #| echo = FALSE, warning = FALSE, fig.align = "center",
+#| fig.scap = "A general prospect diagram, an explicit representation of a prospect with two options.",
 #| fig.cap = "Explicit representation of a prospect with two options. Choosing option 1 may lead to outcome $x_{1a}$ with probability $p_1$ or outcome $x_{1b}$ with probability $(1 - p_1)$. Choosing option 2 may lead to outcome $x_{2a}$ with probability $p_2$ or outcome $x_{2b}$ with probability $(1 - p_2)$."
 
 knitr::include_graphics(
@@ -82,6 +83,7 @@ Unlike the estimated expected utility value, $V_E$, the estimated counterfactual
 
 ```{r prospect-diagram-kt}
 #| echo = FALSE, warning = FALSE, fig.align = "center",
+#| fig.scap = "Prospect diagram representing an example problem from Kahneman and Tversky (1979).",
 #| fig.cap = "Example prospect diagram to visualize counterfactual integration. Choosing option 1 may lead to outcome $\\$3000$ with probability $1.0$ or outcome $\\$0$ with probability $(1 - 1.0)$. Choosing option 2 may lead to outcome $\\$4000$ with probability $0.8$ or outcome $\\$0$ with probability $(1 - 0.8)$. Estimating the counterfactual utility value of possible outcomes are dependent on one-another."
 
 knitr::include_graphics(

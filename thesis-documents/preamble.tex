@@ -29,6 +29,8 @@
 \usepackage{amsmath}
 \usepackage{indentfirst}
 \usepackage{amssymb}
+\usepackage[acronym]{glossaries}
+\usepackage[nottoc]{tocbibind}
 
 \renewcommand{\thefootnote}{\roman{footnote}}
 \newcommand{\thicktilde}[1]{\mathbf{\tilde{\text{$#1$}}}}
@@ -39,3 +41,83 @@
 
 % Set caption size
 \captionsetup[figure]{font=small}
+
+\newcommand{\pchapter}[1]{%% A preliminary chapter
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+	\thispagestyle{headings}
+	\typeout{#1}
+}
+
+\renewcommand{\maketitle}{
+  {\pagestyle{empty}
+  % \fontsize{11.5}{14}\selectfont
+  % \begin{titlepage}
+  % \newpage
+  % \let\footnotesize\small
+  % \let\footnoterule\relax
+  % \let \footnote \thanks
+
+  % \newcommand{\maketitle}{		% Define macro to print title page.
+  	\typeout{Title page}
+  	\begin{titlepage}
+    	  	\let\footnotesize\small % Local definitions to make
+					% \thanks produce
+    	  	\let\footnoterule\relax % \normalsize footnotes with
+					%  no separating rule.
+    		\setcounter{page}{1}
+    	\null
+    	\parskip=0pt
+    	\vspace*{60pt}
+    	\begin{center}
+      		\vglue -.25in   % this makes top margin 2in
+      		{\normalsize\uppercase\expandafter{Counterfactuals, Dopamine, and Risky Behavior: Deriving a Neurobiological Theory of Decision-Making Under Risk}\par}
+      		\vglue 5ex
+      		{\normalsize BY \par}
+      		\vglue 5ex
+      		{\normalsize \uppercase\expandafter{Jonathan D. Trattner}\par\par}
+      		\vglue 3ex
+    	\end{center}
+
+
+    	\begin{center}
+		\normalsize
+	  	A Thesis Submitted to the Graduate Faculty of \par
+	  	\vglue 2ex
+	  	\mbox{WAKE$\:$FOREST$\:$UNIVERSITY$\:$GRADUATE$\:$SCHOOL$\:$OF$\:$ARTS$\:$AND$\:$SCIENCES} \par
+	  	\vglue 2ex
+	  	in Partial Fulfillment of the Requirements \par
+	  	\vglue 2ex
+	  	for the Degree of \par
+	  	\vglue 2ex
+	   MASTER OF SCIENCE
+		\vglue 2ex
+		Neuroscience
+		\vglue 2ex
+		April, 2022
+		\vglue 2ex
+		Winston-Salem, North Carolina
+		\vglue 2ex
+		Copyright Jonathan D. Trattner, 2022
+    	\end{center}
+%    	\parbox{5.5in} {
+	\begin{center}
+      		Approved By:\par
+      		\vglue 2ex
+      		Ken Kishida, Ph.D., Advisor \\
+      		\vglue 2ex
+      		Christian Waugh, Ph.D., Chairperson \\
+      		\vglue 2ex
+      		Todd McFall, Ph.D.
+    \end{center}
+
+  \end{titlepage}
+  \setcounter{footnote}{0} % Footnotes start at zero again.
+  \let\thanks\relax
+  \let\maketitle\relax % only ONCE!?
+  }
+}
+\newcommand{\acknowledgements}{\pchapter{Dedication \& Acknowledgements}\thispagestyle{empty}}
+\newcommand{\abbreviations}{\pchapter{Abbreviations}\thispagestyle{empty}}
+\newcommand{\abstract}{\pchapter{Abstract}\thispagestyle{empty}}
+

@@ -77,6 +77,7 @@ In combination with their 2016 paper, Kishida and colleagues studied the dopamin
 
 ```{r kishida2016-task-design}
 #| echo = FALSE, warning = FALSE, fig.align = "center", out.width = "90%",
+#| fig.scap = "Sequential investment task reprinted with permission from Kishida et al., 2016.",
 #| fig.cap = "Participants played a sequential-choice game during surgery using button boxes (A; Left) and a visual display (A; Right). For each patient, bet size adjustments (e.g., increase bet or decrease bet) and the decision to submit one’s answer were performed with button boxes. (B) Graphical depiction of the market price history (red trace), their current portfolio value (bottom left box), and their most recent outcome (bottom right box) for sequential investment task (C) Timeline of events during a single round of the investment game. Reprinted with permission from Kishida et al., 2016."
 
 knitr::include_graphics(
@@ -106,6 +107,7 @@ where $b_{tr}$ is the individual's factional investment at trial $tr$ and $r_{tr
 
 ```{r kishida2016-rpe-inversion}
 #| echo = FALSE, warning = FALSE, fig.align = "center", out.width = "90%",
+#| fig.scap = "Reward prediction error encoding by dopamine transients reprinted with permission from Kishida et al., 2016.",
 #| fig.cap = "RPE encoding by dopamine transients invert as a function of bet size. Dopamine responses to equal absolute magnitude positive and negative RPEs when bets are high (Left), medium (Center), or low (Right). For all three plots, mean normalized dopamine responses with standard errors are shown for positive RPEs (green traces) and negative RPEs (red traces). Reprinted with permission from Kishida et al., 2016."
 
 knitr::include_graphics(

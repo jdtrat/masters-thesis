@@ -12,6 +12,7 @@ The first two steps Wilson and Collins discuss are designing an experiment and d
 
 ```{r sborg-task-description}
 #| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
+#| fig.scap="Schematic of a trial from the Sure Bet or Gamble Task",
 #| fig.cap = "Schematic of a trial from the Sure Bet or Gamble task and subjective rating prompt. A prospect is presented for a random duration based on a Poisson distribution $(\\lambda = 6\\text{s})$. Assuming a timely response, a choice screen was shown for two seconds followed by an outcome screen for one second. Trials were separated with a fixation cross whose inter-trial interval was a random duration from a Poisson distribution with $\\lambda = 3\\text{s}$."
 
 knitr::include_graphics(
@@ -64,6 +65,7 @@ Consider the prospect depicted in Figure \@ref(fig:sborg-task-description). Give
 
 ```{r sbg-demo-gamma-range}
 #| echo = FALSE, warning = FALSE, fig.align = "center", fig.width = 1.619 * 5, fig.height = 5, dpi = 300, out.width = "95%",
+#| fig.scap = "Counterfactual utilities for an example prospect from the sure bet or gamble task.",
 #| fig.cap = "Counterfactual utilities for a sample prospect from the sure bet or gamble task simulated for $0 \\leq \\gamma \\leq 0.5$. Blue line represents the counterfactual utility of choosing the 'Sure Bet' and receiving three dollars; red line represents the counterfactual utility of choosing the 'Gamble' and having a 50 percent chance of receiving two dollars or five dollars. The 'indifference' point of choosing one option over the other occurs when $\\gamma \\approx 0.16$."
 
 knitr::include_graphics(
@@ -99,6 +101,7 @@ where $U_1, U_2$ are the utilities (according to the proposed model such as CPUT
 
 ```{r sbg-demo-softmax-figure}
 #| echo = FALSE, warning = FALSE, fig.align = "center", fig.width = 1.619 * 5, fig.height = 5, dpi = 300, out.width = "95%",
+#| fig.scap = "Illustration of logistic transformation (softmax) function for converting the difference in utilities to a choice probability.",
 #| fig.cap = "Probability of choosing Option 1 ('Sure Bet') calculated by a logistic transformation of the difference in utilities for the counterfactual utilities of each option as shown in Figure \\@ref(fig:sbg-demo-gamma-range) across $0 \\leq \\gamma \\leq 0.5$. As  $\\tau$ increases, individuals are more likely to maximize utility. Note that the 'indifference' point of choosing one option over the other occurs when $\\gamma \\approx 0.16$, regardless of $\\tau$."
 
 knitr::include_graphics(
