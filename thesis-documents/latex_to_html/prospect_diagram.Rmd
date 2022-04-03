@@ -1,0 +1,63 @@
+---
+pagestyle: empty
+output: 
+  pdf_document:
+    includes:
+      in_header: "../preamble.tex"
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+---
+
+```{=latex}
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}
+
+\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
+\definecolor{awesome}{rgb}{1.0, 0.13, 0.32}
+\definecolor{ballblue}{rgb}{0.13, 0.67, 0.8}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{deepskyblue}{rgb}{0.0, 0.75, 1.0}
+\definecolor{green(pigment)}{rgb}{0.0, 0.65, 0.31}
+
+\tikzstyle{level 1} = [sibling distance=4.5cm, level distance=1.5cm]
+\tikzstyle{level 2}=[sibling distance=2.5cm]
+\tikzstyle{labels} = [text width=4em, text centered]
+\tikzstyle{main} = [shape=circle, draw, align=center, top color=white, bottom color=blue!20, thick]
+\tikzstyle{x1} = [shape=circle, draw, align=center, bottom color=white, top color=green(pigment)!40, thick]
+\tikzstyle{n1} = [shape=circle, draw, align=center, bottom color=white, top color=amethyst!40, thick]
+\tikzstyle{x2} = [shape=circle, draw, align=center, bottom color=white, top color=awesome!40, thick]
+\tikzstyle{n2} = [shape=circle, draw, align=center, bottom color=white, top color=deepskyblue!40, thick]
+
+    \node[main](Pros) {\scriptsize Prospect}
+    child { node[main](A1) {}
+        child{ node[x1](X1) {$x_{1a}$}}
+        child{ node[n1](N1) {$x_{1b}$}}}
+    child { node[main](A2) {}
+        child{ node[n2](N2) {$x_{2b}$}}
+        child{ node[x2](X2) {$x_{2a}$}}};
+    \draw[->,black, thick](Pros) -- (A1);
+    \draw[->,black, thick](Pros) -- (A2);
+    \draw[->,green(pigment), ultra thick] (A1) -- (X1);
+    \draw[->,amethyst, ultra thick] (A1) -- (N1);
+    \draw[->,deepskyblue, ultra thick] (A2) -- (N2);
+    \draw[->,awesome, ultra thick] (A2) -- (X2);
+    \node[labels] at (-2.5,-1.0) {\scriptsize Option 1};
+    \node[labels] at (2.4,-1.0) {\scriptsize Option 2};
+    \node[labels] at (-1,-2) {$(1 - p_{1})$};
+    \node[labels] at (-3,-2) {$p_{1}$};
+    \node[labels] at (0.95,-2) {$(1 - p_{2})$};
+    \node[labels] at (3.075,-2) {$p_{2}$};
+    
+    
+    % old path labels of h1-h4
+    %\node[labels, color = green(pigment), thick] at (-3.5,-3.75) {$h_{1}$};
+    %\node[labels, color = amethyst, thick] at (-0.95,-3.75) {$h_{2}$};
+    %\node[labels, color = deepskyblue, thick] at (1.05,-3.75) {$h_{3}$};
+    %\node[labels, color = awesome, thick] at (3.5,-3.75) {$h_{4}$};
+    
+\end{tikzpicture}
+\end{figure}
+```

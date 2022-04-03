@@ -6,9 +6,9 @@ bibliography: references.bib
 
 In the last chapter, I used the term prospect to describe a problem that has two options with stated probabilities and outcomes. In the experimental literature, these prospects are 'description-based'. Formally, researchers who use description-based prospects in their experiments ask participants to select one of the available options that are presented along with a complete description of a non-trivial problem.[@barron2003a]
 
-When looking towards the neuroscientific literature of decision-making, a different type of experimental paradigm is perhaps more common: 'experiential' or 'feedback-based' decisions.[@barron2003a]. By interacting with the environment, humans (and other animals) associate the consequences of different actions and adapt their behavior accordingly. In other words, we learn. We learn over time that we want to eat sushi for dinner, it's faster to take the highway to work, and we're better off if we go to sleep before midnight.[^1]
+When looking towards the neuroscientific literature of decision-making, a different type of experimental paradigm is perhaps more common: 'experiential' or 'feedback-based' decisions.[@barron2003a]. By interacting with the environment, humans (and other animals) associate the consequences of different actions and adapt their behavior accordingly. In other words, we learn. We learn over time that we want to eat sushi for dinner, it's faster to take the highway to work, and we're better off if we go to sleep before midnight.[^neurobiology-1]
 
-[^1]: These learned experiences are in response to the choices posed in the thesis's introduction.
+[^neurobiology-1]: These learned experiences are in response to the choices posed in the thesis's introduction.
 
 Looking towards the animal learning field, we see many accounts of experiential learning. To list a few:
 
@@ -28,9 +28,9 @@ P(\text{sal})_{\text{tr}+1} = P(\text{sal})_{\text{tr}-1} + \alpha (R_{\text{tr}
 (\#eq:bush-mosteller)
 \end{equation}
 ```
-Equation \@ref(eq:bush-mosteller) computes an average of previously experienced rewards. $0 \leq \alpha \leq 1$ is a learning rate, which modulates the influence of more recent rewards. Bush and Mosteller's work forms the basis for modern approaches to this problem of ***reinforcement learning***.[@glimcher2011a][^2] While discretizing learning into trials is a logical first step to modeling behavior in experimental settings, it's not easily applied to biological systems that continuously interact with their environments.
+Equation \@ref(eq:bush-mosteller) computes an average of previously experienced rewards. $0 \leq \alpha \leq 1$ is a learning rate, which modulates the influence of more recent rewards. Bush and Mosteller's work forms the basis for modern approaches to this problem of ***reinforcement learning***.[@glimcher2011a][^neurobiology-2] While discretizing learning into trials is a logical first step to modeling behavior in experimental settings, it's not easily applied to biological systems that continuously interact with their environments.
 
-[^2]: For a more detailed explanation of Bush and Mosteller's work, the development of reinforcement learning for applications to Neuroscience, and much of the material I cover in this chapter, please refer to Paul Glimcher's *Understanding dopamine and reinforcement learning: The dopamine reward prediction error hypothesis*.[@glimcher2011a]
+[^neurobiology-2]: For a more detailed explanation of Bush and Mosteller's work, the development of reinforcement learning for applications to Neuroscience, and much of the material I cover in this chapter, please refer to Paul Glimcher's *Understanding dopamine and reinforcement learning: The dopamine reward prediction error hypothesis*.[@glimcher2011a]
 
 In his 1988 paper, *Learning to Predict by the Methods of Temporal Differences*, Richard Sutton introduces the antecedent for temporal-difference reinforcement learning (TDRL) algorithms.[@sutton1988] The TDRL algorithm provides a computational framework for optimally learning from experience how actions and their associated stimuli lead to rewards. [@sutton-barto-2018]
 
@@ -63,9 +63,14 @@ In combination with their 2016 paper, Kishida and colleagues studied the dopamin
 
 ```{r kishida2016-task-design}
 #| echo = FALSE, warning = FALSE, fig.align = "center", out.width = "90%",
-#| fig.cap = "(A) Participants played a sequential-choice game during surgery using button boxes (Left) and a visual display (Right). For each patient, bet size adjustments (e.g., increase bet or decrease bet) and the decision to submit one’s answer were performed with button boxes. (B) Investment game (19, 21): participants view a graphical depiction of the market price history (red trace), their current portfolio value (bottom left box), and their most recent outcome (bottom right box) to decide and submit investment decisions (bets) using a slider bar in 10% increments (bottom center). Bet sizes were limited to 0–100% (in 10% increments) of the participant’s portfolio—no shorting of the market was allowed. During an experiment, a participant played 6 markets with 20 decisions made per market. (C) Timeline of events during a single round of the investment game.*Reprinted with permission from Kishida et al., 2016.*"
+#| fig.cap = "Participants played a sequential-choice game during surgery using button boxes (A; Left) and a visual display (A; Right). For each patient, bet size adjustments (e.g., increase bet or decrease bet) and the decision to submit one’s answer were performed with button boxes. (B) Graphical depiction of the market price history (red trace), their current portfolio value (bottom left box), and their most recent outcome (bottom right box) for sequential investment task (C) Timeline of events during a single round of the investment game. Reprinted with permission from Kishida et al., 2016."
 
-knitr::include_graphics(here::here("thesis-documents/figures/kishida2016-task-design.png"))
+knitr::include_graphics(
+  here::here(
+    "thesis-documents/figures/kishida2016-task-design.png"
+    )
+  )
+
 ```
 
 In their 2011 paper, they asked one person, MH, to complete the sequential investment task. In line with prior work relating dopamine with unexpected financial outcomes [@zaghloul2009], Kishida and colleagues observed a strong correlation between MH's dopamine levels and the market value during the investment task.[@kishida2011] In 2016, Kishida and colleagues published results from seventeen humans. Here, they explicitly tested the hypothesis that fluctuations in dopamine released in the human striatum encode TD-RPEs.[@kishida2016] For the sequential investment task, RPEs were calculated as the difference between an investment's return on a given trial relative to the expectation defined by the average return from preceding trials.
@@ -81,15 +86,21 @@ Contrary to the hypothesis that dopamine fluctuations in the striatum should tra
 (\#eq:rpe-cpe)
 \end{equation}
 ```
+
 where $b_{tr}$ is the individual's factional investment at trial $tr$ and $r_{tr}$ is the relative change in market price. As Kishida and colleagues note, the intuition for Equation \@ref(eq:rpe-cpe) is that better-than-expected outcomes (positive RPEs, increased dopamine release), that *could have been even better* (positive CPEs) should be reduced in value. Similarly, worse-than-expected outcomes (negative RPEs, decreased dopamine release), that *could have been even worse* (negative CPEs) should be increased in value. Importantly, these empirical terms are consistent with the subjective feelings (e.g., regret and relief), one experiences in light of a given outcome.
 
-Figure \@ref(fig:kishida2016-rpe-inversion) depicts changes in dopamine levels as a function of bet size. Consider the 'higher bets' panel (left) where individuals bet close to the maximum amount possible. When they were rewarded with a positive change in portfolio value, the dopamine concentrations increased (green; positive RPEs). Similarly, when the portfolio value decreased, dopamine levels dipped (red; negative RPEs). With high bets, the difference between what they earned and what they could have earned had they bet more is minimal, as is the CPE. With medium bets (middle panel), however, the difference between what individuals experienced and what they could have experienced had they bet more increases. This means that the absolute magnitude of the CPE goes up which subtracts from the dopamine release predicted by positive and negative RPEs. When the CPEs are maximal (small bets; right panel), we observe an inversion in dopamine release in response to positive and negative RPEs.
+Figure \@ref(fig:kishida2016-rpe-inversion) depicts changes in dopamine levels as a function of bet size. Consider the 'higher bets' panel (left) where individuals bet close to the maximum amount possible. When they were rewarded with a positive change in portfolio value, the dopamine concentrations increased (green; positive RPEs). Similarly, when the portfolio value decreased, dopamine levels dipped (red; negative RPEs). With high bets (left panel, bets between $90\%-100\%$ of portfolio value), the difference between what they earned and what they could have earned had they bet more is minimal, as is the CPE. With medium bets (middle panel, $60\%-80\%$), however, the difference between what individuals experienced and what they could have experienced had they bet more increases. This means that the absolute magnitude of the CPE goes up which subtracts from the dopamine release predicted by positive and negative RPEs. When the CPEs are maximal (small bets, $10\% - 50\%$; right panel), we observe an inversion in dopamine release in response to positive and negative RPEs.
 
 ```{r kishida2016-rpe-inversion}
 #| echo = FALSE, warning = FALSE, fig.align = "center", out.width = "90%",
-#| fig.cap = "RPE encoding by dopamine transients invert as a function of bet size. Dopamine responses to equal absolute magnitude positive and negative RPEs (−0.75 > RPE > +0.75) when bets are high (higher bets, 100–90%) (Left), medium (medium bets, 80–60%) (Center), or low (lower bets, 50–10%) (Right). For all three plots, mean normalized dopamine responses (±SEM) to positive RPEs (green traces) and negative RPEs (red traces). Inset legends show sample sizes for event types. Two-way ANOVA (RPE-sign and time: 700 ms following and including outcome reveal) reveals a significant difference comparing dopamine responses for positive and negative RPEs following higher bets [FRPE-sign(1,7) = 21.17, P = 0.00] and lower bets [FRPE-sign(1,7) = 32.64, P = 0.00] but not medium bet sizes [FRPE-sign(1,7) = 0.15, P = 0.6957]. Asterisks indicate significant difference between red and green traces: P < 0.05, post hoc, two-sample t test following ANOVA with time and RPE-sign as the two main factors. Asterisks with parentheses indicate Bonferroni correction for multiple comparisons. For low bets (i.e., large CPEs), only those events where the market price change and the RPE-sign are the same are considered. Horizontal axis: time (ms) from outcome reveal (blue arrowhead); vertical axis: mean change in normalized dopamine response.*Reprinted with permission from Kishida et al., 2016.*"
+#| fig.cap = "RPE encoding by dopamine transients invert as a function of bet size. Dopamine responses to equal absolute magnitude positive and negative RPEs when bets are high (Left), medium (Center), or low (Right). For all three plots, mean normalized dopamine responses with standard errors are shown for positive RPEs (green traces) and negative RPEs (red traces). Reprinted with permission from Kishida et al., 2016."
 
-knitr::include_graphics(here::here("thesis-documents/figures/kishida2016-rpe-inversion.png"))
+knitr::include_graphics(
+  here::here(
+    "thesis-documents/figures/kishida2016-rpe-inversion.png"
+    )
+  )
+
 ```
 
 The 'superposed error signals about actual and counterfactual reward' described in Kishida and colleagues' paper[@kishida2016] directly inspired my thesis work. They provide an empirical, neurobiologically plausible framework for investigating decision-making under risk. The theoretical and quantitative underpinnings of classical and behavioral economic theories of decision-making align well with the computational reinforcement learning literature described in this chapter. The explicit probability and outcome structure for risky prospects afford the opportunity to internalize future states and (potentially) incorporate anticipated counterfactual events into the decision-making process. In the next chapter, I derive 'Counterfactual Predicted Utility Theory' as a new theory of decision-making under risk.

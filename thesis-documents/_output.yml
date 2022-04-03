@@ -9,11 +9,11 @@ bookdown::bs4_book:
   sharing: yes
   download: ["pdf", "epub"]
   csl: american-statistical-association.csl
-bookdown::pdf_document2:
+bookdown::pdf_book:
   toc: yes
   includes:
     in_header: preamble.tex
-  latex_engine: xelatex
+  latex_engine: pdflatex
   csl: american-statistical-association.csl
   keep_tex: yes
 bookdown::word_document2:

@@ -62,7 +62,7 @@ Consider the prospect depicted in Figure \@ref(fig:sborg-task-description). Give
 
 ```{r sbg-demo-gamma-range}
 #| echo = FALSE, warning = FALSE, fig.align = "center", fig.width = 1.619 * 5, fig.height = 5, dpi = 300, out.width = "95%",
-#| fig.cap = "Counterfactual utilities for a sample prospect from the sure bet or gamble task simulated for $0 \\leq \\gamma \\leq 0.5$. Blue line represents the counterfactual utility of choosing the 'Sure Bet' and receiving three dollars; red line represents the counterfactual utility of choosing the 'Gamble' and having a 50% chance of receiving two dollars or five dollars. The 'indifference' point of choosing one option over the other occurs when $\\gamma \\approx 0.16$"
+#| fig.cap = "Counterfactual utilities for a sample prospect from the sure bet or gamble task simulated for $0 \\leq \\gamma \\leq 0.5$. Blue line represents the counterfactual utility of choosing the 'Sure Bet' and receiving three dollars; red line represents the counterfactual utility of choosing the 'Gamble' and having a 50 percent chance of receiving two dollars or five dollars. The 'indifference' point of choosing one option over the other occurs when $\\gamma \\approx 0.16$."
 
 knitr::include_graphics(
   here::here(
@@ -71,9 +71,9 @@ knitr::include_graphics(
 )
 ```
 
-Although we can determine the utility of each option, we only have peoples' choice behavior from which to fit the model. This means that we need to determine what the most likely parameter value that would give us the observed data. To help answer this question, I looked towards Bayesian statistics, which offers a way to incorporate *prior* information about parameters in a statistical model with observed data to define a *posterior* probability distribution representing the most plausible parameter values.[^1]
+Although we can determine the utility of each option, we only have peoples' choice behavior from which to fit the model. This means that we need to determine what the most likely parameter value that would give us the observed data. To help answer this question, I looked towards Bayesian statistics, which offers a way to incorporate *prior* information about parameters in a statistical model with observed data to define a *posterior* probability distribution representing the most plausible parameter values.[^model-concepts-1]
 
-[^1]: For excellent resources on Bayesian statistics, I highly recommend the textbooks *Statistical Rethinking: A Bayesian Course with Examples in R and Stan* by Richard McElreath[@richardmcelreath2020] and *Bayes Rules! An Introduction to Applied Bayesian Modeling* by Alicia A. Johnson, Miles Q. Ott, and Mine Dogucu.[@dogucu]
+[^model-concepts-1]: For excellent resources on Bayesian statistics, I highly recommend the textbooks *Statistical Rethinking: A Bayesian Course with Examples in R and Stan* by Richard McElreath[@richardmcelreath2020] and *Bayes Rules! An Introduction to Applied Bayesian Modeling* by Alicia A. Johnson, Miles Q. Ott, and Mine Dogucu.[@dogucu]
 
 The first step in performing Bayesian inference is to construct a *prior* probability model for our parameters of interest. Because I end up fitting multiple models (e.g., perform model comparison), I will outline the procedure here in the general case using $\theta$ to represent a given model's parameters. Our prior probability model, $\pi(\theta)$ contains available information about a parameter's distribution before observing any data. This information could come from, for example, previous experiments. If no information is available, we might assume a uniform prior distribution, which assigns equal probability to all values within the defined range.
 
@@ -114,9 +114,9 @@ Pr(\theta|\text{Choices}) \propto L(\text{Chose Option 1}|\theta) \times \pi(\th
 (\#eq:posterior-propto)
 \end{equation}
 ```
-Where the probability of $\theta$ being some value given the observed choice data, our posterior distribution $Pr(\theta|\text{Choices})$, is *proportional to*[^2] the likelihood of observing that data given that parameter value, $L(\text{Chose Option 1}|\theta)$, times the prior plausibility of the parameter being that value, $\pi(\theta)$.
+Where the probability of $\theta$ being some value given the observed choice data, our posterior distribution $Pr(\theta|\text{Choices})$, is *proportional to*[^model-concepts-2] the likelihood of observing that data given that parameter value, $L(\text{Chose Option 1}|\theta)$, times the prior plausibility of the parameter being that value, $\pi(\theta)$.
 
-[^2]: Note that this is a form of Bayes' theorem that excludes the marginal likelihood of the data -- that is, the total probability of observing the data -- which acts as a normalizing constant to ensure the posterior distribution is a valid probability density function. For more details on this 'posterior shortcut', see section 2.3.6 of *Bayes Rules!*.[@dogucu]
+[^model-concepts-2]: Note that this is a form of Bayes' theorem that excludes the marginal likelihood of the data -- that is, the total probability of observing the data -- which acts as a normalizing constant to ensure the posterior distribution is a valid probability density function. For more details on this 'posterior shortcut', see section 2.3.6 of *Bayes Rules!*.[@dogucu]
 
 To estimate the posterior distribution, I used two 'Markov Chain Monte Carlo' methods. For my first attempt, I manually implemented the Metropolis-Hastings algorithm.[@haines2018; @dogucu] At a high level, the Metropolis-Hastings algorithm involves the following steps:
 

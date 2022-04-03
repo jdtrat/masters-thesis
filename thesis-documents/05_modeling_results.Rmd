@@ -4,9 +4,7 @@ bibliography: references.bib
 
 # Modeling Methods and Results
 
-Using the computational modeling techniques I introduced last chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. To do this, I first simulated choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model.[@wilson2019] With this confirmation, I fit variations of counterfactual predicted utility theory with and without risk-aversion parameter of expected utility theory and counterfactual predicted utility theory with that the task was able to relative to the veracity of counterfactual predicted utility theory as a generative theory of decision-making under risk. I did this by comparing the mode
-
-First up is the explicit simulation and parameter recovery. In order to determine whether or not the sure bet or gamble task could capture the parameters of interest, I simulated fifty subjects
+Using the computational modeling techniques I introduced last chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. In this chapter, I describe how I implemented the three stages outlined last chapter.[@wilson2019] The first step: simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model.
 
 ## Simulating Choice Data
 
@@ -24,15 +22,15 @@ knitr::include_graphics(
 )
 ```
 
-Given the task design, participants saw a random subset of 252 prospects. The posterior distribution for $\gamma$ recovered from Kahneman and Tversky's choice proportion data was used to generate $\gamma$ values for fifty subjects. I then simulated their choices on each of the 252 prospects, again fixing the softmax sensitivity parameter $\tau = 1$. For five-thousand iterations of the Metropolis-Hastings algorithm, I sampled from the posterior distribution for each simulated subject.[^1] With the same simulated choice data, I also fit a hierarchical Bayesian model in Stan with the non-centered reparameterization as described in the last chapter. I ran the Hamiltonian Monte Carlo (Stan) sampler for 5000 iterations across four parallel sampling chains for a total of 20,000 samples from the posterior.[^2] Figure \@ref(fig:sbg-sim-parameter-recovery) shows the 95% highest density interval recovered from each sampler's posterior distribution.
+Given the task design, participants saw a random subset of 252 prospects. The posterior distribution for $\gamma$ recovered from Kahneman and Tversky's choice proportion data was used to generate $\gamma$ values for fifty subjects. I then simulated their choices on each of the 252 prospects, again fixing the softmax sensitivity parameter $\tau = 1$. For five-thousand iterations of the Metropolis-Hastings algorithm, I sampled from the posterior distribution for each simulated subject.[^model-results-1] With the same simulated choice data, I also fit a hierarchical Bayesian model in Stan with the non-centered reparameterization as described in the last chapter. I ran the Hamiltonian Monte Carlo (Stan) sampler for 5000 iterations across four parallel sampling chains for a total of 20,000 samples from the posterior.[^model-results-2] Figure \@ref(fig:sbg-sim-parameter-recovery) shows the 95% highest density interval recovered from each sampler's posterior distribution.
 
-[^1]: Although I simulated participants' counterfactual weighting term following the posterior from Kahneman and Tversky's choice proportion data, $\gamma \sim \text{Beta}(1.1,1.1)$, I used a uniform prior again when sampling from the Metropolis-Hastings algorithm for optimizing my analytical workflow. I felt this was justified because $\text{Beta}(1.1,1.1)$ is (relatively) uninformative prior and the decision would not have a large impact on the recoverability of parameter values (with the possible exception of model fitting time). Further, I wanted to maintain consistency with the uniform distribution of the individual-level priors defined in the hierarchical Bayesian model with the inverse Probit transformation.[@ahn2014; @ahn2017]
+[^model-results-1]: Although I simulated participants' counterfactual weighting term following the posterior from Kahneman and Tversky's choice proportion data, $\gamma \sim \text{Beta}(1.1,1.1)$, I used a uniform prior again when sampling from the Metropolis-Hastings algorithm for optimizing my analytical workflow. I felt this was justified because $\text{Beta}(1.1,1.1)$ is (relatively) uninformative prior and the decision would not have a large impact on the recoverability of parameter values (with the possible exception of model fitting time). Further, I wanted to maintain consistency with the uniform distribution of the individual-level priors defined in the hierarchical Bayesian model with the inverse Probit transformation.[@ahn2014; @ahn2017]
 
-[^2]: I included a warmup of 2000 iterations, during which time the Hamiltonian Monte Carlo sampling algorithm was tuned to improve efficiency when sampling from the posterior distribution. See [Chapter 9 of the CmdStan User's Guide](https://mc-stan.org/docs/2_29/cmdstan-guide/mcmc-config.html) for more information on 'MCMC Sampling using Hamiltonian Monte Carlo'[@standevelopmentteam2022]
+[^model-results-2]: I included a warmup of 2000 iterations, during which time the Hamiltonian Monte Carlo sampling algorithm was tuned to improve efficiency when sampling from the posterior distribution. See [Chapter 9 of the CmdStan User's Guide](https://mc-stan.org/docs/2_29/cmdstan-guide/mcmc-config.html) for more information on 'MCMC Sampling using Hamiltonian Monte Carlo'[@standevelopmentteam2022]
 
 ```{r sbg-sim-parameter-recovery}
 #| echo = FALSE, warning = FALSE, fig.align = "center", fig.width = 1.619 * 5, fig.height = 8, dpi = 300, out.width = "95%",
-#| fig.cap = "95% highest density interval of the posterior distribution of $\\gamma$ as estimated from five-thousand iterations of a Metropolis-Hastings algorithm and five-thousand iterations across four parallel chains with the Hamiltonian Monte Carlo Sampler (estimated using Stan[@standevelopmentteam2022]). The simulated gamma values for each subject are represented as sky-blue dots if they fall within the 95% highest density interval and red dots if they fall outside of it."
+#| fig.cap = "95 percent highest density interval of the posterior distribution of $\\gamma$ as estimated from five-thousand iterations of a Metropolis-Hastings algorithm and five-thousand iterations across four parallel chains with the Hamiltonian Monte Carlo Sampler (estimated using Stan). The simulated gamma values for each subject are represented as sky-blue dots if they fall within the highest density interval and red dots if they fall outside of it."
 knitr::include_graphics(
   here::here(
     targets::tar_read(sbg_sim_parameter_recovery_figure_file)
@@ -53,7 +51,7 @@ In total, I estimated parameters for seven variants of expected utility theory a
 
 ```{r model-definition-table}
 #| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
-#| fig.cap = "Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation.[@ahn2017] Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one $(\\gamma)$, two $(\\rho)$, and thirty $(\\tau)$."
+#| fig.cap = "Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation. Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one $(\\gamma)$, two $(\\rho)$, and thirty $(\\tau)$."
 
 knitr::include_graphics(
   here::here(
@@ -96,3 +94,7 @@ knitr::include_graphics(
   )
 )
 ```
+
+The two rows highlighted in Table \@ref(fig:model-fit-summary-table), represent the most direct comparison of contractual predicted utility theory with expected utility theory. The metrics presented pose an interesting problem with the blanket statement that a 'better model' has a  smaller LOOIC and higher (or less negative) posterior predictive choice accuracy, ELPD, and marginal likelihood model evidence, the model fit metrics pose an interesting problem. 
+
+On average, both — in fact, all models — accurately predict more than 80% of observed choices using the posterior predictive distribution. If we look at either ELPD or LOOIC, we see that the expected utility model is performs better. Looking at the marginal likelihood, however, the counterfactual predicted utility model seems better. These seemingly disparate indicators make sense when considering what each metric represents. In the next chapter, I will conclude my thesis with a discussion of these results and allude to next steps to contribute towards a better understanding of the neurobiological basis of decision-making under risk.
