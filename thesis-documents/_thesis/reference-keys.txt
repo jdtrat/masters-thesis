@@ -25,6 +25,8 @@ fig:sbg-sim-parameter-recovery
 fig:model-definition-table
 fig:population-level-post-param-figure
 fig:model-fit-summary-table
+dedication-and-acknowledgements
+abstract
 introduction
 evolution-of-decision-theory
 neurobiology-of-decision-making

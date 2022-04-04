@@ -4,7 +4,7 @@ bibliography: references.bib
 
 # Modeling Methods and Results
 
-Using the computational modeling techniques I introduced last chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. In this chapter, I describe how I implemented the three stages outlined last chapter.[@wilson2019] The first step: simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model.
+Using the computational modeling techniques I introduced in the previous chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. In this chapter, I describe how I implemented the three stages from Wilson and and Collins previously described.[@wilson2019] The first step: simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model.
 
 ## Simulating Choice Data
 
@@ -23,7 +23,7 @@ knitr::include_graphics(
 )
 ```
 
-Given the task design, participants saw a random subset of 252 prospects. The posterior distribution for $\gamma$ recovered from Kahneman and Tversky's choice proportion data was used to generate $\gamma$ values for fifty subjects. I then simulated their choices on each of the 252 prospects, again fixing the softmax sensitivity parameter $\tau = 1$. For five-thousand iterations of the Metropolis-Hastings algorithm, I sampled from the posterior distribution for each simulated subject.[^model-results-1] With the same simulated choice data, I also fit a hierarchical Bayesian model in Stan with the non-centered reparameterization as described in the last chapter. I ran the Hamiltonian Monte Carlo (Stan) sampler for 5000 iterations across four parallel sampling chains for a total of 20,000 samples from the posterior.[^model-results-2] Figure \@ref(fig:sbg-sim-parameter-recovery) shows the 95% highest density interval recovered from each sampler's posterior distribution.
+Given the task design, participants saw a random subset of 252 prospects. The posterior distribution for $\gamma$ recovered from Kahneman and Tversky's choice proportion data was used to generate $\gamma$ values for fifty subjects. I then simulated their choices on each of the 252 prospects, again fixing the softmax sensitivity parameter $\tau = 1$. For five-thousand iterations of the Metropolis-Hastings algorithm, I sampled from the posterior distribution for each simulated subject.[^model-results-1] With the same simulated choice data, I also fit a hierarchical Bayesian model in Stan with the non-centered reparameterization as described in the computational modeling concepts chapter. I ran the Hamiltonian Monte Carlo (Stan) sampler for 5000 iterations across four parallel sampling chains for a total of 20,000 samples from the posterior.[^model-results-2] Figure \@ref(fig:sbg-sim-parameter-recovery) shows the 95% highest density interval recovered from each sampler's posterior distribution.
 
 [^model-results-1]: Although I simulated participants' counterfactual weighting term following the posterior from Kahneman and Tversky's choice proportion data, $\gamma \sim \text{Beta}(1.1,1.1)$, I used a uniform prior again when sampling from the Metropolis-Hastings algorithm for optimizing my analytical workflow. I felt this was justified because $\text{Beta}(1.1,1.1)$ is (relatively) uninformative prior and the decision would not have a large impact on the recoverability of parameter values (with the possible exception of model fitting time). Further, I wanted to maintain consistency with the uniform distribution of the individual-level priors defined in the hierarchical Bayesian model with the inverse Probit transformation.[@ahn2014; @ahn2017]
 
@@ -67,6 +67,7 @@ All models were sampled for 5000 iterations across four parallel chains with the
 
 ```{r population-level-post-param-figure}
 #| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
+#| fig.scap = "Posterior distribution of group-level parameter estimates for each model.",
 #| fig.cap = "Posterior distribution of group-level parameter estimates for each model. Distributions for $\\gamma$ are in green, $\\rho$ in blue, and $\\tau$ in orange."
 
 knitr::include_graphics(

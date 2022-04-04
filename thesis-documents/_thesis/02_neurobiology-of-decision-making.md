@@ -4,7 +4,7 @@ bibliography: references.bib
 
 # Neurobiology of Decision-Making
 
-In the last chapter, I used the term *prospect* to describe a problem that has two options with stated probabilities and outcomes. In the experimental literature, these prospects are called 'description-based'. Researchers who use description-based prospects in their experiments ask participants to select one of the available options that are presented along with a complete description of a non-trivial problem.[@barron2003a]
+In the previous chapter, I used the term *prospect* to describe a problem that has two options with stated probabilities and outcomes. In the experimental literature, these prospects are called 'description-based'. Researchers who use description-based prospects in their experiments ask participants to select one of the available options that are presented along with a complete description of a non-trivial problem.[@barron2003a]
 
 When looking towards the neuroscientific literature of decision-making, a different type of experimental paradigm is perhaps more common: 'experiential' or 'feedback-based' decisions.[@barron2003a]. By interacting with the environment, humans (and other animals) associate the consequences of different actions and adapt their behavior accordingly. In other words, we learn. We learn over time that we want to eat sushi for dinner, it's faster to take the highway to work, and we're better off if we go to sleep before midnight.[^neurobiology-1]
 

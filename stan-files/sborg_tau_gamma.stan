@@ -129,7 +129,7 @@ generated quantities {
     }
   }
 
-  mu_tau = Phi_approx(mu_pr[1]);
+  mu_tau = Phi_approx(mu_pr[1]) * 30;
   mu_gamma = Phi_approx(mu_pr[2]);
 
   { // local section to save time and space

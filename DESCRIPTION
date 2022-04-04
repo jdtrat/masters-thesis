@@ -1,4 +1,4 @@
-Package: masters-thesis
+Package: masters.thesis
 Title: Counterfactuals, Dopamine, and Risky Behavior
 Version: 0.0.0.9000
 Authors@R: 
@@ -13,6 +13,7 @@ RoxygenNote: 7.1.2
 Imports: 
     bookdown,
     dplyr,
+    foreach,
     fs,
     HDInterval,
     here,
@@ -27,3 +28,6 @@ Imports:
     tarchetypes,
     targets,
     tidyr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

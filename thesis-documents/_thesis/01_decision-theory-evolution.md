@@ -22,7 +22,7 @@ If you were an economic theorist, I would bet that you would choose the black op
 (\#eq:ev-red-black)
 \end{equation}
 ```
-Looking at the expected values for each option calculated in \@ref(eq:ev-red-black), we see $\text{EV}(\text{Red}) > \text{EV(Black)}$. Therefore, the rational choice according to a classical economist is the black option.
+Looking at the expected values for each option calculated in \@ref(eq:ev-red-black), we see $\text{EV}(\text{Black}) > \text{EV(Red)}$. Therefore, the rational choice according to a classical economist is the black option.
 
 The new type of roulette presented above is a prototypical example of a *prospect* -- a choice between two options with explicit probabilities and outcomes -- used to investigate decision-making under risk. The normative measure of monetary reinforcements allows decision-researchers to probe the mechanisms underlying choice behavior. When participants have a similar reference point, choosing the option with a higher expected monetary payout is straightforward (at least mathematically speaking). However, the decision to accept a risky gamble like the one described above may change if you ask someone with an annual income over one-million dollars compared to someone with an income under fifty-thousand dollars.
 

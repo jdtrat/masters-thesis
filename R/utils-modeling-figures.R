@@ -65,7 +65,7 @@ generate_sbg_demo_softmax_figure <- function() {
 
   sbg_demo_prospect_df <- purrr::pmap_df(
     expand_grid(.x = seq(0,0.5,0.01),
-                .y = c(0.5, 1, 5, 10, 20, 30)
+                .y = c(0.5, 1, 3, 5, 10, 30)
                 ),
     ~ {
       cu <- get_cu(
@@ -338,6 +338,235 @@ generate_sbg_sim_parameter_recovery_figure <- function(
     legend,
     ncol = 1,
     rel_heights = c(0.1, 1, 0.05)
+  )
+
+}
+
+
+#' Generate Population Level Posterior Estimates for a Model Fit
+#'
+#' @description This function accepts a cmdstanr model fit and plots the
+#'   posterior density for all group-level posterior parameter samples (any
+#'   parameter beginning with 'mu_'), excluding the mean (mu_pr) used in the
+#'   standard normal hierarchical specification.
+#' @param model_fit A cmdstanr model fit environment
+#' @param mu_param_colors A named character vector corresponding to the 'mu_'
+#'   parameters estimated with Stan. These will be used to ensure a consistent
+#'   coloring of parameters caross model fits.
+#'
+#' @return A ggplot
+#' @export
+#'
+generate_population_posterior_plot_individual <- function(
+  model_fit,
+  mu_param_colors = c(
+    "mu_rho"= "#5DA5DAFF",
+    "mu_tau" = "#FAA43AFF",
+    "mu_gamma" = "#60BD68FF"
+  )
+) {
+
+  stan_vars <- model_fit$metadata()$stan_variables
+  mod_vars <- stan_vars[which(grepl("^mu_", stan_vars))]
+  # Remove the mu_pr, we only want the actual group level params
+  mod_vars <- mod_vars[which(mod_vars != "mu_pr")]
+
+  model_fit_params <- purrr::map_df(
+    mod_vars,
+    ~ {
+      tibble(
+        parameter = .x,
+        value = posterior::extract_variable(
+          model_fit$draws(.x),
+          .x
+        )
+      )
+    }
+  )
+
+  ggplot(model_fit_params,
+         aes(x = value, fill = parameter)) +
+    geom_density(
+      color = scales::alpha("black", 0.8)
+    ) +
+    cowplot::theme_cowplot() +
+    scale_fill_manual(
+      values = mu_param_colors
+    ) +
+    # Remove trailing zeros
+    scale_x_continuous(
+      n.breaks = 4,
+      labels = function(x) ifelse(x == 0, "0", x)
+    ) +
+    theme(
+      plot.title = element_text(
+        size = 18,
+        hjust = 0.5
+      ),
+      legend.position = "none",
+      axis.line.y = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.text.x = element_text(
+        size = 14
+      ),
+      axis.title.x = element_blank(),
+      strip.background = element_blank(),
+      strip.text = ggtext::element_textbox(
+        size = 16,
+        face = "bold",
+        box.color = "black",
+        linewidth = 0.6,
+        halign = 0.5,
+        linetype = 1, r = unit(5, "pt"), width = unit(0.5, "npc"),
+        padding = margin(3, 3, 3, 3), margin = margin(3, 3, 3, 3)
+      )
+    ) +
+    facet_wrap(~parameter,
+               scales = "free",
+               labeller = as_labeller(
+                 function(x) {
+                   name <- str_to_title(
+                     str_remove(x, "mu_")
+                   )
+                   glue::glue("<span style='color: {mu_param_colors[x]};'> {name} </span>")
+                 }
+               )
+    )
+
+}
+
+
+#' Generate Population Level Posterior Estimates for a Model Fit
+#'
+#' @description This function accepts the a named list of each cmdstanr model
+#'   fit environment and plots the posterior density for all group-level
+#'   posterior parameter samples (any parameter beginning with 'mu_'), excluding
+#'   the mean (mu_pr) used in the standard normal hierarchical specification.
+#' @param model_fit_list A list of the cmdstanr model fits. See examples.
+#' @param mu_param_colors A named character vector corresponding to the 'mu_'
+#'   parameters estimated with Stan. These will be used to ensure a consistent
+#'   coloring of parameters caross model fits.
+#'
+#' @return A ggplot
+#' @export
+#'
+#' @examples
+#'
+#'  generate_population_posterior_plot(
+#'    model_fit_list = tibble::lst(
+#'      sbg_fit_mcmc_sborg_gamma,
+#'      sbg_fit_mcmc_sborg_ra_gamma,
+#'      sbg_fit_mcmc_sborg_tau_gamma,
+#'      sbg_fit_mcmc_sborg_ra_tau_gamma,
+#'      sbg_fit_mcmc_sborg_ra,
+#'      sbg_fit_mcmc_sborg_ra_tau,
+#'      sbg_fit_mcmc_sborg_tau
+#'    )
+#'  )
+#'
+#'
+generate_population_posterior_plot <- function(
+  model_fit_list,
+  mu_param_colors = c(
+    "mu_rho"= "#5DA5DAFF",
+    "mu_tau" = "#FAA43AFF",
+    "mu_gamma" = "#60BD68FF"
+  )
+) {
+
+  pop_post_model_plots <- model_fit_list %>%
+    purrr::map(~ {
+
+      # Using the model fit metadata, let's access the
+      # model name and get the correct description to add
+      # as a title
+      subtitle <- generate_model_table_df() %>%
+        filter(
+          str_detect(
+            model_name,
+            paste0(
+              str_remove(
+                .x$metadata()$model_name,
+                "_model"
+              ),
+              "$"
+            )
+          )
+        ) %>%
+        pull(model_title)
+
+      generate_population_posterior_plot_individual(
+        model_fit = .x,
+        mu_param_colors = mu_param_colors
+      ) +
+        labs(
+          title = subtitle
+        )
+    }
+    )
+
+  # Draw Title and Subtitle
+  title <- cowplot::ggdraw() +
+    cowplot::draw_label(
+      "Group-Level Posterior Parameter Estimates",
+      fontface = 'bold',
+      size = 20,
+      y = 0.65,
+      x = 0,
+      hjust = 0
+    ) +
+    cowplot::draw_label(
+      "for Each Model Fit",
+      fontface = 'bold',
+      size = 18,
+      x = 0,
+      y = 0.3,
+      hjust = 0
+    ) +
+    theme(
+      # add margin on the left of the drawing canvas,
+      # so title is aligned with left edge of first plot
+      plot.margin = margin(1, 0, 3, 7)
+    )
+
+  # Layout CPUT with EUT
+  cput_v_eut <- cowplot::plot_grid(
+    pop_post_model_plots$sbg_fit_mcmc_sborg_gamma,
+    pop_post_model_plots$sbg_fit_mcmc_sborg_ra,
+    scale = 0.95
+  )
+
+  # Row for EV + Softmax and CPUT + Risk Aversion
+  ev_v_cput_rho <- cowplot::plot_grid(
+    pop_post_model_plots$sbg_fit_mcmc_sborg_tau,
+    pop_post_model_plots$sbg_fit_mcmc_sborg_ra_gamma,
+    scale = 0.95
+  )
+
+  # Row for EUT + Softmax and Gamma + Softmax
+  eut_cput_softmax <- cowplot::plot_grid(
+    pop_post_model_plots$sbg_fit_mcmc_sborg_ra_tau,
+    pop_post_model_plots$sbg_fit_mcmc_sborg_tau_gamma,
+    scale = 0.95
+  )
+
+  # Make main body of the plot, adding the last ra_tau_gamma
+  body <- cowplot::plot_grid(
+    cput_v_eut,
+    ev_v_cput_rho,
+    eut_cput_softmax,
+    pop_post_model_plots$sbg_fit_mcmc_sborg_ra_tau_gamma,
+    ncol = 1
+  )
+
+  # Finish plot!
+  cowplot::plot_grid(
+    title,
+    body,
+    rel_heights = c(0.1, 1),
+    ncol = 1
   )
 
 }

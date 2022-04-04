@@ -4,11 +4,9 @@ bibliography: references.bib
 
 # Computational Modeling Concepts
 
-In the last chapter, I addressed my first thesis aim of developing counterfactual predicted utility theory (CPUT) as an alternative to expected utility theory to explain decision-making under risk. I showed how information about each potential outcome (terminal node of Figure \@ref(fig:prospect-diagram-general)) integrates with a counterfactual weighting parameter, $\gamma$, to adjust the utility of one option over another. I walked-through an example calculation assuming $\gamma = 0.1$ (diagrammed in Figure \@ref(fig:prospect-diagram-general)). In this chapter, I begin to address my second thesis aim of assessing the predictive accuracy of CPUT using human choice data from a 'Sure Bet or Gamble' task.[@liebenow2021]
-
 In an attempt to robustly, and transparently, fit CPUT to behavioral data, I follow the general guidelines presented in Robert Wilson and Anne Collins's paper *Ten simple rules for the computational modeling of behavioral data*.[@wilson2019]At a high level, they state that computational modeling allows us to make better sense of behavioral data with mathematical models that may provide insight into mechanisms underlying behavior. Although the exact form of the models differ, the basic steps to assess a model's descriptive and predictive efficacy are similar.
 
-The first two steps Wilson and Collins discuss are designing an experiment and developing a model. For my thesis, I fit CPUT, as formulated in the last chapter, with data collected from an ongoing study by Brittany Liebenow and colleagues[@liebenow2021] where forty-five healthy adults (ages 18-65) were recruited to complete a sure-bet or gamble task (Figure \@ref(fig:sborg-task-description)).
+The first two steps Wilson and Collins discuss are designing an experiment and developing a model. For my thesis, I fit CPUT with data collected from an ongoing study by Brittany Liebenow and colleagues[@liebenow2021] where forty-five healthy adults (ages 18-65) were recruited to complete a sure-bet or gamble task (Figure \@ref(fig:sborg-task-description)).
 
 ```{r sborg-task-description}
 #| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",

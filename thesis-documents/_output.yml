@@ -8,14 +8,14 @@ bookdown::bs4_book:
     subdir: thesis-documents
   sharing: yes
   download: ["pdf", "epub"]
-  csl: american-statistical-association.csl
-bookdown::pdf_book:
-  toc: yes
+  csl: apa-numeric.csl
+bookdown::pdf_document2:
+  toc: false
   includes:
     in_header: preamble.tex
-    before_body: title.tex
-  latex_engine: pdflatex
-  csl: american-statistical-association.csl
+    before_body: wfusm-thesis-pdf-beginning.tex
   keep_tex: yes
+  csl: apa-numeric.csl
 bookdown::word_document2:
   toc: yes
+  csl: apa-numeric.csl

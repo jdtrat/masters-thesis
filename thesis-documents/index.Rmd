@@ -36,3 +36,6 @@ knitr::opts_chunk$set(
 ```{r dedications-acknowledgements, child = if (!knitr::is_latex_output()) here::here('thesis-documents/00_dedication-acknowledgements.md')}
 ```
 
+```{r abstract, child = if (!knitr::is_latex_output()) here::here('thesis-documents/00_abstract.md')}
+```
+
