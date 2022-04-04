@@ -25,7 +25,7 @@ url: 'https\://masters-thesis.jdtrat.com/'
 
 # Dedication and Acknowledgements
 
-> I dedicate my thesis to both my mom, Joanne Fink, and grandpa, Dr. Gordon Fink. I would not be the person I am without their love, guidance, and careful proof reading of my thesis. I love you both.
+> I dedicate my thesis to both my mom, Joanne Fink, and grandpa, Dr. Gordon Fink. I would not be the person I am without their love and guidance. Plus, they are excellent proof-readers, which I always appreciate! I love you both.
 
 In May 2022, I will graduate with a Master of Science Degree in Neuroscience from [Wake Forest School of Medicine](https://wakehealth.edu). This website is the embodiment of my master's thesis. None of this would be possible if not for the incredible support of my mentors, family, and friends. 
 
