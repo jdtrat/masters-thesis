@@ -154,3 +154,81 @@ summarize_elpd_looic_evidence <- function(...) {
     )
 
 }
+
+#' Summarize Group Level Posterior Estimates with HDI
+#'
+#' @param ... Any number of cmdstanr model fit environments from which to
+#'   summarize the group level parameter distributions. This function assumes
+#'   the environments begin with the prefix 'sbg_fit_mcmc' as part of the
+#'   targets pipeline and will remove those as applicable.
+#' @param hdi_decimals The number of decimals to include in the output HDI.
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' summarize_group_level_posterior_hdi(
+#'   sbg_fit_mcmc_sborg_ra_tau,
+#'   sbg_fit_mcmc_sborg_ra_tau_gamma,
+#'   sbg_fit_mcmc_sborg_tau_gamma
+#' )
+#'
+summarize_group_level_posterior_hdi <- function(
+  ...
+) {
+
+
+  get_vars <- function(model_fit) {
+
+    stan_vars <- model_fit$metadata()$stan_variables
+    mod_vars <- stan_vars[which(grepl("^mu_", stan_vars))]
+    # Remove the mu_pr, we only want the actual group level params
+    mod_vars <- mod_vars[which(mod_vars != "mu_pr")]
+
+    purrr::map_df(
+      mod_vars,
+      ~ {
+        tibble(
+          parameter = .x,
+          value = posterior::extract_variable(
+            model_fit$draws(.x),
+            .x
+          )
+        )
+      }
+    )
+
+  }
+
+  tibble::lst(
+    ...
+  ) %>%
+  purrr::map_df(
+    ~ get_vars(.x),
+    .id = "model"
+  ) %>%
+    group_by(model, parameter) %>%
+    summarize(
+      across(value,
+             .fns = ~ {
+               hdi <- HDInterval::hdi(
+                 .x,
+                 credMass = 0.95
+               )
+               data.frame(
+                 q2.5 = hdi["lower"],
+                 q50 = median(.x),
+                 q97.5 = hdi["upper"]
+               )
+             })
+    ) %>%
+    ungroup() %>%
+    unnest(value) %>%
+    mutate(
+      model = str_remove(
+        model,
+        "sbg_fit_mcmc_"
+      )
+    )
+
+}
