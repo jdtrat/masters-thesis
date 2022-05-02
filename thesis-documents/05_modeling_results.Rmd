@@ -2,15 +2,54 @@
 bibliography: references.bib
 ---
 
-# Modeling Methods and Results
+```{r get_hdi_dist, echo = FALSE, message = FALSE}
 
-Using the computational modeling techniques I introduced in the previous chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. In this chapter, I describe how I implemented the three stages from Wilson and and Collins previously described.[@wilson2019] The first step: simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model.
+# Utility function for reporting the group level HDI
+get_hdi_dist <- function(
+  group_level_data, .model, .parameter,
+  digits = 2,
+  fancy_label = FALSE
+) {
+
+  hdi_data <- group_level_data %>%
+    dplyr::filter(
+      parameter == .parameter,
+      model == .model
+    ) %>%
+    dplyr::mutate(
+      dplyr::across(where(is.numeric),
+                    ~ round(.x, digits)
+                    )
+      )
+  
+  if (fancy_label) {
+    # make fancy label function to show small values nicely
+    fl <- function(x) scales::pvalue(x, accuracy = 0.001, add_p = FALSE)
+    
+    glue::glue_data(
+      hdi_data,
+      "[{fl(q2.5)}, {fl(q97.5)}] with median of {fl(q50)}"
+    )
+  } else {
+    glue::glue_data(
+      hdi_data,
+      "[{q2.5}, {q97.5}] with median of {q50}"
+    )
+  }
+    
+}
+
+```
+
+# Computational Modeling Methods and Results
+
+Using the computational modeling techniques I introduced in the previous chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. In this chapter, I present my methods and results concurrently following the three stages adapted from Wilson and Collins discussed in Section \@ref(computational-modeling-concepts).[@wilson2019] I start by simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model. I then find estimate individual- and group-level parameters for three candidate models. Lastly, I quantify model fit with model comparison techniques.
 
 ## Simulating Choice Data
 
 As a first step to simulate choice data on the sure-bet or gamble task, I looked at the results of Kahneman and Tversky's prospect theory[@kahneman1979] paper in search of information to inform a prior distribution. Although there is no record for each subject's response on specific prospects, Kahneman and Tversky report the proportion of people that chose each option. For each of the nine prospects that follow the form depicted in Figures \@ref(fig:prospect-diagram-general) and \@ref(fig:prospect-diagram-kt), I used the reported proportions to simulate choice behavior of one-hundred subjects.
 
-I assumed that $\gamma$ was uniformly distributed between zero and one and fixed the softmax sensitivity parameter, $\tau = 1$. I ran ten-thousand iterations using the Metropolis-Hastings algorithm described in the previous chapter. The posterior distribution, depicted in Figure \@ref(fig:kt-post-approx), approximates a $\text{Beta}(1.1,1.1)$ distribution. This means that, in estimating $\gamma$ with the choice proportion data from Kahneman and Tversky, it's plausible that $\gamma$ is any value between zero and one, though a little less likely towards the tails.
+I assumed that $\gamma$ was uniformly distributed between zero and one and fixed the softmax sensitivity parameter, $\tau = 2.2$ following the conceptual visualizations from Section \@ref(visualizing-bayes-theorem-with-choice-datamodeling-concepts-2) consistent with the literature.[@sokol-hessner2009] I ran ten-thousand iterations using the Metropolis-Hastings algorithm described in the previous chapter. The posterior distribution, depicted in Figure \@ref(fig:kt-post-approx), approximates a $\text{Beta}(1.1,1.1)$ distribution. This means that, in estimating $\gamma$ with the choice proportion data from Kahneman and Tversky, it's plausible that $\gamma$ is any value between zero and one, though a little less likely towards the tails.
 
 ```{r kt-post-approx}
 #| echo = FALSE, warning = FALSE, fig.align = "center", fig.width = 1.619 * 5, fig.height = 5, dpi = 300, out.width = "95%",
@@ -23,7 +62,11 @@ knitr::include_graphics(
 )
 ```
 
-Given the task design, participants saw a random subset of 252 prospects. The posterior distribution for $\gamma$ recovered from Kahneman and Tversky's choice proportion data was used to generate $\gamma$ values for fifty subjects. I then simulated their choices on each of the 252 prospects, again fixing the softmax sensitivity parameter $\tau = 1$. For five-thousand iterations of the Metropolis-Hastings algorithm, I sampled from the posterior distribution for each simulated subject.[^model-results-1] With the same simulated choice data, I also fit a hierarchical Bayesian model in Stan with the non-centered reparameterization as described in the computational modeling concepts chapter. I ran the Hamiltonian Monte Carlo (Stan) sampler for 5000 iterations across four parallel sampling chains for a total of 20,000 samples from the posterior.[^model-results-2] Figure \@ref(fig:sbg-sim-parameter-recovery) shows the 95% highest density interval recovered from each sampler's posterior distribution.
+Given the sure bet or gamble task design, participants saw a random subset of 252 prospects. The posterior distribution for $\gamma$ recovered from Kahneman and Tversky's choice proportion data was used to generate $\gamma$ values for fifty subjects. I then simulated their choices on each of the 252 prospects, again fixing the softmax sensitivity parameter $\tau = 2.2$. For five-thousand iterations of the Metropolis-Hastings algorithm, I sampled from the posterior distribution for each simulated subject.[^model-results-1] With the same simulated data, I fit a hierarchical Bayesian model in Stan with the non-centered reparameterization as described in the computational modeling concepts chapter. I ran the Hamiltonian Monte Carlo (Stan) sampler for 5000 iterations across four parallel sampling chains for a total of 20,000 samples from the posterior.[^model-results-2] 
+
+I chose to estimate the posterior distribution with both the Metropolis-Hastings and Hamiltonian Monte Carlo algorithms to highlight the similarity in posterior parameter estimation techniques discussed in Chapter \@ref(computational-modeling-concepts). Figure \@ref(fig:sbg-sim-parameter-recovery) shows the 95% highest density interval recovered from each sampler's posterior distribution. For most subjects, the simulated $\gamma$ values are within the highest-density interval. This suggests that the sure-bet or gamble task is able to elicit the behaviors of interest in a way measurable with counterfactual predicted utility theory. 
+
+With the confirmation that I am able to accurately recover simulated parameters from the sure-bet or gamble task, I move on to the next stage of computational modeling, parameter estimation. To do so, I use the hierarchical Bayesian model in Stan for more stable and reliable estimates and computational efficiency.
 
 [^model-results-1]: Although I simulated participants' counterfactual weighting term following the posterior from Kahneman and Tversky's choice proportion data, $\gamma \sim \text{Beta}(1.1,1.1)$, I used a uniform prior again when sampling from the Metropolis-Hastings algorithm for optimizing my analytical workflow. I felt this was justified because $\text{Beta}(1.1,1.1)$ is (relatively) uninformative prior and the decision would not have a large impact on the recoverability of parameter values (with the possible exception of model fitting time). Further, I wanted to maintain consistency with the uniform distribution of the individual-level priors defined in the hierarchical Bayesian model with the inverse Probit transformation.[@ahn2014; @ahn2017]
 
@@ -40,35 +83,25 @@ knitr::include_graphics(
 )
 ```
 
-For most subjects, the simulated $\gamma$ values are within the highest-density interval. This suggests that the sure-bet or gamble task is able to elicit the behaviors of interest in a way measurable with counterfactual predicted utility theory.
-
 ## Parameter Estimation
 
-With the confirmation that I am able to accurately recover simulated parameters from the sure-bet or gamble task, I move on to the next stage of computational modeling, parameter estimation. Specifically, I compare how counterfactual predicted utility theory explains the human choice data from the sure-bet or gamble task relative to expected utility theory. I primarily do this for two reasons:
+To assess counterfactual predicted utility theory's validity as a theory of decision-making under risk, I estimate parameters for it in comparison with expected utility theory. I primarily do this for two reasons:
 
-1.  Counterfactual predicted utility theory suggests that, if $\gamma = 0$, the counterfactual utility of an option is equivalent to the expected value. The expected value is a special case of expected utility theory where the risk aversion parameter, $\rho = 1$.
+1.  Counterfactual predicted utility theory suggests that, if $\gamma = 0$, the counterfactual utility of an option is equivalent to the expected value. The expected value is a special case of expected utility theory where the risk sensitivity parameter, $\rho = 1$.
 2.  The sure-bet or gamble task does not include losses, which prohibits me from comparing counterfactual predicted utility theory to prospect theory.
 
-In total, I estimated parameters for seven variants of expected utility theory and counterfactual utility theory on the human choice data (Table \@ref(fig:model-definition-table)).
+In addition to directly comparing CPUT with EUT, I wanted to see how different risk preferences might affect interact with counterfactual information to inform choice behavior. In total, I fit three models:
 
-```{r model-definition-table}
-#| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
-#| fig.scap = "Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task.",
-#| fig.cap = "Parameters for, and description of, the different models fit on human choice data from the sure-bet or gamble task. All models were sampled with Stan for 5000 iterations across four parallel chains using a hierarchical implementation. Individual parameters were drawn from a normally distributed group-level distribution and bounded with an inverse Probit transformation resulting in a uniform prior spanning from zero to one $(\\gamma)$, two $(\\rho)$, and thirty $(\\tau)$."
+* **CPUT + Softmax Sensitivity**: This model looks at how counterfactual information informs choice behavior. Its estimated parameters are the counterfactual weighting term, $\gamma$, and the sensitivity to differences in choice utilities, $\tau$. 
+* **CPUT + Risk Sensitivity + Softmax Sensitivity**: This model looks at how differences in risk sensitivity may interact with counterfactual information to inform choice behavior. Its estimated parameters are the counterfactual weighting term, $\gamma$, the risk sensitivity term, $\rho$, and the sensitivity to differences in choice utilities, $\tau$. 
+* **EUT + Softmax Sensitivity**: This model looks at how differences in risk sensitivity informs choice behavior. Its estimated parameters are the risk sensitivity term, $\rho$, and the sensitivity to differences in choice utilities, $\tau$.
 
-knitr::include_graphics(
-  here::here(
-    targets::tar_read(model_definition_table_file)
-  )
-)
-```
-
-All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation previously described.[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] The group-level posterior distributions for parameters fit from each model are shown in Figure \@ref(fig:population-level-post-param-figure).
+All models were sampled for 5000 iterations across four parallel chains with the hierarchical Bayesian model formulation described in Section \@ref(posterior-estimation-with-markov-chain-monte-carlo).[@ahn2017] For each model, chain convergence for group-level and transformed individual-level parameters was checked with Gelman-Rubin statistics, $\hat{R} \leq 1.1$, suggesting between-chain variance is lower than within chain variance.[@gelman1992] The group-level posterior distributions for parameters fit from each model are shown in Figure \@ref(fig:population-level-post-param-figure).
 
 ```{r population-level-post-param-figure}
 #| echo = FALSE, warning = FALSE, fig.align = "center", dpi = 300, out.width = "95%",
 #| fig.scap = "Posterior distribution of group-level parameter estimates for each model.",
-#| fig.cap = "Posterior distribution of group-level parameter estimates for each model. Distributions for $\\gamma$ are in green, $\\rho$ in blue, and $\\tau$ in orange."
+#| fig.cap = "Posterior distribution of group-level parameter estimates for each model. Relative distributions for $\\gamma$ (left), $\\rho$ (middle), and $\\tau$ (right) underlined by 95 percent highest density intervals for each model with the median indicated. 'CPUT + Softmax Sensitivity' model shown in blue with estimated parameters for $\\gamma, \\tau$; 'EUT + Softmax Sensitivity' shown in red with estimated parameters for $\\rho, \\tau$; 'CPUT + Risk Sensitivity + Softmax Sensitivity' shown in yellow with estimated parameters for $\\gamma, \\rho, \\tau$."
 
 knitr::include_graphics(
   here::here(
@@ -101,6 +134,24 @@ knitr::include_graphics(
 )
 ```
 
-The two rows highlighted in Table \@ref(fig:model-fit-summary-table), represent the most direct comparison of contractual predicted utility theory with expected utility theory. The metrics presented pose an interesting problem with the blanket statement that a 'better model' has a  smaller LOOIC and higher (or less negative) posterior predictive choice accuracy, ELPD, and marginal likelihood model evidence, the model fit metrics pose an interesting problem. 
+### EUT versus CPUT 
 
-On average, both — in fact, all models — accurately predict more than 80% of observed choices using the posterior predictive distribution. If we look at either ELPD or LOOIC, we see that the expected utility model is performs better. Looking at the marginal likelihood, however, the counterfactual predicted utility model seems better. These seemingly disparate indicators make sense when considering what each metric represents. In the next chapter, I will conclude my thesis with a discussion of these results and outline to next steps to contribute towards a better understanding of the neurobiological basis of decision-making under risk.
+Taken together, the model comparison metrics show that EUT provides a better explanation of both the observed data on the sure bet or gamble task ($BF_{\frac{\rho, \tau}{\gamma, \tau}}$ = `r round(targets::tar_read(log_bayes_factor_ra_tau_over_tau_gamma)$bf_median_based, 2)`) and generalizes better than CPUT ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  `r round(targets::tar_read(looic_ra_tau_over_tau_gamma), 2)`). The posterior predictive choice accuracy -- the percentage of choices simulated with the posterior estimate of each subject's parameters -- are similar, though better for EUT (`r targets::tar_read(pp_choice_accuracy_ra_tau)`) compared to CPUT (`r targets::tar_read(pp_choice_accuracy_tau_gamma)`). 
+
+Further, the group-level posterior parameter distribution for $\tau$, the common variable to these two models, is higher for EUT than CPUT (95% HDI for EUT is `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_ra_tau", "mu_tau")`; CPUT = `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_tau_gamma", "mu_tau")`). This suggests more random utility maximizing decisions for EUT relative to more random choice behavior for CPUT.
+
+### CPUT + Risk Sensitivity versus EUT
+
+Interestingly, the risk sensitivity term, $\rho$, from EUT with the counterfactual weighting from CPUT offers the best explanation for the observed human choice data ($BF_{\frac{\text{CPUT + Softmax + Risk Sensitivity}}{\rho, \tau}}$ = `r round(targets::tar_read(log_bayes_factor_ra_tau_gamma_over_ra_tau)$bf_median_based, 2)`). This does come with a cost of decreased generalizability ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_\text{CPUT + Softmax + Risk Sensitivity}$ = `r round(targets::tar_read(looic_ra_tau_over_ra_tau_gamma), 2)`) and increased posterior predictive choice accuracy (`r targets::tar_read(pp_choice_accuracy_ra_tau_gamma)` relative to EUT's `r targets::tar_read(pp_choice_accuracy_ra_tau)`). 
+
+Further, the group-level posterior parameter distribution for $\tau$ depict similar sensitivities to utility differences (95% HDI for 'CPUT + Softmax + Risk Sensitivity' = `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_ra_tau_gamma", "mu_tau")`; 'EUT + Softmax = `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_ra_tau", "mu_tau")`) and risk sensitivity (95% HDI for 'CPUT + Softmax + Risk Sensitivity' = `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_ra_tau_gamma", "mu_rho")`; 'EUT + Softmax' = `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_ra_tau", "mu_rho")`).
+
+### CPUT + Risk Sensitivity versus CPUT
+
+Incorporating risk sensitivity to CPUT, mixing the value estimate transformation of EUT (left-hand side of Equation \@ref(eq:eut-cput-transformations)) with that of CPUT (right-hand side of Equation \@ref(eq:eut-cput-transformations)) results in a better explanation for the observed data ($BF_{\frac{\rho, \gamma, \tau}{\gamma, \tau}}$ = `r round(targets::tar_read(log_bayes_factor_ra_tau_gamma_over_tau_gamma)$bf_median_based, 2)`), is more generalizable, ($\text{LOOIC}_{\rho, \gamma, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  `r round(targets::tar_read(looic_ra_tau_gamma_over_tau_gamma), 2)`), and has a higher posterior predictive choice accuracy (`r targets::tar_read(pp_choice_accuracy_ra_tau_gamma)`) relative to CPUT's (`r targets::tar_read(pp_choice_accuracy_tau_gamma)`). 
+
+Interestingly, the group-level posterior parameter distribution for $\tau$ with the CPUT + Risk Sensitivity more closely reflects that of EUT. At the same time, the group-level posterior parameter distribution for $\gamma$ is much more tightly concentrated towards zero than for CPUT (95% HDI for CPUT + Risk Sensitivity is `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_ra_tau_gamma", "mu_gamma", digits = 4, fancy_label = TRUE)`; CPUT = `r get_hdi_dist(targets::tar_read(group_level_hdi), "sborg_tau_gamma", "mu_gamma", digits = 4, fancy_label = TRUE)`). This suggests more a lower weighting on counterfactual information while accounting for risk preferences. 
+
+---
+
+By most measures, it seems that Expected Utility Theory provides the most generalizable explanation of human choice data on the sure bet or gamble task. Looking at the In the next chapter, I discuss these results and outline next steps to contribute towards a better understanding of the neurobiological basis of decision-making under risk. 
