@@ -95,14 +95,14 @@ model {
         real UC1;
         real UC2;
 
-        // determine expected and counterfactual utilities
+        // determine expected utilities with the risk aversion (rho) parameter
         // for all prospects
-         UE1 = pow(getEV(x1[i,j], p1[i,j], x2[i,j], not_p1[i,j]), rho[i]);
-         UE2 = pow(getEV(x4[i,j], p2[i,j], x3[i,j], not_p2[i,j]), rho[i]);
+         UE1 = ( p1[i,j] * pow(x1[i,j], rho[i]) ) + ( not_p1[i,j] * pow(x2[i,j], rho[i]) );
+         UE2 = ( p2[i,j] * pow(x4[i,j], rho[i]) ) + ( not_p2[i,j] * pow(x3[i,j], rho[i]) );
 
-         UC1 = getCU(x1[i,j], p1[i,j], x2[i,j], not_p1[i,j], gamma[i], UE2);
+         UC1 = getCU(pow(x1[i,j], rho[i]), p1[i,j], pow(x2[i,j], rho[i]), not_p1[i,j], gamma[i], UE2);
+         UC2 = getCU(pow(x4[i,j], rho[i]), p2[i,j], pow(x3[i,j], rho[i]), not_p2[i,j], gamma[i], UE1);
 
-         UC2 = getCU(x4[i,j], p2[i,j], x3[i,j], not_p2[i,j], gamma[i], UE1);
 
          // Fit to the observed choice behavior
          chose_option1[i,j] ~ bernoulli_logit(tau[i] * (UC1 - UC2));
@@ -149,15 +149,14 @@ generated quantities {
         real UC1;
         real UC2;
 
-        // determine expected and counterfactual utilities
-        // for all prospects, adding risk aversion parameter
-        // rho to counterfacutal utility calculations
-        UE1 = pow(getEV(x1[i,j], p1[i,j], x2[i,j], not_p1[i,j]), rho[i]);
-        UE2 = pow(getEV(x4[i,j], p2[i,j], x3[i,j], not_p2[i,j]), rho[i]);
+        // determine expected utilities with the risk aversion (rho) parameter
+       // for all prospects
+        UE1 = ( p1[i,j] * pow(x1[i,j], rho[i]) ) + ( not_p1[i,j] * pow(x2[i,j], rho[i]) );
+        UE2 = ( p2[i,j] * pow(x4[i,j], rho[i]) ) + ( not_p2[i,j] * pow(x3[i,j], rho[i]) );
 
-        UC1 = getCU(x1[i,j], p1[i,j], x2[i,j], not_p1[i,j], gamma[i], UE2);
+        UC1 = getCU(pow(x1[i,j], rho[i]), p1[i,j], pow(x2[i,j], rho[i]), not_p1[i,j], gamma[i], UE2);
 
-        UC2 = getCU(x4[i,j], p2[i,j], x3[i,j], not_p2[i,j], gamma[i], UE1);
+        UC2 = getCU(pow(x4[i,j], rho[i]), p2[i,j], pow(x3[i,j], rho[i]), not_p2[i,j], gamma[i], UE1);
 
         log_lik[i] += bernoulli_logit_lpmf(chose_option1[i,j] | tau[i] * (UE1 - UE2));
 

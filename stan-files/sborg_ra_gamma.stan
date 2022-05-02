@@ -146,8 +146,9 @@ generated quantities {
         // determine expected and counterfactual utilities
         // for all prospects, adding risk aversion parameter
         // rho to counterfacutal utility calculations
-        UE1 = pow(getEV(x1[i,j], p1[i,j], x2[i,j], not_p1[i,j]), rho[i]);
-        UE2 = pow(getEV(x4[i,j], p2[i,j], x3[i,j], not_p2[i,j]), rho[i]);
+        UE1 = ( p1[i,j] * pow(x1[i,j], rho[i]) ) + ( not_p1[i,j] * pow(x2[i,j], rho[i]) );
+        UE2 = ( p2[i,j] * pow(x4[i,j], rho[i]) ) + ( not_p2[i,j] * pow(x3[i,j], rho[i]) );
+
 
         UC1 = getCU(x1[i,j], p1[i,j], x2[i,j], not_p1[i,j], gamma[i], UE2);
 
