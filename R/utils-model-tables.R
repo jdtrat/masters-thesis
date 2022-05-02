@@ -2,31 +2,19 @@
 generate_model_table_df <- function() {
   tibble::tibble(
     model_name = c(
-      "sborg_gamma",
-      "sborg_ra_gamma",
       "sborg_tau_gamma",
       "sborg_ra_tau_gamma",
-      "sborg_ra",
-      "sborg_ra_tau",
-      "sborg_tau"
+      "sborg_ra_tau"
     ),
     model_title = c(
-      "CPUT",
-      "CPUT + Risk Aversion",
       "CPUT + Softmax Sensitivity",
-      "CPUT + Risk Aversion + Softmax Sensitivity",
-      "EUT",
-      "EUT + Softmax Sensitivity",
-      "Expected Value + Softmax Sensitivity"
+      "CPUT + Risk Sensitivity + Softmax Sensitivity",
+      "EUT + Softmax Sensitivity"
     ),
     parameters_fit = c(
-      "\\gamma",
-      "\\gamma, \\rho",
       "\\gamma, \\tau",
       "\\gamma, \\tau, \\rho",
-      "\\rho",
-      "\\rho, \\tau",
-      "\\tau"
+      "\\rho, \\tau"
     )
   )
 }
@@ -119,3 +107,4 @@ generate_model_fit_summary_table <- function(
     flextable::autofit()
 
 }
+
