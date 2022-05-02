@@ -9,3 +9,8 @@ thesis-documents/_thesis/trattner-masters-thesis.pdf
 thesis-documents/_thesis/trattner-masters-thesis.tex
 thesis-documents/_thesis/trattner-masters-thesis.docx
 stan-fit-csv/
+# Trick from https://github.com/RPGroup-PBoC/bursty_transcription/blob/master/.gitignore
+# Ignore stan exe, .hpp, .o, etc...
+stan-files/*
+# ...but don't ignore the actual stan files
+!stan-files/*.stan
