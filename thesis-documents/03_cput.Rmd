@@ -20,7 +20,7 @@ To formally derive CPUT, we can revisit the prospect I introduced in the first c
 \end{equation}
 ```
 
-Unless otherwise stated, the alternative outcomes of an option are assumed to be zero. That is, choosing Option 1 is a choice of receiving $x_1$ with probability $p_1$ or nothing with probability $(1 - p_1)$. A more explicit, and generalizable, representation of a prospect can be seen in Figure \@ref(fig:prospect-diagram-general). Here, Option 1 is a choice of receiving $x_{1a}$ with probability $p_1$ or $x_{1b}$ with probability $(1 - p_1)$. Similarly, Option 2 is a choice of receiving $x_{2a}$ with probability $p_2$ or $x_{2b}$ with probability $(1 - p_2)$.
+Following conventional notation, the alternative outcomes of an option are assumed to be zero. That is, choosing Option 1 is a choice of receiving $x_1$ with probability $p_1$ or nothing with probability $(1 - p_1)$. This does not have to be true, however, and CPUT is formulated with a more generalizable representation of a prospect depicted in Figure \@ref(fig:prospect-diagram-general). Here, Option 1 is a choice of receiving $x_{1a}$ with probability $p_1$ or $x_{1b}$ with probability $(1 - p_1)$. Similarly, Option 2 is a choice of receiving $x_{2a}$ with probability $p_2$ or $x_{2b}$ with probability $(1 - p_2)$.
 
 ```{r prospect-diagram-general}
 #| echo = FALSE, warning = FALSE, fig.align = "center",
@@ -44,28 +44,30 @@ U_{C}(\text{Option 2}) = p_{2} \cdot V_{C}(x_{2a}) + (1 - p_{2}) \cdot V_{C}(x_{
 \end{equation}
 ```
 
-In contrast, for Expected Utility Theory, an option's expected value is exponentiated by a *risk-aversion* parameter, $\rho$. The expected utility definition in Equation \@ref(eq:calculating-ue) represents the same weighting as of probabilities and outcomes from Equation \@ref(eq:calculating-uc). 
+Similarly, we define Expected Utility as follows in Equation \@ref(eq:calculating-ue) which represents the same weighting as of probabilities and outcomes as Equation \@ref(eq:calculating-uc). 
 
 ```{=tex}
 \begin{equation}
 \begin{split}
-U_{E}(\text{Option 1}) = (p_{1} \cdot V_{E}(x_{1}) + (1 - p_{1}) \cdot V_{E}(x_{2}))^\rho \\   
-U_{E}(\text{Option 2}) = (p_{2} \cdot V_{E}(x_{4}) + (1 - p_{2}) \cdot V_{E}(x_{3}))^\rho
+U_{E}(\text{Option 1}) = p_{1} \cdot V_{E}(x_{1}) + (1 - p_{1}) \cdot V_{E}(x_{2}) \\   
+U_{E}(\text{Option 2}) = p_{2} \cdot V_{E}(x_{4}) + (1 - p_{2}) \cdot V_{E}(x_{3})
 \end{split}
 (\#eq:calculating-ue)
 \end{equation}
 ```
 
-To represent the equations similarly, we define the $V_E$ as the estimated expected utility value (but this is really just stated outcome). For CPUT, however, we formally define the transformation of the stated outcome as the face value minus a weighted sum of that option's alternative outcome and the other option's expected value. This notation is expressed in Equation \@ref(eq:eut-cput-transformations), which shows how a prospect of the form depicted in Figure \@ref(fig:prospect-diagram-general) are represented.
+The difference between the above equations are in value estimates of each outcome. Expected Utility Theory exponentiates the stated outcome magnitude with a risk sensitivity parameter, $\rho$.[^cput-1] For CPUT, we define the transformation of the stated outcome as the face value minus a weighted sum of that option's alternative outcome and the other option's expected value. This notation is expressed in Equation \@ref(eq:eut-cput-transformations), which shows how a prospect of the form depicted in Figure \@ref(fig:prospect-diagram-general) are represented.
+
+[^cput-1]: This risk-sensitivity parameter, rho, represents the utility an individual derives as an outcome's absolute value changes. The principal of 'risk-aversion' arises from diminished sensitivity to changes in value (rho less than one). To appreciate the intuition behind this, consider how much an individual would sell a lottery ticket that has a 50% chance of being worth \$100 or nothing. This ticket has an expected value of \$50. A 'risk-averse' individual would be willing to sell this ticket for less than the expected value (rho less than one); a 'risk-neutral' individual would be willing to sell the ticket for \$50 (rho equal to one); a 'risk-seeking' individual would be willing to sell the ticket for no less than \$50 (rho greater than one). 
 
 ```{=tex}
 \begin{equation}
 \begin{split}
 \text{EUT:} \\
-    V_{E}(x_{1a}) = x_{1a} \\
-    V_{E}(x_{1b}) = x_{1b} \\
-    V_{E}(x_{2a}) = x_{2a} \\
-    V_{E}(x_{2b}) = x_{2b}
+    V_{E}(x_{1a}) = x_{1a}^\rho \\
+    V_{E}(x_{1b}) = x_{1b}^\rho \\
+    V_{E}(x_{2a}) = x_{2a}^\rho \\
+    V_{E}(x_{2b}) = x_{2b}^\rho
 \end{split}
 \hspace{3cm}
 \begin{split}
@@ -79,7 +81,7 @@ To represent the equations similarly, we define the $V_E$ as the estimated expec
 \end{equation}
 ```
 
-Unlike the estimated expected utility value, $V_E$, the estimated counterfactual utility value, $V_C$ is not a one-to-one mapping for the stated outcomes. To provide a better intuition for this within- and between-option dependency, it is helpful to consider a concrete example. By adapting Figure \@ref(fig:prospect-diagram-general) to include the values from the casino example initially described, we can better see how each possible outcome may integrate when evaluating a given prospect.
+Unlike the value estimate for Expected Utility Theory, $V_E$, the estimated counterfactual utility value, $V_C$ is not a one-to-one mapping of the stated outcomes. To provide a better intuition for this within- and between-option dependency, it is helpful to consider a concrete example. By adapting Figure \@ref(fig:prospect-diagram-general) to include the values from the casino example initially described, we can better see how each possible outcome may integrate when evaluating a given prospect.
 
 ```{r prospect-diagram-kt}
 #| echo = FALSE, warning = FALSE, fig.align = "center",
@@ -91,48 +93,48 @@ knitr::include_graphics(
 )
 ```
 
-To illustrate CPUT by walking-through Figure \@ref(fig:prospect-diagram-kt), let's assume that I have a counterfactual-weighting term of $\gamma = 0.1$. This means that the stated outcomes are transformed given the available counterfactual information from each potential outcome as follows:
+To illustrate CPUT by walking-through Figure \@ref(fig:prospect-diagram-kt), let's assume that I have a counterfactual-weighting term of $\gamma = 0.35$. This means that the stated outcomes are transformed given the available counterfactual information from each potential outcome as follows:
 
 ```{=tex}
 \begin{equation}
 \begin{aligned}
-V_{C}(\$3000) &= 3000 - 0.1[0 + EV(\text{Option 2})] \\
-&= 3000 - 0.1[0 + 3200] \\
-&= 2680 \\
-V_{C}(\$0) &= 0 - 0.1[3000 + EV(\text{Option 2})] \\
-&= 0 - 0.1[3000 + 3200] \\
-&= -620 \\
-V_{C}(\$0) &= 0 - 0.1[0 + EV(\text{Option 1})] \\
-&= 0 - 0.1[4000 + 3000] \\
-&= -700 \\
-V_{C}(\$4000) &= 4000 - 0.1[4000 + EV(\text{Option 1})] \\
-&= 4000 - 0.1[0 + 3000] \\
-&= 3700 \\
+V_{C}(\$3000) &= 3000 - 0.35[0 + EV(\text{Option 2})] \\
+&= 3000 - 0.35[0 + 3200] \\
+&= 1880 \\
+V_{C}(\$0) &= 0 - 0.35[3000 + EV(\text{Option 2})] \\
+&= 0 - 0.35[3000 + 3200] \\
+&= -2170 \\
+V_{C}(\$0) &= 0 - 0.35[0 + EV(\text{Option 1})] \\
+&= 0 - 0.35[4000 + 3000] \\
+&= -2450 \\
+V_{C}(\$4000) &= 4000 - 0.35[4000 + EV(\text{Option 1})] \\
+&= 4000 - 0.35[0 + 3000] \\
+&= 2950 \\
 \end{aligned}
 (\#eq:cput-transformation-kt-demo)
 \end{equation}
 ```
 
-When these values are combined by Equation \@ref(eq:calculating-uc), we see that $U_C(\text{Option 2}) > U_C(\text{Option 1})$:
+When these values are combined by Equation \@ref(eq:calculating-uc), we see that $U_C(\text{Option 1}) > U_C(\text{Option 2})$:
 
 ```{=tex}
 \begin{equation}
 \begin{aligned}
 U_{C}(\text{Option 1}) &= 1 \cdot 2680 + (1 - 1) \cdot -620) \\ 
-&= 2680 \\
+&= 1880 \\
 U_{C}(\text{Option 2}) &= 0.8 \cdot 3700 + (1 - 0.8) \cdot -700) \\
-&= 2820
+&= 1870
 \end{aligned}
 (\#eq:calculating-uc-kt-demo) 
 \end{equation}
 ```
 
-To maximize my utility, I would choose Option 2 and progress down the diagram to the first node on the right-hand side. In doing this, I forwent the opportunity to have Option 1. If I chose differently, I would have reached the node on the left, which has an expected value of \$3000, but I didn't. From my current position, there is an 80% chance that I will find myself in the red node, with \$4000. If the proverbial coin-flip goes against me, however, I would find myself at the cyan node with nothing to show for it. By walking-through this example, I hoped to convey how the possible outcomes relate to one-another and how factual and counterfactual information may be integrated to inform one's decision. 
+To maximize my utility, I would choose Option 1 and progress down the diagram to the first node on the left-hand side. In doing this, I forwent the opportunity to have Option 2. If I chose differently, I would have reached the node on the right, which has an expected value of \$3200, but I didn't. That is, the nodes on the right-hand side of the diagram are counterfactual events. By walking-through this example, I hoped to convey how the possible outcomes relate to one-another and how factual and counterfactual information may be integrated to inform one's decision.
 
 Importantly, these equations suggest that when $\gamma = 0$, when one places no weight on counterfactual events, the counterfactual utility is equivalent to the expected value. In other words, when $\gamma = 0$, $U_C(\text{Option 1}) = EV(\text{Option 1})$ and $U_C(\text{Option 2}) = EV(\text{Option 2})$. If people don't place weight on counterfactual information, we might expect choice behavior to be consistent with maximizing expected value (or, to better compare theories of decision-making, maximizing expected utility). To provide evidence in support of CPUT as a generative theory of decision-making, I will test the hypothesis that $\gamma > 0$ which means that people *do* consider counterfactual outcomes when faced with a risky prospect. To summarize what I discussed in this chapter:
 
 * I addressed my first thesis aim of developing counterfactual predicted utility theory (CPUT) as an alternative to expected utility theory to explain decision-making under risk. 
 * I showed how information about each potential outcome (terminal node of Figure \@ref(fig:prospect-diagram-general)) integrates with a counterfactual weighting parameter, $\gamma$, to adjust the utility of one option over another. 
-* I walked-through an example calculation assuming $\gamma = 0.1$ (diagrammed in Figure \@ref(fig:prospect-diagram-general)). 
+* I walked-through an example calculation assuming $\gamma = 0.35$ (diagrammed in Figure \@ref(fig:prospect-diagram-general)). 
 
-In the next chapter, I begin to address my second thesis aim of assessing the predictive accuracy of CPUT using human choice data from a 'Sure Bet or Gamble' task.[@liebenow2021]
+In the next chapter, I begin to address my second thesis aim of assessing the descriptive and predictive validity of CPUT using human choice data from a 'Sure Bet or Gamble' task.[@liebenow2021]
