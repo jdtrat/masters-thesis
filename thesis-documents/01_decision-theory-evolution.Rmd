@@ -44,6 +44,8 @@ The application of behavioral insights for theories of human decision-making nec
 
 To revisit the casino example, how would you feel if you chose the black option (gambling on the four-thousand dollars) and lost? You could have chosen the red option and had three-thousand dollars for certain, but you forewent that opportunity for a chance at something more. The comparison between "what is" vs. "what might have been" captures the idea of counterfactual information.
 
+---
+
 To summarize the material in this chapter:
 
 * I recounted a high-level overview of choice theory, described how expected values are calculated, and introduced the importance of subjective measures (utility) when studying choice behavior.

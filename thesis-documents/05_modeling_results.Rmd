@@ -53,8 +53,8 @@ I assumed that $\gamma$ was uniformly distributed between zero and one and fixed
 
 ```{r kt-post-approx}
 #| echo = FALSE, warning = FALSE, fig.align = "center", fig.width = 1.619 * 5, fig.height = 5, dpi = 300, out.width = "95%",
-#| fig.scap = "Posterior distribution of $\\gamma$ as estimated from ten-thousand iterations of a Metropolis-Hastings algorithm assuming a uniform prior with choice proportion data from Kahneman and Tversyk's prospect theory,",
-#| fig.cap = "Posterior distribution of $\\gamma$ as estimated from ten-thousand iterations of a Metropolis-Hastings algorithm assuming a uniform prior with choice proportion data from Kahneman and Tversyk's prospect theory[@kahneman1979]. This posterior distribution (orange-red line) is approximated with a $\\text{Beta}(1.1,1.1)$ distribution (blue-gray), indicating slightly less plausibility to $\\gamma$ values near the bounds of the zero-to-one interval relative to central values."
+#| fig.scap = "Posterior distribution of $\\gamma$ estimated with choice data informed from Kahneman and Tversky (1979).",
+#| fig.cap = "Posterior distribution of $\\gamma$ as estimated from ten-thousand iterations of a Metropolis-Hastings algorithm assuming a uniform prior with choice proportion data from Kahneman and Tversky's prospect theory. This posterior distribution (orange-red line) is approximated with a $\\text{Beta}(1.1,1.1)$ distribution (blue-gray), indicating slightly less plausibility to $\\gamma$ values near the bounds of the zero-to-one interval relative to central values."
 knitr::include_graphics(
   here::here(
     targets::tar_read(kt_post_approx_figure_file)

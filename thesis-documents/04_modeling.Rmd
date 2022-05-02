@@ -202,6 +202,8 @@ The specific implementation of hierarchical models I follow has been detailed el
 
 where $- \infty < \mu_\theta < + \infty$ and $- \infty < \sigma_\theta < + \infty$ are the group-level mean and standard deviation, respectively; $\theta^\prime$ is the unconstrained parameter that gets transformed via the inverse Probit transformation and scaled to some upper bound, $U.B$. As an example, for $\gamma$, $U.B. = 1$; for $\tau$, $U.B. = 30$. This non-centered reparameterization results in a uniform prior for individual participants' parameters across the full range.[@ahn2014; @ahn2017]
 
+---
+
 In this chapter, I hoped to provide an understanding of the computational modeling concepts used in my thesis. Specifically, I:
 
 * Provided an overview of the sure bet or gamble task
