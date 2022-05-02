@@ -7,6 +7,7 @@ source("R/utils-cput.R")
 source("R/utils-kt.R")
 source("R/utils-model_comparison.R")
 source("R/utils-modeling-figures.R")
+source("R/utils-modeling-figures-simulation-theory.R")
 source("R/utils-model-tables.R")
 source("R/utils-pp-checks.R")
 source("R/utils-render-prospect-diagram.R")
@@ -14,11 +15,12 @@ source("R/utils-sborg.R")
 source("R/utils-stan_data.R")
 source("R/utils-simulation.R")
 source("R/utils-tar_bookdown.R")
+source("R/utils-utilities.R")
 
 # Set target-specific options such as packages.
 tar_option_set(
   packages = c("tidyverse", "fs", "qs", "here", "flextable",
-               "ggtext", "cowplot", "foreach")
+               "ggtext", "cowplot", "foreach", "paletteer")
   )
 
 # Search for Priors -----------------------------------------------------
@@ -38,7 +40,8 @@ kt <- list(
       num_iter = 10000,
       prospects = kt_proportional_choice_data,
       choices = kt_proportional_choice_data$chose_option1,
-      initial_gamma = 0.5
+      initial_gamma = 0.5,
+      tau = 2.2
     ),
     format = "qs"
   )
@@ -53,7 +56,10 @@ sborg_parameter_recovery <- list(
         subject = 1:50,
         # Simulate gamma from a beta distribution that best fits the posterior
         # from KT Metropolis Hastings
-        gamma = rbeta(50, 1.1, 1.1)
+        gamma = rbeta(50, 1.1, 1.1),
+        # Fix tau as 2.2 in line with modeling concepts chapter and
+        # reflecting Sokol-Hessner values
+        tau = 2.2
       )
     }
   ),
@@ -69,17 +75,23 @@ sborg_parameter_recovery <- list(
     sborg_sample_metropolis_hastings(
       formatted_sborg_data = sbg_sim_choice_data,
       num_iter = 5000,
-      initial_gamma = 0.5
+      initial_gamma = 0.5,
+      tau = 2.2
     ),
     format = "qs"
   ),
   tar_stan_mcmc(
     sbg_sim_fit,
     stan_files = c(
-      "stan-files/sborg_gamma.stan"
+      "stan-files/sborg_gamma_fixed_tau_for_simulation.stan"
     ),
-    data = preprocess_choice_data(
-      sbg_sim_choice_data
+    data = c(
+      preprocess_choice_data(
+        sbg_sim_choice_data
+        ),
+      list(
+        tau = sbg_sim_agents$tau
+      )
     ),
     chains = 4,
     parallel_chains = 4,
@@ -90,7 +102,7 @@ sborg_parameter_recovery <- list(
     sbg_sim_posterior_summary_data,
     sbg_summarize_simulation_data(
       sbg_mh_list = sbg_sim_metropolis_hastings_list,
-      sbg_stan_fit = sbg_sim_fit_mcmc_sborg_gamma,
+      sbg_stan_fit = sbg_sim_fit_mcmc_sborg_gamma_fixed_tau_for_simulation,
       sbg_sim_agent_data = sbg_sim_agents,
       credible_mass = 0.95
     )
@@ -149,7 +161,8 @@ sborg_parameter_estimation <- list(
       "stan-files/sborg_ra_gamma.stan",
       "stan-files/sborg_ra_tau_gamma.stan",
       "stan-files/sborg_tau_gamma.stan",
-      "stan-files/sborg_tau.stan"
+      "stan-files/sborg_tau.stan",
+      "stan-files/sborg_ra_tau_variant.stan"
     ),
     data = preprocess_choice_data(
       format_processed_sborg_data_stan(
@@ -206,7 +219,8 @@ sborg_model_comparison <- list(
         "stan-files/sborg_ra_gamma.stan",
         "stan-files/sborg_ra_tau_gamma.stan",
         "stan-files/sborg_tau_gamma.stan",
-        "stan-files/sborg_tau.stan"
+        "stan-files/sborg_tau.stan",
+        "stan-files/sborg_ra_tau_variant.stan"
         ),
       stan_name = stantargets:::produce_stan_names(
         stan_files = stan_file
@@ -257,6 +271,73 @@ thesis_figures <- list(
       )
       # Return file path
       "thesis-documents/figures/sbg_demo_figure.png"
+    },
+    format = "file"
+  ),
+  tar_target(
+    sbg_demo_joint_likelihood_figure,
+    gen_sbg_demo_joint_likelihood_plot(
+      generate_sbg_demo_lk_data(
+        prospect = gen_prospect(
+          option_1 = gen_option(3, 1),
+          option_2 = gen_option(2, 0.5, 5, 0.5)
+        )
+      )
+    ),
+    format = "qs"
+  ),
+  tar_target(
+    sbg_demo_joint_likelihood_figure_file, {
+      ggsave(
+        plot = sbg_demo_joint_likelihood_figure,
+        filename = "thesis-documents/figures/sbg_demo_joint_likelihood_figure.png",
+        width = 1.619 * 7,
+        height = 5,
+        dpi = 450,
+        bg = "white"
+      )
+      # Return file path
+      "thesis-documents/figures/sbg_demo_joint_likelihood_figure.png"
+    },
+    format = "file"
+  ),
+  tar_target(
+    sbg_demo_utilites_to_choice_figure,
+    gen_sbg_utilities_to_likelihood_figure(),
+    format = "qs"
+  ),
+  tar_target(
+    sbg_demo_utilites_to_choice_figure_file, {
+      ggsave(
+        plot = sbg_demo_utilites_to_choice_figure,
+        filename = "thesis-documents/figures/sbg_demo_utilities_to_choice_figure.png",
+        width = 1.619 * 12,
+        height = 7,
+        dpi = 450,
+        bg = "white"
+      )
+      # Return file path
+      "thesis-documents/figures/sbg_demo_utilities_to_choice_figure.png"
+    },
+    format = "file"
+  ),
+  tar_target(
+    sbg_demo_nine_choices_figure,
+    gen_nine_post_prespect_likelihood_plot(),
+    format = "qs"
+  ),
+  tar_target(
+    sbg_demo_nine_choices_figure_file, {
+      ggsave(
+        plot = sbg_demo_nine_choices_figure,
+        filename = "thesis-documents/figures/sbg_demo_nine_choices_figure.png",
+        width = 1.619 * 5.1,
+        height = 1.619 * 5.1,
+        dpi = 450,
+        bg = "white"
+      )
+      # Return file path
+      "thesis-documents/figures/sbg_demo_nine_choices_figure.png"
     },
     format = "file"
   ),
@@ -332,39 +413,27 @@ thesis_figures <- list(
   tar_target(
     pp_choice_accuracy_data,
     generate_pp_choice_accuracy_table(
-      pp_choices_sborg_gamma,
-      pp_choices_sborg_ra_gamma,
       pp_choices_sborg_tau_gamma,
       pp_choices_sborg_ra_tau_gamma,
-      pp_choices_sborg_ra,
-      pp_choices_sborg_ra_tau,
-      pp_choices_sborg_tau
+      pp_choices_sborg_ra_tau
       ),
     format = "qs"
   ),
   tar_target(
     marginal_likelihood_model_evidence_data,
     summarize_marginal_likelihood_model_evidence(
-      bridge_error_sborg_gamma,
-      bridge_error_sborg_ra,
-      bridge_error_sborg_ra_gamma,
-      bridge_error_sborg_ra_tau,
-      bridge_error_sborg_ra_tau_gamma,
       bridge_error_sborg_tau_gamma,
-      bridge_error_sborg_tau
+      bridge_error_sborg_ra_tau_gamma,
+      bridge_error_sborg_ra_tau
     ),
     format = "qs"
   ),
   tar_target(
     elpd_looic_model_evidence_data,
     summarize_elpd_looic_evidence(
-      sbg_fit_mcmc_sborg_gamma,
-      sbg_fit_mcmc_sborg_ra_gamma,
       sbg_fit_mcmc_sborg_tau_gamma,
       sbg_fit_mcmc_sborg_ra_tau_gamma,
-      sbg_fit_mcmc_sborg_ra,
-      sbg_fit_mcmc_sborg_ra_tau,
-      sbg_fit_mcmc_sborg_tau
+      sbg_fit_mcmc_sborg_ra_tau
     ),
     format = "qs"
   ),
@@ -385,13 +454,9 @@ thesis_figures <- list(
     population_posterior_plot,
     generate_population_posterior_plot(
       model_fit_list = tibble::lst(
-        sbg_fit_mcmc_sborg_gamma,
-        sbg_fit_mcmc_sborg_ra_gamma,
         sbg_fit_mcmc_sborg_tau_gamma,
         sbg_fit_mcmc_sborg_ra_tau_gamma,
-        sbg_fit_mcmc_sborg_ra,
-        sbg_fit_mcmc_sborg_ra_tau,
-        sbg_fit_mcmc_sborg_tau
+        sbg_fit_mcmc_sborg_ra_tau
       )
     ),
     format = "qs"
@@ -403,7 +468,7 @@ thesis_figures <- list(
         plot = population_posterior_plot,
         filename = "thesis-documents/figures/population_posterior_plot.png",
         width = 1.619 * 6,
-        height = 12,
+        height = 5,
         dpi = 300,
         bg = "white"
       )
@@ -435,12 +500,99 @@ thesis_figures <- list(
     format = "file"
   ),
   tar_target(
-    log_bayes_factor_tau_gamma_over_ra_tau,
+    log_bayes_factor_ra_tau_over_tau_gamma,
     bridgesampling::bf(
+      bridge_error_sborg_ra_tau$bridge_samples,
       bridge_error_sborg_tau_gamma$bridge_samples,
+      log = TRUE
+    ),
+    format = "qs"
+  ),
+  tar_target(
+    log_bayes_factor_ra_tau_gamma_over_tau_gamma,
+    bridgesampling::bf(
+      bridge_error_sborg_ra_tau_gamma$bridge_samples,
+      bridge_error_sborg_tau_gamma$bridge_samples,
+      log = TRUE
+    ),
+    format = "qs"
+  ),
+  tar_target(
+    log_bayes_factor_ra_tau_gamma_over_ra_tau,
+    bridgesampling::bf(
+      bridge_error_sborg_ra_tau_gamma$bridge_samples,
       bridge_error_sborg_ra_tau$bridge_samples,
       log = TRUE
     ),
+    format = "qs"
+  ),
+  tar_target(
+    looic_ra_tau_over_tau_gamma,
+    {
+      -diff(
+        c(
+          sbg_fit_mcmc_sborg_ra_tau$loo()$estimates["looic", "Estimate"],
+          sbg_fit_mcmc_sborg_tau_gamma$loo()$estimates["looic", "Estimate"]
+        )
+      )
+    },
+    format = "qs"
+  ),
+  tar_target(
+    looic_ra_tau_over_ra_tau_gamma,
+    {
+      -diff(
+        c(
+          sbg_fit_mcmc_sborg_ra_tau$loo()$estimates["looic", "Estimate"],
+          sbg_fit_mcmc_sborg_ra_tau_gamma$loo()$estimates["looic", "Estimate"]
+        )
+      )
+    },
+    format = "qs"
+  ),
+  tar_target(
+    looic_ra_tau_gamma_over_tau_gamma,
+    {
+      -diff(
+        c(
+          sbg_fit_mcmc_sborg_ra_tau_gamma$loo()$estimates["looic", "Estimate"],
+          sbg_fit_mcmc_sborg_tau_gamma$loo()$estimates["looic", "Estimate"]
+        )
+      )
+    },
+    format = "qs"
+  ),
+  tar_target(
+    pp_choice_accuracy_ra_tau,
+    {
+      str_split(
+        pp_choice_accuracy_data[
+          which(pp_choice_accuracy_data$model_name == "sborg_ra_tau"),
+          ]$pp_accuracy,
+        " ")[[1]][1]
+    },
+    format = "qs"
+  ),
+  tar_target(
+    pp_choice_accuracy_ra_tau_gamma,
+    {
+      str_split(
+        pp_choice_accuracy_data[
+          which(pp_choice_accuracy_data$model_name == "sborg_ra_tau_gamma"),
+        ]$pp_accuracy,
+        " ")[[1]][1]
+    },
+    format = "qs"
+  ),
+  tar_target(
+    pp_choice_accuracy_tau_gamma,
+    {
+      str_split(
+        pp_choice_accuracy_data[
+          which(pp_choice_accuracy_data$model_name == "sborg_tau_gamma"),
+        ]$pp_accuracy,
+        " ")[[1]][1]
+    },
     format = "qs"
   ),
   tar_target(
@@ -453,6 +605,15 @@ thesis_figures <- list(
         )
       )
     },
+    format = "qs"
+  ),
+  tar_target(
+    group_level_hdi,
+    summarize_group_level_posterior_hdi(
+      sbg_fit_mcmc_sborg_ra_tau,
+      sbg_fit_mcmc_sborg_ra_tau_gamma,
+      sbg_fit_mcmc_sborg_tau_gamma
+    ),
     format = "qs"
   )
 )
