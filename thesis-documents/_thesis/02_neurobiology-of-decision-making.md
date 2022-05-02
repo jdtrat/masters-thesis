@@ -10,14 +10,6 @@ When looking towards the neuroscientific literature of decision-making, a differ
 
 [^neurobiology-1]: These learned experiences are in response to the choices posed in the thesis's introduction.
 
-Looking towards the animal learning field, we see many accounts of experiential learning. To list a few:
-
--   Thorndike's Law of Effect states that an animal's behavior can be modified by the consequences of an action.[@thorndike1911]
-
--   Classical (Pavlovian) conditioning details learning to predict rewards or punishments from a stimulus independent of any action-taken.[@pavlov_conditioned_1927]
-
--   Operant (instrumental) conditioning involves learning how rewards and punishments are contingent upon one's actions.[@b.f.skinner1938]
-
 That a behavior (an action or decision) is predicated upon prior experiences allows us to formalize the relationship between states. Here, I use state in reference to the representation of stimuli. For example, the state $s \in S$ at time $t$ ($s_t$) may be comprised of internal states (hunger, thirst, fatigue) or external ones (light, music, temperature).
 
 Consider Pavlov's experiment which showed how repeatedly giving a dog food after ringing a bell will condition the dog to salivate after the bell is rung.[@pavlov_conditioned_1927] This means that, over time, behavior elicited by a stimulus (food) can be evoked by a previously neutral stimulus (the bell). In one of the first attempts to empirically describe this process, Bush and Mosteller suggest the probability of Pavlov's dog salivating, $P(\text{sal})$, on the *next* presentation of food with the bell (next trial, $tr+1$) is a function of what happened *last* presentation (last trial, $tr-1$) discounted by what was experienced during *this* presentation (food reward this trial, $R_{tr}$.[@bush1951; @bush1951a]
