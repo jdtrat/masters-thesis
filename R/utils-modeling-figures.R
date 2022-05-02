@@ -445,9 +445,7 @@ generate_population_posterior_plot_individual <- function(
 #'   posterior parameter samples (any parameter beginning with 'mu_'), excluding
 #'   the mean (mu_pr) used in the standard normal hierarchical specification.
 #' @param model_fit_list A list of the cmdstanr model fits. See examples.
-#' @param mu_param_colors A named character vector corresponding to the 'mu_'
-#'   parameters estimated with Stan. These will be used to ensure a consistent
-#'   coloring of parameters caross model fits.
+#' @param model_colors A character vector to be used for coloring each model.
 #'
 #' @return A ggplot
 #' @export
@@ -456,117 +454,134 @@ generate_population_posterior_plot_individual <- function(
 #'
 #'  generate_population_posterior_plot(
 #'    model_fit_list = tibble::lst(
-#'      sbg_fit_mcmc_sborg_gamma,
-#'      sbg_fit_mcmc_sborg_ra_gamma,
 #'      sbg_fit_mcmc_sborg_tau_gamma,
-#'      sbg_fit_mcmc_sborg_ra_tau_gamma,
-#'      sbg_fit_mcmc_sborg_ra,
 #'      sbg_fit_mcmc_sborg_ra_tau,
-#'      sbg_fit_mcmc_sborg_tau
+#'      sbg_fit_mcmc_sborg_ra_tau_gamma,
 #'    )
 #'  )
 #'
-#'
 generate_population_posterior_plot <- function(
   model_fit_list,
-  mu_param_colors = c(
-    "mu_rho"= "#5DA5DAFF",
-    "mu_tau" = "#FAA43AFF",
-    "mu_gamma" = "#60BD68FF"
-  )
+  model_colors = paletteer::paletteer_d('yarrr::espresso', 3)
 ) {
 
-  pop_post_model_plots <- model_fit_list %>%
-    purrr::map(~ {
+  prep_pop_post_plot_data <- function(model_fit) {
 
-      # Using the model fit metadata, let's access the
-      # model name and get the correct description to add
-      # as a title
-      subtitle <- generate_model_table_df() %>%
-        filter(
-          str_detect(
-            model_name,
-            paste0(
-              str_remove(
-                .x$metadata()$model_name,
-                "_model"
-              ),
-              "$"
-            )
+    stan_vars <- model_fit$metadata()$stan_variables
+    mod_vars <- stan_vars[which(grepl("^mu_", stan_vars))]
+    # Remove the mu_pr, we only want the actual group level params
+    mod_vars <- mod_vars[which(mod_vars != "mu_pr")]
+
+    purrr::map_df(
+      mod_vars,
+      ~ {
+        tibble(
+          parameter = .x,
+          value = posterior::extract_variable(
+            model_fit$draws(.x),
+            .x
           )
-        ) %>%
-        pull(model_title)
-
-      generate_population_posterior_plot_individual(
-        model_fit = .x,
-        mu_param_colors = mu_param_colors
-      ) +
-        labs(
-          title = subtitle
         )
-    }
+      }
     )
 
-  # Draw Title and Subtitle
-  title <- cowplot::ggdraw() +
-    cowplot::draw_label(
-      "Group-Level Posterior Parameter Estimates",
-      fontface = 'bold',
-      size = 20,
-      y = 0.65,
-      x = 0,
-      hjust = 0
+  }
+
+  model_color_vec = values = c(
+    "CPUT + Softmax Sensitivity" = model_colors[1],
+    "CPUT + Risk Sensitivity + Softmax Sensitivity" = model_colors[2],
+    "EUT + Softmax Sensitivity" = model_colors[3]
+  )
+
+
+  purrr::map_df(
+    model_fit_list,
+    ~ prep_pop_post_plot_data(.x),
+    .id = "model"
+  ) %>%
+    mutate(
+      model = case_when(
+        model == "sbg_fit_mcmc_sborg_tau_gamma" ~ "CPUT + Softmax Sensitivity",
+        model == "sbg_fit_mcmc_sborg_ra_tau_gamma" ~ "CPUT + Risk Sensitivity + Softmax Sensitivity",
+        model == "sbg_fit_mcmc_sborg_ra_tau" ~ "EUT + Softmax Sensitivity"
+      )
+    ) %>%
+    ggplot(
+      aes(
+        x = value,
+        color = model,
+        fill = model
+      )
     ) +
-    cowplot::draw_label(
-      "for Each Model Fit",
-      fontface = 'bold',
-      size = 18,
-      x = 0,
-      y = 0.3,
-      hjust = 0
+    ggdist::stat_slab(
+      size = 0.75,
+      normalize = "panels",
+      slab_color = "black",
+      slab_fill = "transparent"
+    ) +
+    ggdist::stat_slab(
+      size = 0.75,
+      normalize = "panels",
+      slab_color = "black",
+      alpha = 0.5
+    ) +
+    ggdist::stat_pointinterval(
+      point_interval = "median_hdi",
+      .width = c(0.5, 0.8, 0.95),
+      position = position_dodge(
+        width = 0.2,
+        preserve = "single"
+      ),
+      point_color = "black",
+      shape = 21,
+      stroke = 0.75
+    ) +
+    cowplot::theme_cowplot() +
+    facet_wrap(
+      ~parameter,
+      scales = "free_x",
+      labeller = as_labeller(
+        c(
+          "mu_gamma" = "Gamma",
+          "mu_tau" = "Tau",
+          "mu_rho" = "Rho"
+        )
+      )
+    ) +
+    scale_fill_manual(
+      values = model_color_vec
+    ) +
+    scale_color_manual(
+      values = model_color_vec
     ) +
     theme(
-      # add margin on the left of the drawing canvas,
-      # so title is aligned with left edge of first plot
-      plot.margin = margin(1, 0, 3, 7)
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      legend.justification = "center",
+      legend.box.margin = margin(2.5,1,5,1),
+      legend.text.align = 0.5,
+      legend.margin = margin(1,6,1,1),
+      legend.background = element_rect(color = "black"),
+      strip.background = element_blank(),
+      strip.text = ggtext::element_textbox(
+        size = 14,
+        face = "bold",
+        box.color = "#4A618C",
+        linewidth = 0.6,
+        halign = 0.5,
+        linetype = 1,
+        r = unit(5, "pt"),
+        width = unit(1, "npc"),
+        padding = margin(2, 0, 1, 0),
+        margin = margin(3, 3, 3, 3)
+      ),
+      axis.text = element_text(size = 16),
+      axis.title = element_text(size = 18)
+    ) +
+    labs(
+      x = "Value",
+      y = "Relative Plausibility",
+      title = "Group-Level Posterior Parameter Estimates"
     )
-
-  # Layout CPUT with EUT
-  cput_v_eut <- cowplot::plot_grid(
-    pop_post_model_plots$sbg_fit_mcmc_sborg_gamma,
-    pop_post_model_plots$sbg_fit_mcmc_sborg_ra,
-    scale = 0.95
-  )
-
-  # Row for EV + Softmax and CPUT + Risk Aversion
-  ev_v_cput_rho <- cowplot::plot_grid(
-    pop_post_model_plots$sbg_fit_mcmc_sborg_tau,
-    pop_post_model_plots$sbg_fit_mcmc_sborg_ra_gamma,
-    scale = 0.95
-  )
-
-  # Row for EUT + Softmax and Gamma + Softmax
-  eut_cput_softmax <- cowplot::plot_grid(
-    pop_post_model_plots$sbg_fit_mcmc_sborg_ra_tau,
-    pop_post_model_plots$sbg_fit_mcmc_sborg_tau_gamma,
-    scale = 0.95
-  )
-
-  # Make main body of the plot, adding the last ra_tau_gamma
-  body <- cowplot::plot_grid(
-    cput_v_eut,
-    ev_v_cput_rho,
-    eut_cput_softmax,
-    pop_post_model_plots$sbg_fit_mcmc_sborg_ra_tau_gamma,
-    ncol = 1
-  )
-
-  # Finish plot!
-  cowplot::plot_grid(
-    title,
-    body,
-    rel_heights = c(0.1, 1),
-    ncol = 1
-  )
 
 }
