@@ -62,13 +62,14 @@ simulate_kt_prospects <- function(
 
 #' Simulate Choices on SBORG Prospects
 #'
-#' @param agents A data frame with columns 'subject' and 'gamma' from which to
-#'   simulate choices.
+#' @param agents A data frame with columns 'subject', 'gamma', and 'tau' from
+#'   which to simulate choices.
 #'
 #' @return A data frame with, for each agent's gamma, the prospect information
-#'   based on the possible prospects from the SBORG task, the counterfactual utilities of options one and two ('cu_1',
-#'   'cu_2'), the probability of choosing option one ('prob_1'), and a simulated
-#'   choice given `rbinom` ('chose_option_1').
+#'   based on the possible prospects from the SBORG task, the counterfactual
+#'   utilities of options one and two ('cu_1', 'cu_2'), the probability of
+#'   choosing option one ('prob_1'), and a simulated choice given `rbinom`
+#'   ('chose_option_1').
 #' @export
 #'
 #' @examples
@@ -76,7 +77,8 @@ simulate_kt_prospects <- function(
 #' simulate_sbg_prospects(
 #'   agents = data.frame(
 #'     subject = 1:2,
-#'     gamma = c(0, 0.5)
+#'     gamma = c(0, 0.5),
+#'     tau = c(0.5, 5)
 #'   )
 #' )
 #'
@@ -105,15 +107,15 @@ simulate_sbg_prospects <- function(
     ),
     ~ {
 
-      cus <- get_cu(
+      cus <- get_utility(
         prospect = prospect_grid[.y,],
         gamma = agents[.x,]$gamma
       )
 
-      prob_1 <- get_cu_choice_prob(
+      prob_1 <- get_softmax_choice_prob(
         utilities = cus,
-        option = "1",
-        epsilon = 1
+        option = 1,
+        tau = agents[.x,]$tau
       )
 
       dplyr::bind_cols(
@@ -121,6 +123,7 @@ simulate_sbg_prospects <- function(
         tibble::tibble(
           subject = agents[.x, ]$subject,
           gamma = agents[.x, ]$gamma,
+          tau = agents[.x,]$tau,
           cu_1 = cus$option_1,
           cu_2 = cus$option_2,
           prob_1 = prob_1,

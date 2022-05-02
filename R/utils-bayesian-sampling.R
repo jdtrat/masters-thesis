@@ -58,7 +58,12 @@
 #'   )
 #' }
 #'
-calc_posterior_likelihood <- function(prospects, gamma, choice)  {
+calc_posterior_likelihood <- function(
+  prospects,
+  gamma,
+  tau = 1,
+  choice
+  )  {
 
   # Sum of the log posterior distribution for a given prospect
   sum(
@@ -67,17 +72,17 @@ calc_posterior_likelihood <- function(prospects, gamma, choice)  {
       FUN = function(trial) {
 
         # Get the counterfactual utilities of a prospect for a specific gamma
-        cus <- get_cu(
+        cus <- get_utility(
           prospect = prospects[trial,],
           gamma = gamma
         )
 
         # Based on a simulated choice for the specific prospect,
         # calculate the probability (likelihood) that option was selected
-        likelihood <- get_cu_choice_prob(
+        likelihood <- get_softmax_choice_prob(
           utilities = cus,
-          option = ifelse(choice[trial] == 1, "1", "2"),
-          epsilon = 1
+          option = if (choice[trial] == 1) 1 else 2,
+          tau = tau
         )
 
         # What is the likelihood of this gamma based on the prior distribution
@@ -148,7 +153,11 @@ calc_posterior_likelihood <- function(prospects, gamma, choice)  {
 #'
 #'    }
 #'
-sample_posterior_gamma <- function(num_iter, prospects, choices, initial_gamma = 0.5) {
+sample_posterior_gamma <- function(
+  num_iter, prospects,
+  choices, initial_gamma = 0.5,
+  tau = 1
+  ) {
 
   gamma_curr <- initial_gamma
 
@@ -164,13 +173,15 @@ sample_posterior_gamma <- function(num_iter, prospects, choices, initial_gamma =
     lk_prop <- calc_posterior_likelihood(
       prospects = prospects,
       gamma = gamma_proposal,
-      choice = choices
+      choice = choices,
+      tau = tau
     )
 
     lk_curr <- calc_posterior_likelihood(
       prospects = prospects,
       gamma = gamma_curr,
-      choice = choices
+      choice = choices,
+      tau = tau
     )
 
     acceptance <- exp(lk_prop) / exp(lk_curr)

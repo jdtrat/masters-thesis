@@ -135,7 +135,8 @@ sbg_gen_possible_prospects <- function() {
 sborg_sample_metropolis_hastings <- function(
   formatted_sborg_data,
   num_iter = 5000,
-  initial_gamma = 0.5
+  initial_gamma = 0.5,
+  tau = 1
 ) {
   purrr::map(
     .x = dplyr::group_split(
@@ -147,7 +148,8 @@ sborg_sample_metropolis_hastings <- function(
         num_iter = num_iter,
         prospects = .x,
         choices = .x$chose_option1,
-        initial_gamma = initial_gamma
+        initial_gamma = initial_gamma,
+        tau = tau
       )
       data.frame(
         subject = unique(.x$subject),
@@ -171,7 +173,10 @@ sborg_sample_metropolis_hastings <- function(
 #'   distribution including the median as 'q50'.
 #' @export
 #'
-sbg_summarize_mh_posterior <- function(sborg_mh_list, credible_mass = 0.95) {
+sbg_summarize_mh_posterior <- function(
+  sborg_mh_list,
+  credible_mass = 0.95
+  ) {
 
   stopifnot(credible_mass <= 1, credible_mass > 0)
 
