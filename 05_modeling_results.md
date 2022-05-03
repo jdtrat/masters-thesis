@@ -62,17 +62,17 @@ With the estimated posterior distributions for each model type, I sought to dete
 
 EUT provides a better explanation of both the observed data on the sure bet or gamble task ($BF_{\frac{\rho, \tau}{\gamma, \tau}}$ = 48.07) and generalizes better than CPUT ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -381.34). The posterior predictive choice accuracy -- the percentage of choices simulated with the posterior estimate of each subject's parameters -- are similar, though better for EUT (83.8%) compared to CPUT (82.3%). 
 
-Further, the group-level posterior parameter distribution for $\tau$, the common variable to these two models, is higher for EUT than CPUT (95% HDI for EUT is [1.51, 2.62] with median of 2.05; CPUT = [0.97, 1.31] with median of 1.13). This suggests more random utility maximizing decisions for EUT relative to more random choice behavior for CPUT.
+Further, the group-level posterior parameter distribution for $\tau$, the common variable to these two models, is higher for EUT than CPUT (95% HDI for EUT is [1.51, 2.62] with median of 2.05; CPUT = [0.97, 1.31] with median of 1.13). This suggests more utility maximizing decisions for EUT relative to more random choice behavior for CPUT.
 
 ### CPUT + Risk Sensitivity versus EUT
 
-Interestingly, the risk sensitivity term, $\rho$, from EUT with the counterfactual weighting from CPUT offers the best explanation for the observed human choice data ($BF_{\frac{\rho, \tau, \gamma}{\rho, \tau}}$ = 109.89). This does come with a cost of decreased generalizability ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_{\rho,\tau,\gamma}$ = -158.18) but increased posterior predictive choice accuracy (83.9% relative to EUT's 83.8%). 
+Adding the risk sensitivity term, $\rho$, from EUT to CPUT offers the best explanation for the observed human choice data ($BF_{\frac{\rho, \tau, \gamma}{\rho, \tau}}$ = 109.89). This does come with a cost of decreased generalizability ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_{\rho,\tau,\gamma}$ = -158.18) but increased posterior predictive choice accuracy (83.9% relative to EUT's 83.8%). 
 
 Further, the group-level posterior parameter distribution for $\tau$ depict similar sensitivities to utility differences (95% HDI for 'CPUT + Softmax + Risk Sensitivity' = [1.45, 2.57] with median of 1.98; 'EUT + Softmax = [1.51, 2.62] with median of 2.05) and risk sensitivity (95% HDI for 'CPUT + Softmax + Risk Sensitivity' = [0.68, 0.94] with median of 0.8; 'EUT + Softmax' = [0.66, 0.93] with median of 0.79).
 
 ### CPUT + Risk Sensitivity versus CPUT
 
-Incorporating risk sensitivity to CPUT, mixing the value estimate transformation of EUT (left-hand side of Equation \@ref(eq:eut-cput-transformations)) with that of CPUT (right-hand side of Equation \@ref(eq:eut-cput-transformations)) results in a better explanation for the observed data ($BF_{\frac{\rho, \gamma, \tau}{\gamma, \tau}}$ = 157.95), is more generalizable, ($\text{LOOIC}_{\rho, \gamma, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -223.16), and has a higher posterior predictive choice accuracy (83.9%) relative to CPUT's (82.3%). 
+Incorporating risk sensitivity to CPUT results in a better explanation for the observed data ($BF_{\frac{\rho, \gamma, \tau}{\gamma, \tau}}$ = 157.95), is more generalizable, ($\text{LOOIC}_{\rho, \gamma, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -223.16), and has a higher posterior predictive choice accuracy (83.9%) relative to CPUT's (82.3%). 
 
 Interestingly, the group-level posterior parameter distribution for $\tau$ with the CPUT + Risk Sensitivity more closely reflects that of EUT. At the same time, the group-level posterior parameter distribution for $\gamma$ is much more tightly concentrated towards zero than for CPUT (95% HDI for CPUT + Risk Sensitivity is [<0.001, 0.006] with median of 0.002; CPUT = [<0.001, 0.015] with median of 0.006). This suggests more a lower weighting on counterfactual information while accounting for risk preferences. 
 
