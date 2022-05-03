@@ -14,6 +14,7 @@ bookdown::pdf_document2:
   includes:
     in_header: preamble.tex
     before_body: wfusm-thesis-pdf-beginning.tex
+  extra_dependencies: ["float"]
   keep_tex: yes
   csl: apa-numeric.csl
 bookdown::word_document2:

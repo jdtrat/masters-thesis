@@ -6,7 +6,7 @@ bibliography: references.bib
 
 # Computational Modeling Methods and Results
 
-Using the computational modeling techniques I introduced in the previous chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task[@liebenow2021]. In this chapter, I present my methods and results concurrently following the three stages adapted from Wilson and Collins discussed in Section \@ref(computational-modeling-concepts).[@wilson2019] I start by simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model. I then find estimate individual- and group-level parameters for three candidate models. Lastly, I quantify model fit with model comparison techniques.
+Using the computational modeling techniques I introduced in the previous chapter, I examined the ability of counterfactual predicted utility theory to explain human choice behavior on the sure bet or gamble task.[@liebenow2021] In this chapter, I present my methods and results concurrently following the three stages adapted from Wilson and Collins discussed in the introduction of Chapter \@ref(computational-modeling-concepts).[@wilson2019] I start by simulating choice behavior generated from counterfactual predicted utility theory to confirm that the experimental design elicits behaviors assumed in the model. I then find estimate individual- and group-level parameters for three candidate models. Lastly, I quantify model fit with model comparison techniques.
 
 ## Simulating Choice Data
 
@@ -60,7 +60,7 @@ With the estimated posterior distributions for each model type, I sought to dete
 
 ### EUT versus CPUT 
 
-EUT provides a better explanation of both the observed data on the sure bet or gamble task ($BF_{\frac{\rho, \tau}{\gamma, \tau}}$ = 48.07) and generalizes better than CPUT ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -381.34). The posterior predictive choice accuracy -- the percentage of choices simulated with the posterior estimate of each subject's parameters -- are similar, though better for EUT (83.8%) compared to CPUT (82.3%). 
+EUT provides a better explanation of the observed data on the sure bet or gamble task ($BF_{\frac{\rho, \tau}{\gamma, \tau}}$ = 48.07) and generalizes better than CPUT ($\text{LOOIC}_{\rho, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -381.34). The posterior predictive choice accuracy -- the percentage of choices simulated with the posterior estimate of each subject's parameters -- are similar, though better for EUT (83.8%) compared to CPUT (82.3%). 
 
 Further, the group-level posterior parameter distribution for $\tau$, the common variable to these two models, is higher for EUT than CPUT (95% HDI for EUT is [1.51, 2.62] with median of 2.05; CPUT = [0.97, 1.31] with median of 1.13). This suggests more utility maximizing decisions for EUT relative to more random choice behavior for CPUT.
 
@@ -72,7 +72,7 @@ Further, the group-level posterior parameter distribution for $\tau$ depict simi
 
 ### CPUT + Risk Sensitivity versus CPUT
 
-Incorporating risk sensitivity to CPUT results in a better explanation for the observed data ($BF_{\frac{\rho, \gamma, \tau}{\gamma, \tau}}$ = 157.95), is more generalizable, ($\text{LOOIC}_{\rho, \gamma, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -223.16), and has a higher posterior predictive choice accuracy (83.9%) relative to CPUT's (82.3%). 
+Incorporating risk sensitivity to CPUT results in a better explanation for the observed data ($BF_{\frac{\rho, \gamma, \tau}{\gamma, \tau}}$ = 157.95), is more generalizable ($\text{LOOIC}_{\rho, \gamma, \tau} - \text{LOOIC}_{\gamma, \tau}$ =  -223.16), and has a higher posterior predictive choice accuracy (83.9%) relative to CPUT's (82.3%). 
 
 Interestingly, the group-level posterior parameter distribution for $\tau$ with the CPUT + Risk Sensitivity more closely reflects that of EUT. At the same time, the group-level posterior parameter distribution for $\gamma$ is much more tightly concentrated towards zero than for CPUT (95% HDI for CPUT + Risk Sensitivity is [<0.001, 0.006] with median of 0.002; CPUT = [<0.001, 0.015] with median of 0.006). This suggests more a lower weighting on counterfactual information while accounting for risk preferences. 
 

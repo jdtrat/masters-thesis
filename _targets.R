@@ -615,6 +615,25 @@ thesis_figures <- list(
       sbg_fit_mcmc_sborg_tau_gamma
     ),
     format = "qs"
+  ),
+  tar_target(
+    num_prospects_seen,
+    {
+      sborg_processed %>%
+        dplyr::group_split(subject) %>%
+        purrr::map_dbl(
+          ~ {
+            .x %>%
+              distinct(
+                sb_value,
+                gamble_left_value,
+                gamble_right_value
+              ) %>%
+              nrow()
+          }
+        )
+      },
+    format = "qs"
   )
 )
 

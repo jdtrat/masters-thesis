@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|0ab3cb8454d33a12|||||||||||||||
+.Random.seed|object|abae6655df8fef97|||||||||||||||
 "%|||%"|function|031bda8ec980931b|||||||||||||||
 bridge_error_cput_gamma_reparam_bernoulli_logit|stem|68e193c7f396741a|e213366525c4b62c|b3ea1047b1464eac|-2020481486||t19076.7108215808s|d3e83d604f91dd7a|310|rds|local|vector|||296.478||
 bridge_error_sborg_gamma|stem|1ef3ca4cc3be7ea7|d0b3ab6d215729b4|519637fa3e990f3d|-2045895250||t19080.9935686043s|801cade07abe9db2|312|rds|local|vector|||297.665||
@@ -78,6 +78,7 @@ model_definition_table|stem|b61a6a1e5fe59468|d8a180e3cef6a4ea|eebdf08613eadc5a|-
 model_definition_table_file|stem|4d287326d0b39eea|e071a4bf5cfdc3ac|28279a2b879639ee|955144652|thesis-documents/figures/model_definition_table.png|t19106.9003841948s|18f1db9a58046d04|26563|file|local|vector|||5.502||
 model_fit_summary_table|stem|0846b871996f6919|7e8b26b1c3872211|5b4c61ad96d3cb22|1247942158||t19106.9580183702s|98ccba75401080bf|2613|qs|local|vector|||0.049||
 model_fit_summary_table_file|stem|c14acb98c75c0ab9|d1e9cc2be418391a|a4cab3652307c7e7|-514790647|thesis-documents/figures/model_fit_summary_table.png|t19106.9580473655s|e705609c1fb13a3e|97153|file|local|vector|||5.688||
+num_prospects_seen|stem|06c7ef4758d57ddc|e6840a09d095cb49|0403905615e9e37f|-82189358||t19115.88111517s|bf0d8caacacad815|112|qs|local|vector|||0.362||
 population_posterior_plot|stem|e6539f02e25d1e3f|0af7d11f6ffd48c9|e6f81c12049e4220|-1737924439||t19114.8461401366s|61094bc434eeea89|257563460|qs|local|vector|||0.52||
 population_posterior_plot_file|stem|f7de2c6d8034748d|fcc2c45c333a696d|f4371c58ee07ce25|1424416364|thesis-documents/figures/population_posterior_plot.png|t19114.8461546511s|4ac43d1e930f4ed6|244805|file|local|vector|||1.1||
 pp_choice_accuracy_data|stem|b92155a028209a47|43b097e6aad2cfbd|f00957f6b7d75e5b|-454446550||t19106.9580176013s|2c02ccb1d6d3878b|191|qs|local|vector|||0.117||
@@ -236,6 +237,6 @@ tar_render_book_run|function|c5d06185b4f67360|||||||||||||||
 tar_render_paths|function|9fc7025fc57efcac|||||||||||||||
 tar_thesis|function|372a532cb85ef376|||||||||||||||
 tau_alpha_gradient_arrow|function|39a34cb198d01ab8|||||||||||||||
-thesis|stem|6a0daf8be1d73ce0|aab6ec6907e74e4d|201be60c6267ab17|-2055002559|thesis-documents/_thesis/index.html*thesis-documents/_thesis/trattner-masters-thesis.pdf*thesis-documents/_thesis/trattner-masters-thesis.docx*thesis-documents|t19114.853992175s|a2d8b38fd30ebf97|12181563|file|local|vector|||34.24||
-thesis_document|object|fec0c4dcaa29450c|||||||||||||||
-thesis_figures|object|a236cbf68e14d49f|||||||||||||||
+thesis|stem|2f80d6c41b701baa|debb02ba8906e52a|0f2a2ffe47d0ac9c|-2055002559|thesis-documents/_thesis/index.html*thesis-documents/_thesis/trattner-masters-thesis.pdf*thesis-documents/_thesis/trattner-masters-thesis.docx*thesis-documents|t19115.9797781655s|84ec6ddd2c5efb08|39647298|file|local|vector|||36.093||
+thesis_document|object|b06e6043c12b005d|||||||||||||||
+thesis_figures|object|1ce931b3deefbd95|||||||||||||||
